@@ -1,0 +1,35 @@
+#!/bin/bash
+# Variables
+directory=~/.config/drugreminder
+output_file="$directory/entries.txt"
+
+# Read the last entry from the file
+echo -e "Last 5 entries \n$(tail -n 5 $output_file)\n"
+last_entry=$(tail -n 1 "$output_file")
+last_entry_name=$(awk 'END {print $1}' "$output_file")
+# Calculate the time difference since the last entry
+last_entry_timestamp=$(date -d "$(echo "$last_entry" | cut -d'-' -f2-)" +"%s")
+current_timestamp=$(date +"%s")
+time_difference=$((current_timestamp - last_entry_timestamp))
+hours=$((time_difference / 3600))
+minutes=$(( (time_difference % 3600) / 60 ))
+
+# Print the time difference
+echo "Time since last entry ($last_entry_name): $hours hours and $minutes minutes"
+
+# Ask the user if they want to create a new entry
+read -p "Do you want to create a new entry? (y/N) " create_entry
+
+if [[ $create_entry == "y" || $create_entry == "Y" ]]; then
+    # Get the entry name from the user
+    read -p "Enter the entry name: " entry_name
+
+    # Get the current timestamp in CEST timezone
+    timestamp=$(TZ="Europe/Paris" date +"%Y-%m-%d %H:%M:%S")
+
+    # Create the directory if it doesn't exist
+    mkdir -p "$directory"
+
+    # Create or append to the output file
+    echo "$entry_name - $timestamp" >> "$output_file" && echo "added entry" ||echo "failed to add entry"
+fi
