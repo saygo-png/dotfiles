@@ -421,7 +421,7 @@ client.connect_signal("manage", function (c)
     end
 end)
 -- Autostart things
-awful.spawn.with_shell("picom")
+--awful.spawn.with_shell("picom")
 --awful.spawn.with_shell("feh --no-fehbg --bg-center '/home/samsepi0l/.config/jungleriver.png'")
 awful.spawn.with_shell("pipewire")
 awful.spawn.with_shell("qbittorrent")
