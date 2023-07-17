@@ -2,13 +2,13 @@ AlsoSaveAsKra=false
 AntialiasSelectionOutline=false
 ArtColorSel.ColorSpace=0
 ArtColorSel.InversedSaturation=false
-ArtColorSel.Light=0.1122009953523374
+ArtColorSel.Light=0.47899959274537796
 ArtColorSel.LightPieces=11
 ArtColorSel.NumRings=7
 ArtColorSel.RingPieces=12
-ArtColorSel.SelColorH=0.627886323268206
-ArtColorSel.SelColorS=0.5044015800327255
-ArtColorSel.SelColorX=0.1122009953523374
+ArtColorSel.SelColorH=0.9389767248145834
+ArtColorSel.SelColorS=0.3832691916753637
+ArtColorSel.SelColorX=0.47899959274537796
 ArtColorSel.defaultHueSteps=12
 ArtColorSel.defaultSaturationSteps=7
 ArtColorSel.defaultValueScaleSteps=11
@@ -48,10 +48,10 @@ Krita/Ocio/OcioConfigPath=
 Krita/Ocio/OcioLockColorVisualRepresentation=false
 Krita/Ocio/OcioLutPath=
 Krita/Ocio/UseOcio=false
-LastBackGroundColor=<!DOCTYPE LastBackGroundColor>\n<LastBackGroundColor>\n <RGB b="0.0140077825635672" r="0.0713054090738297" space="Rec2020-elle-V4-g10.icc" g="0.0734569281339645"/>\n</LastBackGroundColor>\n
-LastForeGroundColor=<!DOCTYPE LastForeGroundColor>\n<LastForeGroundColor>\n <XYZ y="0.00781451631337404" space="XYZ identity built-in" z="0.016017934307456" x="0.00778240105137229"/>\n</LastForeGroundColor>\n
-LastPreset=b) Basic-6 Details
-LastPreset_-1=b) Basic-6 Details
+LastBackGroundColor=<!DOCTYPE LastBackGroundColor>\n<LastBackGroundColor>\n <RGB r="0.0713054090738297" space="Rec2020-elle-V4-g10.icc" g="0.0734569281339645" b="0.0140077825635672"/>\n</LastBackGroundColor>\n
+LastForeGroundColor=<!DOCTYPE LastForeGroundColor>\n<LastForeGroundColor>\n <RGB r="0.694117665290833" space="sRGB-elle-V2-srgbtrc.icc" g="0.384313732385635" b="0.52549022436142"/>\n</LastForeGroundColor>\n
+LastPreset=u) Pixel Art
+LastPreset_-1=u) Pixel Art
 LineSmoothingDelayDistance=87
 LineSmoothingDistance=50
 LineSmoothingFinishStabilizedCurve=true
@@ -246,7 +246,7 @@ popuppalette/useDynamicSlotCount=true
 popuppalette/usevisualcolorselector=false
 preferredVectorImportResolution=400
 presetIconSize=46
-presethistory=i) Wet Knife,k) Blender Textured Soft,j) Watercolor Texture,f) Bristles-4 Glaze,f) Bristles-3 Large Smooth,v) Texture Impressionism,i) Wet Bristles Rough,i) Wet Bristles,Basic circle,b) Basic-6 Details
+presethistory=j) Watercolor Texture,f) Bristles-4 Glaze,f) Bristles-3 Large Smooth,v) Texture Impressionism,i) Wet Bristles Rough,i) Wet Bristles,Basic circle,b) Basic-6 Details,u) Pixel Art,u) Pixel Art Dithering
 renderIntent=0
 saveSessionOnQuit=false
 scratchpadVisible=false

@@ -81,15 +81,15 @@ awful.layout.layouts = {
 
 
 local function set_wallpaper(s)
--- Wallpaper
-    if beautiful.wallpaper then
-        local wallpaper = beautiful.wallpaper
-        -- If wallpaper is a function, call it with the screen
-        if type(wallpaper) == "function" then
-            wallpaper = wallpaper(s)
-        end
-        gears.wallpaper.maximized(wallpaper, s, true)
-    end
+ -- Wallpaper
+ if beautiful.wallpaper then
+  local wallpaper = beautiful.wallpaper
+  -- If wallpaper is a function, call it with the screen
+  if type(wallpaper) == "function" then
+   wallpaper = wallpaper(s)
+  end
+  gears.wallpaper.maximized(wallpaper, s, true)
+ end
 end
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
@@ -478,16 +478,16 @@ function check_resize_client(c)
 end
 
 function get_parent_pid(child_ppid, callback)
-    local ppid_cmd = string.format("pstree -ps %s", child_ppid)
-    awful.spawn.easy_async(ppid_cmd, function(stdout, stderr, reason, exit_code)
-        -- primitive error checking
-        if stderr and stderr ~= "" then
-            callback(stderr)
-            return
-        end
-        local ppid = stdout
-        callback(nil, ppid)
-    end)
+ local ppid_cmd = string.format("pstree -ps %s", child_ppid)
+ awful.spawn.easy_async(ppid_cmd, function(stdout, stderr, reason, exit_code)
+  -- primitive error checking
+  if stderr and stderr ~= "" then
+   callback(stderr)
+   return
+  end
+  local ppid = stdout
+  callback(nil, ppid)
+ end)
 end
 
 client.connect_signal("property::size", check_resize_client)

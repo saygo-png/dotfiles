@@ -2,7 +2,7 @@
 
 # Enable colors and change prompt:
 autoload -U colors && colors
-PROMPT="%F{green}%?%f%B%F{10}%n%f%b%F{green}@%f%B%F{green}%T%f%b%B%F{cyan}%~%f%b %F{green}:%f"
+PROMPT="%F{green}%?%f%B%F{10}%n%f%b%F{green}@%f%B%F{green}%T%f%b%B%F{yellow}%~%f%b %F{green}:%f"
 # History in cache directory:
 HISTSIZE=1000
 SAVEHIST=1000
@@ -121,17 +121,17 @@ GITSTATUS_LOG_LEVEL=DEBUG
 function gitstatus_prompt_update() {
   emulate -L zsh
   typeset -g  GITSTATUS_PROMPT=''
-  typeset -gi GITSTATUS_PROMPT_LEN=0
+  typeset -gi GITSTATUS_PROMPT_LEN=3
 
   # Call gitstatus_query synchronously. Note that gitstatus_query can also be called
   # asynchronously; see documentation in gitstatus.plugin.zsh.
   gitstatus_query 'MY'                  || return 1  # error
   [[ $VCS_STATUS_RESULT == 'ok-sync' ]] || return 0  # not a git repo
 
-  local      clean='%76F'   # green foreground
-  local   modified='%178F'  # yellow foreground
-  local  untracked='%39F'   # blue foreground
-  local conflicted='%196F'  # red foreground
+  local      clean='%F{green}'   # green foreground
+  local   modified='%F{yellow}'  # yellow foreground
+  local  untracked='%F{orange}'   # blue foreground
+  local conflicted='%F{red}'  # red foreground
 
   local p
 
@@ -198,7 +198,7 @@ setopt no_prompt_bang prompt_percent prompt_subst
 #   % █
 #
 # The current directory gets truncated from the left if the whole prompt doesn't fit on the line.
-PROMPT="%F{green}%?%f%B%F{10}%n%f%b%F{green}%f%B%F{green}%T%f%b%B%F{cyan}%~%f%b"
+PROMPT="%F{green}%?%f%B%F{10}%n%f%b%F{green}%f%B%F{green}%T%f%b%B%F{yellow}%~%f%b"
 PROMPT+='${GITSTATUS_PROMPT:+ $GITSTATUS_PROMPT}'      # git status
 PROMPT+=$'\n'                                          # new line
 PROMPT+='%F{green}:%f'
