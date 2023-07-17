@@ -1,7 +1,7 @@
 <!DOCTYPE kpartgui>
-<kpartgui xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.kde.org/standards/kxmlgui/1.0" name="Krita" version="529" translationDomain="kxmlgui5" xsi:schemaLocation="http://www.kde.org/standards/kxmlgui/1.0  http://www.kde.org/standards/kxmlgui/1.0/kxmlgui.xsd">
+<kpartgui version="529" xsi:schemaLocation="http://www.kde.org/standards/kxmlgui/1.0  http://www.kde.org/standards/kxmlgui/1.0/kxmlgui.xsd" translationDomain="kxmlgui5" name="Krita" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.kde.org/standards/kxmlgui/1.0">
  <MenuBar alreadyVisited="1">
-  <Menu noMerge="1" alreadyVisited="1" name="file">
+  <Menu alreadyVisited="1" noMerge="1" name="file">
    <text translationDomain="krita">&amp;File</text>
    <Action name="file_new"/>
    <Action name="file_open"/>
@@ -38,7 +38,7 @@
    <Action name="file_close_all"/>
    <Action name="file_quit"/>
   </Menu>
-  <Menu noMerge="1" alreadyVisited="1" name="edit">
+  <Menu alreadyVisited="1" noMerge="1" name="edit">
    <text translationDomain="krita">&amp;Edit</text>
    <Action name="edit_undo"/>
    <Action name="edit_redo"/>
@@ -72,7 +72,7 @@
    <Separator/>
    <Action name="revert"/>
   </Menu>
-  <Menu noMerge="1" alreadyVisited="1" name="view">
+  <Menu alreadyVisited="1" noMerge="1" name="view">
    <text translationDomain="krita">&amp;View</text>
    <Action name="view_show_canvas_only"/>
    <Action name="fullscreen"/>
@@ -178,7 +178,7 @@
    <Action name="paste_layer_from_clipboard"/>
    <Separator/>
    <Menu noMerge="1" name="LayerNew">
-    <text translationDomain="krita" context="New layer">&amp;New</text>
+    <text context="New layer" translationDomain="krita">&amp;New</text>
     <Action name="add_new_paint_layer"/>
     <Action name="add_new_clone_layer"/>
     <Action name="new_from_visible"/>
@@ -222,7 +222,7 @@
     <Action name="select_unlocked_layers"/>
    </Menu>
    <Menu noMerge="1" name="LayerGroup">
-    <text translationDomain="krita" context="A group of layers">&amp;Group</text>
+    <text context="A group of layers" translationDomain="krita">&amp;Group</text>
     <Action name="create_quick_group"/>
     <Action name="create_quick_clipping_group"/>
     <Action name="quick_ungroup"/>
@@ -342,13 +342,14 @@
   </Menu>
   <Action name="window"/>
   <Separator/>
-  <Menu noMerge="1" alreadyVisited="1" name="tools">
+  <Separator weakSeparator="1"/>
+  <Menu alreadyVisited="1" noMerge="1" name="tools">
    <text translationDomain="krita">&amp;Tools</text>
    <Menu noMerge="1" name="scripts">
     <text translationDomain="krita">Scripts</text>
    </Menu>
   </Menu>
-  <Menu noMerge="1" alreadyVisited="1" name="settings">
+  <Menu alreadyVisited="1" noMerge="1" name="settings">
    <text translationDomain="krita">Setti&amp;ngs</text>
    <Action name="options_configure"/>
    <Action name="manage_bundles"/>
@@ -373,7 +374,7 @@
    <Separator/>
   </Menu>
   <Separator weakSeparator="1"/>
-  <Menu noMerge="1" alreadyVisited="1" name="help">
+  <Menu alreadyVisited="1" noMerge="1" name="help">
    <text translationDomain="krita">&amp;Help</text>
    <Action name="help_contents"/>
    <Action name="help_whats_this"/>
@@ -391,7 +392,7 @@
    <Action name="help_about_kde"/>
   </Menu>
  </MenuBar>
- <ToolBar noMerge="1" alreadyVisited="1" name="mainToolBar" fullWidth="false">
+ <ToolBar alreadyVisited="1" noMerge="1" name="mainToolBar" fullWidth="false">
   <Text translationDomain="krita">File</Text>
   <Action name="file_new"/>
   <Action name="file_open"/>
@@ -400,7 +401,7 @@
   <Action name="edit_undo"/>
   <Action name="edit_redo"/>
  </ToolBar>
- <ToolBar noMerge="1" name="BrushesAndStuff" position="top">
+ <ToolBar noMerge="1" position="top" name="BrushesAndStuff">
   <Action name="expanding_spacer_0"/>
   <Action name="chooseForegroundColor"/>
   <Text translationDomain="krita">Brushes and Stuff</Text>
@@ -411,6 +412,7 @@
   <Action name="brushslider2"/>
   <Action name="brushslider3"/>
   <Action name="mirror_actions"/>
+  <Action name="color_filters"/>
   <Action name="expanding_spacer_1"/>
   <Action name="select_layout"/>
  </ToolBar>

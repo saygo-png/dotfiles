@@ -27,3 +27,5 @@ alias \
 	ip="ip -color=auto"
 #retarded wget rc history file in .cache
 alias wget="wget --hsts-file="$XDG_CACHE_HOME/wget-hsts""
+#aliases
+alias addnote='echo $(date) $1 > notes.txt'
