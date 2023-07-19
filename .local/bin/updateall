@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 #this script updates everything i can think of
 echo "upgrading with package managers"
 sudo apt update && sudo apt upgrade && flatpak update && am update && pipx upgrade-all
