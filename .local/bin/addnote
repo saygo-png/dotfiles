@@ -1,0 +1,2 @@
+#!/bin/sh
+echo $(date) $1|tee -a /home/samsepi0l/notes.txt
