@@ -21,15 +21,12 @@ echo "Time since last entry ($last_entry_name): $hours hours and $minutes minute
 read -p "Do you want to create a new entry? (y/N) " create_entry
 
 if [[ $create_entry == "y" || $create_entry == "Y" ]]; then
-    # Get the entry name from the user
-    read -p "Enter the entry name: " entry_name
-
-    # Get the current timestamp in CEST timezone
-    timestamp=$(TZ="Europe/Paris" date +"%Y-%m-%d %H:%M:%S")
-
-    # Create the directory if it doesn't exist
-    mkdir -p "$directory"
-
-    # Create or append to the output file
-    echo "$entry_name - $timestamp" >> "$output_file" && echo "added entry" ||echo "failed to add entry"
+ # Get the entry name from the user
+ read -p "Enter the entry name: " entry_name
+ # Get the current timestamp in CEST timezone
+ timestamp=$(TZ="Europe/Paris" date +"%Y-%m-%d %H:%M:%S")
+ # Create the directory if it doesn't exist
+ mkdir -p "$directory"
+ # Create or append to the output file
+ echo "$entry_name - $timestamp" >> "$output_file" && echo "added entry" ||echo "failed to add entry"
 fi

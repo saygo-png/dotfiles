@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Krita/PythonPlugin
+X-KDE-Library=wojtrybExtension
+X-Python-2-Compatible=false
+Name=Small wojtryb add-ons
+Comment=My first extension

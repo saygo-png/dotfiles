@@ -17,5 +17,4 @@ fi
 exec "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile"
 exec "/home/samsepi0l/.local/bin/remaps"
 xrdb "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources"
-exec picom
 exec awesome

@@ -126,7 +126,7 @@ end,
 ),
 awful.key({}, "Print",
 function ()
- awful.util.spawn("flameshot gui")
+ awful.util.spawn("flameshot_wrapper")
 end,
 {description = "Custom border screenshot", group = "launcher"}
 ),
@@ -332,96 +332,95 @@ root.keys(globalkeys)
 awful.rules.rules = {
  -- All clients will match this rule.
  { rule = { },
- properties = { border_width = beautiful.border_width,
- border_color = beautiful.border_normal,
- useless_gap = beautiful.useless_gap,
- focus = awful.client.focus.filter,
- raise = true,
- border_focus = beautiful.border_focus,
- keys = clientkeys, buttons = clientbuttons,
- screen = awful.screen.preferred,
- placement = awful.placement.no_overlap+awful.placement.no_offscreen
-}
-    },
-
-    -- always on top
-    { rule_any = {
-     class = {
-      "mpv"
-     },
-
-    },
-    properties =
-    {
-     floating = true,
-     ontop = true,
-     sticky = true
-    },
-    callback = function(c) c:connect_signal("property::fullscreen", function() if not c.fullscreen then c.ontop = true end end) end
+  properties = {
+   border_width = beautiful.border_width,
+   border_color = beautiful.border_normal,
+   useless_gap = beautiful.useless_gap,
+   focus = awful.client.focus.filter,
+   raise = true,
+   border_focus = beautiful.border_focus,
+   keys = clientkeys, buttons = clientbuttons,
+   screen = awful.screen.preferred,
+   placement = awful.placement.no_overlap+awful.placement.no_offscreen
+  }
+ },
+ {-- always on top
+  rule_any = {
+   class = {
+    "mpv"
    },
-   -- Floating clients.
-   { rule_any = {
-    instance = {
-     "DTA",  -- Firefox addon DownThemAll.
-     "copyq",  -- Includes session name in class.
-     "pinentry",
-    },
-    class = {
-     "Arandr",
-     "Blueman-manager",
-     "Gpick",
-     "Kruler",
-     "MessageWin",  -- kalarm.
-     "Sxiv",
-     "Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
-     "Wpa_gui",
-     "veromix",
-     "xtightvncviewer"},
-
-     -- Note that the name property shown in xprop might be set slightly after creation of the client
-     -- and the name shown there might not match defined rules here.
-     name = {
-      "Event Tester",  -- xev.
-     },
-     role = {
-      "AlarmWindow",  -- Thunderbird's calendar.
-      "ConfigManager",  -- Thunderbird's about:config.
-      "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
-     }
-    }, properties = { floating = true }},
-
-    -- Add titlebars to normal clients and dialogs
-    { rule_any = {type = { "normal", "dialog" }
-   }, properties = { titlebars_enabled = false }
   },
-
-  --Set X to always appeard on the tag named "2" on screen 1.
-  { rule = { class = "mpv" },
-  properties = { screen = 1, tag = "4" } },
-  { rule = { class = "nheko" },
-  properties = { screen = 1, tag = "3" } },
-  { rule = { class = "librewolf" },
-  properties = { screen = 1, tag = "2" } },
-  { rule = { class = "qBittorrent" },
-  properties = { screen = 1, tag = "9" } },
- }
-
- -- {{{ Signals
- -- Signal function to execute when a new client appears.
- client.connect_signal("manage", function (c)
-  -- Set the windows at the slave,
-  -- i.e. put it at the end of others instead of setting it master.
-  -- if not awesome.startup then awful.client.setslave(c) end
-
+  properties = {
+   floating = true,
+   ontop = true,
+   sticky = true
+  },
+  callback = function(c) c:connect_signal("property::fullscreen", function() if not c.fullscreen then c.ontop = true end end) end
+ },
+ {-- Floating clients.
+  rule_any = {
+   instance = {
+    "DTA",-- Firefox addon DownThemAll.
+    "copyq",-- Includes session name in class.
+    "pinentry",
+   },
+   class = {
+    "Arandr",
+    "Blueman-manager",
+    "Gpick",
+    "Kruler",
+    "MessageWin",-- kalarm.
+    "Sxiv",
+    "Tor Browser",-- Needs a fixed window size to avoid fingerprinting by screen size.
+    "Wpa_gui",
+    "veromix",
+    "xtightvncviewer"
+   },
+   -- Note that the name property shown in xprop might be set slightly after creation of the client
+   -- and the name shown there might not match defined rules here.
+   name = {
+    "Event Tester",-- xev.
+   },
+   role = {
+    "AlarmWindow",  -- Thunderbird's calendar.
+    "ConfigManager",  -- Thunderbird's about:config.
+    "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
+   }
+  },
+  properties = { floating = true }
+ },
+ -- Add titlebars to normal clients and dialogs
+ { rule_any = {type = { "normal", "dialog" }},
+  properties = { titlebars_enabled = false }
+ },
+ { rule = { class = "mpv" },
+  properties = { screen = 1, tag = "4" }
+ },
+ { rule = { class = "nheko" },
+  properties = { screen = 1, tag = "3" }
+ },
+ { rule = { class = "librewolf" },
+  properties = { screen = 1, tag = "2" }
+ },
+ { rule = { class = "qBittorrent" },
+  properties = { screen = 1, tag = "9" }
+ },
+}
+-- {{{ Signals
+-- Signal function to execute when a new client appears.
+client.connect_signal("manage", function (c)
+ -- Set the windows at the slave,
+ -- i.e. put it at the end of others instead of setting it master.
+ -- if not awesome.startup then awful.client.setslave(c) end
   if awesome.startup
    and not c.size_hints.user_position
    and not c.size_hints.program_position then
    -- Prevent clients from being unreachable after screen count changes.
    awful.placement.no_offscreen(c)
   end
- end)
- -- Autostart things
- --awful.spawn.with_shell("picom")
+end)
+-- Autostart things
+ awful.spawn.with_shell("picom")
  --awful.spawn.with_shell("feh --no-fehbg --bg-center '/home/samsepi0l/.config/jungleriver.png'")
  awful.spawn.with_shell("pipewire")
  awful.spawn.with_shell("qbittorrent")
@@ -429,92 +428,91 @@ awful.rules.rules = {
  awful.spawn.with_shell("xrdb $HOME/.config/x11/xresources")
  awful.spawn.with_shell("kitty")
  awful.spawn.with_shell("remaps")
- -- change border color on focus
+-- change border color on focus
  client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
  client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
-
- --window swallowing
+--window swallowing
  dont_swallow_classname_list = { "librewolf", "nheko", "krita" }
  table_minimize_parent = { "mpv", "ranger" }
- table_cannot_swallow = { "krita", "nheko" }
+ table_cannot_swallow = { "krita", "nheko", "godot" }
 
- function is_in_Table(table, element)
-  for _, value in pairs(table) do
-   if element:match(value) then
-    return true
-   end
+function is_in_Table(table, element)
+ for _, value in pairs(table) do
+  if element:match(value) then
+   return true
   end
-  return false
  end
+ return false
+end
 
- function cannot_be_swallowed(class)
-  return not is_in_Table(dont_swallow_classname_list, class)
+function cannot_be_swallowed(class)
+ return not is_in_Table(dont_swallow_classname_list, class)
+end
+
+function can_swallow(class)
+ return not is_in_Table(table_cannot_swallow, class)
+end
+
+function is_parent_minimized(class)
+ return is_in_Table(table_minimize_parent, class)
+end
+
+function copy_size(c, parent_client)
+ if (not c or not parent_client) then
+  return
  end
-
- function can_swallow(class)
-  return not is_in_Table(table_cannot_swallow, class)
+ if (not c.valid or not parent_client.valid) then
+  return
  end
-
- function is_parent_minimized(class)
-  return is_in_Table(table_minimize_parent, class)
+ c.x=parent_client.x;
+ c.y=parent_client.y;
+ c.width=parent_client.width;
+ c.height=parent_client.height;
+end
+function check_resize_client(c)
+ if(c.child_resize) then
+  copy_size(c.child_resize, c)
  end
+end
 
- function copy_size(c, parent_client)
-  if (not c or not parent_client) then
+function get_parent_pid(child_ppid, callback)
+ local ppid_cmd = string.format("pstree -ps %s", child_ppid)
+ awful.spawn.easy_async(ppid_cmd, function(stdout, stderr, reason, exit_code)
+  -- primitive error checking
+  if stderr and stderr ~= "" then
+   callback(stderr)
    return
   end
-  if (not c.valid or not parent_client.valid) then
-   return
-  end
-  c.x=parent_client.x;
-  c.y=parent_client.y;
-  c.width=parent_client.width;
-  c.height=parent_client.height;
- end
- function check_resize_client(c)
-  if(c.child_resize) then
-   copy_size(c.child_resize, c)
-  end
- end
-
- function get_parent_pid(child_ppid, callback)
-  local ppid_cmd = string.format("pstree -ps %s", child_ppid)
-  awful.spawn.easy_async(ppid_cmd, function(stdout, stderr, reason, exit_code)
-   -- primitive error checking
-   if stderr and stderr ~= "" then
-    callback(stderr)
-    return
-   end
-   local ppid = stdout
-   callback(nil, ppid)
-  end)
- end
-
- client.connect_signal("property::size", check_resize_client)
- client.connect_signal("property::position", check_resize_client)
- client.connect_signal("manage", function(c)
-  local parent_client=awful.client.focus.history.get(c.screen, 1)
-  get_parent_pid(c.pid, function(err, ppid)
-   if err then
-    error(err)
-    return
-   end
-   parent_pid = ppid
-   if parent_client and (parent_pid:find("("..parent_client.pid..")")) and can_swallow(c.class) and cannot_be_swallowed(parent_client.class) then
-    if is_parent_minimized(c.class) then
-     parent_client.child_resize=c
-     parent_client.minimized = true
-     parent_client.skip_taskbar = not parent_client.skip_taskbar
-     c:connect_signal("unmanage", function()
-      parent_client.minimized = false
-      parent_client.skip_taskbar = not parent_client.skip_taskbar
-     end)
-     copy_size(c, parent_client)
-    else
-     parent_client.child_resize=c
-     c.floating=true
-     copy_size(c, parent_client)
-    end
-   end
-  end)
+  local ppid = stdout
+  callback(nil, ppid)
  end)
+end
+
+client.connect_signal("property::size", check_resize_client)
+client.connect_signal("property::position", check_resize_client)
+client.connect_signal("manage", function(c)
+ local parent_client=awful.client.focus.history.get(c.screen, 1)
+ get_parent_pid(c.pid, function(err, ppid)
+  if err then
+   error(err)
+   return
+  end
+  parent_pid = ppid
+  if parent_client and (parent_pid:find("("..parent_client.pid..")")) and can_swallow(c.class) and cannot_be_swallowed(parent_client.class) then
+   if is_parent_minimized(c.class) then
+    parent_client.child_resize=c
+    parent_client.minimized = true
+    parent_client.skip_taskbar = not parent_client.skip_taskbar
+    c:connect_signal("unmanage", function()
+     parent_client.minimized = false
+     parent_client.skip_taskbar = not parent_client.skip_taskbar
+    end)
+    copy_size(c, parent_client)
+   else
+    parent_client.child_resize=c
+    c.floating=true
+    copy_size(c, parent_client)
+   end
+  end
+ end)
+end)
