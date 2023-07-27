@@ -96,7 +96,7 @@ autocmd BufWritePre * cal cursor(currPos[1], currPos[2])
 autocmd BufRead,BufNewFile Xresources,Xdefaults,xresources,xdefaults set filetype=xdefaults
 autocmd BufWritePost Xresources,Xdefaults,xresources,xdefaults !xrdb %
 "change normal mode cursor to underline
-:set guicursor=n-v-c-sm:hor100,i-ci-ve:ver25,r-cr-o:hor20"
+"set guicursor=n-v-c-sm:hor100,i-ci-ve:ver25,r-cr-o:hor20"
 "plug.vim
 "frozen makes the plugins not update
 call plug#begin('~/.config/nvim/plugged')
