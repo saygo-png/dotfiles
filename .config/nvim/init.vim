@@ -43,7 +43,6 @@ filetype plugin indent on
 set backspace=indent,eol,start
 set complete-=i
 "set smarttab
-set ttyfast
 set nrformats-=octal
 set ttimeout
 set ttimeoutlen=1
