@@ -1,7 +1,5 @@
--- If LuaRocks is installed, make sure that packages installed through it are
--- found (e.g. lgi). If LuaRocks is not installed, do nothing.
-pcall(require, "luarocks.loader")
-
+-- Lain extension
+local lain = require("lain")
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
@@ -47,11 +45,10 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init("/home/samsepi0l/.config/awesome/theme.lua")
--- This is used later as the default terminal and editor to run.
 terminal = "st"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
-
+-- Dropdown terminal
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
@@ -62,11 +59,11 @@ modkey = "Mod4"
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
 -- awful.layout.suit.floating,
--- awful.layout.suit.tile,
+ awful.layout.suit.tile,
 -- awful.layout.suit.tile.left,
 -- awful.layout.suit.tile.bottom,
 -- awful.layout.suit.tile.top,
- awful.layout.suit.fair,
+-- awful.layout.suit.fair,
 -- awful.layout.suit.fair.horizontal,
 -- awful.layout.suit.spiral,
 -- awful.layout.suit.spiral.dwindle,
@@ -92,73 +89,84 @@ local function set_wallpaper(s)
  end
 end
 
--- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
+-- re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
 
 awful.screen.connect_for_each_screen(function(s)
- -- Wallpaper
+-- wallpaper
  set_wallpaper(s)
+ -- each screen has its own tag table.
+awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])end)
 
- -- Each screen has its own tag table.
- awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])
-end)
-
--- {{{ Key bindings
+local quake = lain.util.quake {
+ app = "st",
+ name = "Dropterm",
+ argname = "-n Dropterm",
+ border = 1,
+ width = 0.4,
+ -- height = 1,
+ horiz = "center",
+ vert = "center",
+}
 globalkeys = gears.table.join(
---start of custom binds
+-- start of custom binds
+awful.key({ modkey, }, "z", function () quake:toggle() end,
+{description = "dropdown terminal", group = "launcher"}),
 awful.key({ modkey,           }, "c",
-function ()
- awful.util.spawn("rofi -modi \"clipboard:greenclip print\" -show clipboard -run-command '{cmd}'")
-end,
-{description = "clipboard history", group = "launcher"}
-),
+function () awful.util.spawn("rofi -modi \"clipboard:greenclip print\" -show clipboard -run-command '{cmd}'")end,
+{description = "clipboard history", group = "launcher"}),
 awful.key({ modkey,           }, "space",
 function ()
  awful.util.spawn("rofi -show run")
 end,
-{description = "Start rofi", group = "launcher"}
+{description = "start rofi", group = "launcher"}
 ),
 awful.key({ modkey,           }, "Tab",
 function ()
  awful.util.spawn("rofi -show drun")
 end,
-{description = "Start rofi in drun", group = "launcher"}
+{description = "start rofi in drun", group = "launcher"}
 ),
 awful.key({ "Mod1", },"Tab",
 function ()
  awful.util.spawn("rofi -show window")
 end,
-{description = "Start rofi", group = "launcher"}
+{description = "start rofi", group = "launcher"}
 ),
 awful.key({}, "Print",
 function ()
  awful.util.spawn("flameshot_wrapper")
 end,
-{description = "Custom border screenshot", group = "launcher"}
+{description = "custom border screenshot", group = "launcher"}
 ),
 awful.key({modkey,           }, "-",
 function ()
  awful.util.spawn("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-")
 end,
-{description = "Decrease volume by 5%", group = "launcher"}
+{description = "decrease volume by 5%", group = "launcher"}
 ),
 awful.key({modkey,           }, "=",
 function ()
  awful.util.spawn("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+")
 end,
-{description = "Decrease volume by 5%", group = "launcher"}
+{description = "decrease volume by 5%", group = "launcher"}
 ),
 awful.key({ modkey,           }, "a",
 function (c) c.sticky = not c.sticky  end,
 {description = "toggle sticky", group = "client"}
 ),
 --end of custom binds
+-- Non-empty tag browsing
+awful.key({ modkey }, "Left", function () lain.util.tag_view_nonempty(-1) end,
+{description="view previous non empty", group="tag"}),
+awful.key({ modkey }, "Right", function () lain.util.tag_view_nonempty(1) end,
+{description="view next non empty", group="tag"}),
 awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
 {description="show help", group="awesome"}),
-awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
-{description = "view previous", group = "tag"}),
-awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
-{description = "view next", group = "tag"}),
+--awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
+--{description = "view previous", group = "tag"}),
+--awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
+--{description = "view next", group = "tag"}),
 awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
 {description = "go back", group = "tag"}),
 
@@ -417,7 +425,7 @@ awful.rules.rules = {
 client.connect_signal("manage", function (c)
  -- Set the windows at the slave,
  -- i.e. put it at the end of others instead of setting it master.
- -- if not awesome.startup then awful.client.setslave(c) end
+  if not awesome.startup then awful.client.setslave(c) end
   if awesome.startup
    and not c.size_hints.user_position
    and not c.size_hints.program_position then
