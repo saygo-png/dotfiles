@@ -106,6 +106,12 @@ end)
 -- {{{ Key bindings
 globalkeys = gears.table.join(
 --start of custom binds
+awful.key({ modkey,           }, "c",
+function ()
+ awful.util.spawn("rofi -modi \"clipboard:greenclip print\" -show clipboard -run-command '{cmd}'")
+end,
+{description = "clipboard history", group = "launcher"}
+),
 awful.key({ modkey,           }, "space",
 function ()
  awful.util.spawn("rofi -show run")
@@ -421,6 +427,7 @@ client.connect_signal("manage", function (c)
 end)
 -- Autostart things
  awful.spawn.with_shell("picom")
+ awful.spawn.with_shell("greenclip daemon")
  --awful.spawn.with_shell("feh --no-fehbg --bg-center '/home/samsepi0l/.config/jungleriver.png'")
  awful.spawn.with_shell("pipewire")
  awful.spawn.with_shell("qbittorrent")
