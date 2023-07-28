@@ -85,7 +85,7 @@ kb-remove-char-forward: "";
 kb-remove-char-back: "BackSpace";
 kb-remove-to-eol: "";
 /*	kb-remove-to-sol: "Control+u";*/
-kb-accept-entry: "";
+kb-accept-entry: "Return";
 /*	kb-accept-custom: "Control+Return";*/
 /*	kb-accept-alt: "Shift+Return";*/
 /*	kb-delete-entry: "Shift+Delete";*/
