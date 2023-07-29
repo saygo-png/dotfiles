@@ -5,17 +5,11 @@
 # global xinitrc file, used by all X sessions started by xinit (startx)
 
 # invoke global X session script
-. /etc/X11/Xsession
+. $HOME/.config/x11/xsession
 
 #above was default config
-if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xprofile" ]; then
-	. "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xprofile"
-else
-	. "$HOME/.xprofile"
-fi
-#below, set wallpaper
-exec "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile"
-exec "/home/samsepi0l/.local/bin/remaps"
+#autostart
+${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile
+$HOME/.local/bin/remaps
 xrdb "${XDG_CONFIG_HOME:-$HOME/.config}/x11/xresources"
-exec greenclip daemon
 exec awesome
