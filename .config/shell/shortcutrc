@@ -28,3 +28,4 @@ alias \
 #retarded wget rc history file in .cache
 alias wget="wget --hsts-file="$XDG_CACHE_HOME/wget-hsts""
 #aliases
+alias svmods="cd ~/.steam/steam/steamapps/common/Stardew\ Valley/Mods/"

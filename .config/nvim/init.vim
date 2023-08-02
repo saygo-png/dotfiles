@@ -106,7 +106,7 @@ Plug 'psliwka/vim-smoothie', { 'frozen': 1 }
 Plug 'junegunn/fzf', { 'frozen': 1 }
 Plug 'ap/vim-css-color', { 'frozen': 1 }
 Plug 'tpope/vim-surround', { 'frozen': 1 }
-Plug 'tomtom/tcomment_vim'
+Plug 'tomtom/tcomment_vim', { 'frozen': 1 }
 call plug#end()
 "comment at begginign of line
 let g:tcomment#options ={

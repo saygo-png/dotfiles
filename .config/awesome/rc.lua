@@ -104,7 +104,7 @@ local quake = lain.util.quake {
  argname = "-n Dropterm",
  border = 1,
  width = 0.4,
- -- height = 1,
+ height = 0.4,
  horiz = "center",
  vert = "center",
 }
@@ -112,6 +112,9 @@ globalkeys = gears.table.join(
 -- start of custom binds
 awful.key({ modkey, }, "z", function () quake:toggle() end,
 {description = "dropdown terminal", group = "launcher"}),
+awful.key({ modkey,           }, "b",
+function () awful.util.spawn("librewolf")end,
+{description = "start librewolf", group = "launcher"}),
 awful.key({ modkey,           }, "c",
 function () awful.util.spawn("rofi -modi \"clipboard:greenclip print\" -show clipboard -run-command '{cmd}'")end,
 {description = "clipboard history", group = "launcher"}),
@@ -410,11 +413,8 @@ awful.rules.rules = {
  { rule = { class = "mpv" },
   properties = { screen = 1, tag = "4" }
  },
- { rule = { class = "nheko" },
-  properties = { screen = 1, tag = "3" }
- },
  { rule = { class = "librewolf" },
-  properties = { screen = 1, tag = "2" }
+  properties = { screen = 1, tag = "3" }
  },
  { rule = { class = "qBittorrent" },
   properties = { screen = 1, tag = "9" }

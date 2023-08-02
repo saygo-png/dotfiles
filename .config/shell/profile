@@ -9,7 +9,6 @@
 export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
 
 unsetopt PROMPT_SP
-
 # Default programs:
 export EDITOR="nvim"
 export TERMINAL="st"
