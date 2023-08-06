@@ -1,10 +1,9 @@
 #!/bin/sh
-#this script updates everything i can think of
-echo "upgrading with package managers"
+echo "upgrading with package managers..."
 sudo apt update && sudo apt upgrade && flatpak update && appman update && pipx upgrade-all
-echo "compiling updates"
+echo "updating with scripts..."
+~/Scripts/upgrade_rclone.sh
 ~/Scripts/upgrade_gomuks.sh
 #~/Scripts/upgrade_picom.sh
 #~/Scripts/upgrade_lf.sh
-echo "all updates finished"
-notify-send "finished updates"
+echo "all updates finished" && notify-send "finished updates"

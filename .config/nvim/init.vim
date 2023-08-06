@@ -10,7 +10,7 @@ set noshowmode
 set laststatus=0
 set noshowcmd
 "indents
- set linebreak
+" set linebreak
  set breakindent
  set formatoptions=l
  set tabstop=1
