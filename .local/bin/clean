@@ -2,6 +2,7 @@
 dpkg -l | grep ^rc | awk '{print $2}' | xargs -t sudo apt-get -y purge
 sudo apt remove --purge `deborphan`
 sudo apt clean
+appman -c
 trash-empty
 sudo apt autoremove
 notify-send "cleaned"
