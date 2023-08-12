@@ -7,7 +7,7 @@
 
 # Verbosity and settings that you pretty much just always are going to want.
 alias \
-	cp="cp -iv" \
+	cp="cp -ivr" \
 	mv="mv -iv" \
 	rm="trash -v" \
 	la="ls -hN --color=auto --group-directories-first -a" \
