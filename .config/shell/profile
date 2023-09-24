@@ -10,6 +10,7 @@ export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
 
 unsetopt PROMPT_SP
 # Default programs:
+export VISUAL="nvim"
 export EDITOR="nvim"
 export TERMINAL="st"
 export TERMINAL_PROG="st"

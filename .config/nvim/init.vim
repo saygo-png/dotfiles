@@ -9,6 +9,7 @@ set clipboard+=unnamedplus
 set noshowmode
 set laststatus=0
 set noshowcmd
+set noswapfile
 "indents
 " set linebreak
  set breakindent
@@ -43,33 +44,30 @@ filetype plugin indent on
 set backspace=indent,eol,start
 set complete-=i
 "set smarttab
-set nrformats-=octal
+"set nrformats-=octal
 set ttimeout
 set ttimeoutlen=1
 set incsearch
 "nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
 set laststatus=2
-set wildmenu
+"set wildmenu
 set scrolloff=1
 set sidescroll=1
 set sidescrolloff=2
-set display+=lastline
-set display+=truncate
-set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-setglobal tags-=./tags tags-=./tags; tags^=./tags;
-set autoread
-set history=100
-set tabpagemax=50
-set viminfo^=!
-set sessionoptions-=options
-set viewoptions-=options
-set nolangremap
-snoremap <C-U> <C-G>u<C-U>
-snoremap <C-W> <C-G>u<C-W>
-vnoremap <C-U> <C-G>u<C-U>
-vnoremap <C-W> <C-G>u<C-W>
-inoremap <C-U> <C-G>u<C-U>
-inoremap <C-W> <C-G>u<C-W>
+"set display+=lastline
+"set display+=truncate
+"set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+"setglobal tags-=./tags tags-=./tags; tags^=./tags;
+"set viminfo^=!
+"set sessionoptions-=options
+"set viewoptions-=options
+"set nolangremap
+"snoremap <C-U> <C-G>u<C-U>
+"snoremap <C-W> <C-G>u<C-W>
+"vnoremap <C-U> <C-G>u<C-U>
+"vnoremap <C-W> <C-G>u<C-W>
+"inoremap <C-U> <C-G>u<C-U>
+"inoremap <C-W> <C-G>u<C-W>
 if !exists('g:is_posix') && !exists('g:is_bash') && !exists('g:is_kornshell') && !exists('g:is_dash')
  let g:is_posix = 1
 endif
@@ -103,7 +101,7 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'lukas-reineke/indent-blankline.nvim', { 'frozen': 1 }
 Plug 'morhetz/gruvbox', { 'frozen': 1 }
 Plug 'psliwka/vim-smoothie', { 'frozen': 1 }
-Plug 'junegunn/fzf', { 'frozen': 1 }
+"Plug 'junegunn/fzf', { 'frozen': 1 }
 Plug 'ap/vim-css-color', { 'frozen': 1 }
 Plug 'tpope/vim-surround', { 'frozen': 1 }
 Plug 'tomtom/tcomment_vim', { 'frozen': 1 }

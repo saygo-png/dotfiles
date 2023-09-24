@@ -3,6 +3,7 @@
 directory=~/.config/drugreminder
 output_file="$directory/entries.txt"
 
+mkdir -p $directory
 # Read the last entry from the file
 echo -e "Last 5 entries \n$(tail -n 5 $output_file)\n"
 last_entry=$(tail -n 1 "$output_file")

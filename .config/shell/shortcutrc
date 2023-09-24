@@ -7,6 +7,7 @@
 
 # Verbosity and settings that you pretty much just always are going to want.
 alias \
+ unp="unp -U" \
 	cp="cp -ivr" \
 	mv="mv -iv" \
 	rm="trash -v" \
@@ -24,7 +25,7 @@ alias \
 	grep="grep --color=auto" \
 	diff="diff --color=auto" \
 	ccat="highlight --out-format=ansi" \
-	ip="ip -color=auto"
+	ip="ip -color=auto" \
 #retarded wget rc history file in .cache
 alias wget="wget --hsts-file="$XDG_CACHE_HOME/wget-hsts""
 #aliases

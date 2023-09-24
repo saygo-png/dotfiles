@@ -107,6 +107,7 @@ local quake = lain.util.quake {
  height = 0.4,
  horiz = "center",
  vert = "center",
+ followscreen = true,
 }
 globalkeys = gears.table.join(
 -- start of custom binds
@@ -433,8 +434,9 @@ client.connect_signal("manage", function (c)
    awful.placement.no_offscreen(c)
   end
 end)
---Autostart things (now handled by xinitrc)
+--autostart things
  awful.spawn.with_shell("xrandr --output HDMI-A-1 --mode 1920x1080 --rate 144")
+ awful.spawn.with_shell("udiskie")
  awful.spawn.with_shell("remaps")
  awful.spawn.with_shell("picom")
  awful.spawn.with_shell("greenclip daemon")
