@@ -15,7 +15,10 @@ export EDITOR="nvim"
 export TERMINAL="st"
 export TERMINAL_PROG="st"
 export BROWSER="librewolf"
-
+#ibus (2 keyboard layouts)
+export GTK_IM_MODULE="ibus"
+export XMODIFIERS="@im=ibus"
+export QT_IM_MODULE="ibus"
 #unreal engine .net cli tool telemetry turn off
 export DOTNET_CLI_TELEMETRY_OPTOUT="true"
 # ~/ Clean-up:

@@ -435,6 +435,7 @@ client.connect_signal("manage", function (c)
   end
 end)
 --autostart things
+ awful.spawn.with_shell("ibus-daemon")
  awful.spawn.with_shell("xrandr --output HDMI-A-1 --mode 1920x1080 --rate 144")
  awful.spawn.with_shell("udiskie")
  awful.spawn.with_shell("remaps")
