@@ -7,6 +7,7 @@
 
 # Verbosity and settings that you pretty much just always are going to want.
 alias \
+ space="df --type=btrfs -h" \
  debi="gdebi" \
  unp="unp -U" \
 	cp="cp -ivr" \
