@@ -1,6 +1,6 @@
 #! /bin/sh
-dpkg -l | grep ^rc | awk '{print $2}' | xargs -t sudo apt-get -y purge
-sudo apt remove --purge `deborphan`
+#dpkg -l | grep ^rc | awk '{print $2}' | xargs -t sudo apt-get -y purge
+#sudo apt remove --purge `deborphan`
 sudo apt clean
 appman -c
 sudo trash-empty
