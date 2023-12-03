@@ -362,19 +362,19 @@ awful.rules.rules = {
    placement = awful.placement.no_overlap+awful.placement.no_offscreen
   }
  },
- {-- always on top
-  rule_any = {
-   class = {
-    "mpv"
-   },
-  },
-  properties = {
-   floating = true,
-   ontop = true,
-   sticky = true
-  },
-  callback = function(c) c:connect_signal("property::fullscreen", function() if not c.fullscreen then c.ontop = true end end) end
- },
+-- {-- always on top
+--  rule_any = {
+--   class = {
+--    "mpv"
+--   },
+--  },
+--  properties = {
+--   floating = true,
+--   ontop = true,
+--   sticky = true
+--  },
+--  callback = function(c) c:connect_signal("property::fullscreen", function() if not c.fullscreen then c.ontop = true end end) end
+-- },
  {-- Floating clients.
   rule_any = {
    instance = {
@@ -435,6 +435,8 @@ client.connect_signal("manage", function (c)
   end
 end)
 --autostart things
+ awful.spawn.with_shell("autocutsel -s CLIPBOARD &")
+ awful.spawn.with_shell("autocutsel -s PRIMARY &")
  awful.spawn.with_shell("ibus-daemon -x -d -r")
  awful.spawn.with_shell("xrandr --output HDMI-A-1 --mode 1920x1080 --rate 144")
  awful.spawn.with_shell("udiskie")
