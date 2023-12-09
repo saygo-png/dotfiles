@@ -1,0 +1,3 @@
+#!/bin/sh
+sudo 6666666666666666666666 >> /dev/null
+sudo find / -maxdepth 99999999 2>/dev/null | fzf -i -q $1
