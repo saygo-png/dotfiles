@@ -1,4 +1,4 @@
 #!/bin/sh
 focusedwindow_before=$(xdotool getactivewindow)
-flameshot gui -r -s | tesseract -l eng+rus+fin+pol stdin stdout | xclip -r
+notify-send -t 3000 "$(flameshot gui -r -s | tesseract -l eng+rus+fin+pol stdin stdout | trans -brief)"
 [ "$focusedwindow_before" = "$(xdotool getactivewindow)" ] && xdotool windowfocus $focusedwindow_before

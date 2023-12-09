@@ -136,31 +136,37 @@ function ()
  awful.util.spawn("rofi -show window")
 end,
 {description = "start rofi", group = "launcher"}
-),
+ ),
+awful.key({ modkey,           }, "Print",
+function ()
+ awful.util.spawn("flameshot_wrapper_ocr_trans")
+end,
+{description = "custom border ocr translate screenshot", group = "launcher"}
+ ),
 awful.key({ "Mod1", },"Print",
 function ()
  awful.util.spawn("flameshot_wrapper_ocr")
 end,
 {description = "custom border ocr screenshot", group = "launcher"}
-),
+ ),
 awful.key({}, "Print",
 function ()
  awful.util.spawn("flameshot_wrapper")
 end,
 {description = "custom border screenshot", group = "launcher"}
-),
+ ),
 awful.key({modkey,           }, "-",
 function ()
  awful.util.spawn("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-")
 end,
 {description = "decrease volume by 5%", group = "launcher"}
-),
+ ),
 awful.key({modkey,           }, "=",
 function ()
  awful.util.spawn("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+")
 end,
 {description = "decrease volume by 5%", group = "launcher"}
-),
+ ),
 awful.key({ modkey,           }, "a",
 function (c) c.sticky = not c.sticky  end,
 {description = "toggle sticky", group = "client"}
@@ -441,6 +447,7 @@ client.connect_signal("manage", function (c)
   end
 end)
 --autostart things
+ awful.spawn.with_shell("pkill -i 'greenclip|autocutsel|udiskie|picom|qbittorrent'")
  awful.spawn.with_shell("autocutsel -s CLIPBOARD &")
  awful.spawn.with_shell("autocutsel -s PRIMARY &")
  awful.spawn.with_shell("ibus-daemon -x -d -r")
@@ -449,7 +456,7 @@ end)
  awful.spawn.with_shell("remaps")
  awful.spawn.with_shell("picom")
  awful.spawn.with_shell("greenclip daemon")
- awful.spawn.with_shell("pipewire")
+-- awful.spawn.with_shell("pipewire")
  awful.spawn.with_shell("qbittorrent")
  awful.spawn.with_shell("st")
  -- awful.spawn.with_shell("xrdb $HOME/.config/x11/xresources")

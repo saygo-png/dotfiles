@@ -1,8 +1,14 @@
 #! /bin/sh
-#dpkg -l | grep ^rc | awk '{print $2}' | xargs -t sudo apt-get -y purge
-#sudo apt remove --purge `deborphan`
+if [ "$1" = "hard" ]; then
+dpkg -l | grep ^rc | awk '{print $2}' | xargs -t sudo apt-get -y purge
+sudo apt remove --purge `deborphan`
+fi
 sudo apt clean
 appman -c
 sudo trash-empty
 sudo apt autoremove
+if [ "$1" = "hard" ]; then
+ notify-send "hard cleaned"
+ exit
+fi
 notify-send "cleaned"
