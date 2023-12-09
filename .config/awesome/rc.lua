@@ -137,6 +137,12 @@ function ()
 end,
 {description = "start rofi", group = "launcher"}
 ),
+awful.key({ "Mod1", },"Print",
+function ()
+ awful.util.spawn("flameshot_wrapper_ocr")
+end,
+{description = "custom border ocr screenshot", group = "launcher"}
+),
 awful.key({}, "Print",
 function ()
  awful.util.spawn("flameshot_wrapper")
