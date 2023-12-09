@@ -1,0 +1,6 @@
+#!/bin/sh
+sudo ifdown enp4s0
+sudo ifup enp4s0
+sudo systemctl restart networking.service
+sudo systemctl restart network-online.target
+sudo networkctl reload

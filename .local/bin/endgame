@@ -1,0 +1,7 @@
+#!/bin/sh
+ pkill --signal 9 -cie league
+ pkill --signal 9 -cie steam
+ pkill --signal 9 -cie exe
+ pkill --signal 9 -cie wine
+ pkill --signal 9 -cie lutris
+ pkill --signal 9 -cie riot
