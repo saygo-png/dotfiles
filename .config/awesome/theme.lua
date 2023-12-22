@@ -30,7 +30,8 @@ theme.border_width  = dpi(1)
 theme.border_normal = "#00000000"
 theme.border_marked = "#7d8618"
 theme.border_focus  = theme.border_marked
-
+--snap
+theme.snap_bg = "#7d8618"
 --notifications
 naughty.config = {
     defaults = {

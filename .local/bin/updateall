@@ -8,4 +8,5 @@ echo "updating with scripts..."
 ~/Scripts/upgrade_mullvad.sh
 #~/Scripts/upgrade_picom.sh
 #~/Scripts/upgrade_lf.sh
+dpkg-query --show -f='${binary:Package}\n' > ~/.config/packagelist
 echo "all updates finished" && notify-send "finished updates"

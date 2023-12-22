@@ -1,1 +1,1 @@
-source /home/samsepi0l/.config/shell/profile
+source ~/.config/shell/profile

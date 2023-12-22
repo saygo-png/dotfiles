@@ -426,11 +426,32 @@ awful.rules.rules = {
  { rule = { class = "mpv" },
   properties = { screen = 1, tag = "4" }
  },
- { rule = { class = "librewolf" },
-  properties = { screen = 1, tag = "3" }
+ { rule = { class = "LibreWolf" },
+  properties = { screen = 1, tag = "2" }
  },
  { rule = { class = "qBittorrent" },
   properties = { screen = 1, tag = "9" }
+ },
+  { rule = { class = "leagueclientux.exe" },
+  properties = { screen = 1, tag = "7" }
+ },
+   { rule = { class = "Anki" },
+  properties = { screen = 1, tag = "8" }
+ },
+    { rule = { class = "league of legends.exe" },
+  properties = { screen = 1, tag = "8" }
+ },
+    { rule = { class = "explorer.exe" },
+  properties = { screen = 1, tag = "8", minimized = true }
+ },
+    { rule = { class = "leagueclient.exe" },
+  properties = { screen = 1, tag = "8" }
+ },
+    { rule = { class = "steam_app_2357570" },
+  properties = { screen = 1, tag = "8" }
+ },
+    { rule = { class = "steam" },
+  properties = { screen = 1, tag = "6" }
  },
 }
 -- {{{ Signals
