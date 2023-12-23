@@ -2,3 +2,5 @@
 pkill --signal 9 -cie "league|steam"
 pkill --signal 9 -cie "wine|lutris"
 pkill --signal 9 -cie "riot|exe"
+pkill --signal 9 -cief "leagueclientux.exe"
+pkill --signal 9 -cief "leagueclientuxrender.exe"
