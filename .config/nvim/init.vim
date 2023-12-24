@@ -8,7 +8,7 @@ set nohlsearch
 set clipboard+=unnamedplus
 set noshowmode
 set laststatus=0
-set noshowcmd
+"set noshowcmd
 set noswapfile
 "indents
  set nowrap
@@ -46,7 +46,7 @@ filetype plugin indent on
 "start of tpope config
 set backspace=indent,eol,start
 set complete-=i
-"set smarttab
+set smarttab
 "set nrformats-=octal
 set ttimeout
 set ttimeoutlen=1
@@ -61,9 +61,9 @@ set sidescrolloff=2
 "set display+=truncate
 "set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 "setglobal tags-=./tags tags-=./tags; tags^=./tags;
-"set viminfo^=!
+set viminfo^=!
 "set sessionoptions-=options
-"set viewoptions-=options
+set viewoptions-=options
 "set nolangremap
 "snoremap <C-U> <C-G>u<C-U>
 "snoremap <C-W> <C-G>u<C-W>
@@ -135,10 +135,11 @@ require('mini.indentscope').setup({
   delay = 100,
   priority = 2,
  },
- symbol = '┃'
+ symbol = '┇'
 })
 EOF
 "indentblankline
+let g:indent_blankline_char = '│'
 lua << EOF
 vim.opt.list = true
 vim.cmd [[highlight IndentBlanklineIndent1 guifg=#cc241d gui=nocombine]]

@@ -1,12 +1,12 @@
 #!/bin/sh
 echo "upgrading with package managers..."
-sudo apt update && sudo apt upgrade && appman update && pipx upgrade-all
+ sudo apt update && sudo apt upgrade && appman update && pipx upgrade-all
 echo "updating with scripts..."
-~/Scripts/upgrade_rclone.sh
-~/Scripts/upgrade_gomuks.sh
-~/Scripts/upgrade_proton.sh
-~/Scripts/upgrade_mullvad.sh
-#~/Scripts/upgrade_picom.sh
-#~/Scripts/upgrade_lf.sh
+ ~/Scripts/upgrade_rclone.sh
+ ~/Scripts/upgrade_gomuks.sh
+ ~/Scripts/upgrade_proton.sh
+ ~/Scripts/upgrade_mullvad.sh
+ #~/Scripts/upgrade_picom.sh
+ #~/Scripts/upgrade_lf.sh
 dpkg-query --show -f='${binary:Package}\n' > ~/.config/packagelist
 echo "all updates finished" && notify-send "finished updates"
