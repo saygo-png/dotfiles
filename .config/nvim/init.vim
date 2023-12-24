@@ -11,8 +11,11 @@ set laststatus=0
 set noshowcmd
 set noswapfile
 "indents
+ set nowrap
 " set linebreak
+ set showbreak=\ \
  set breakindent
+ set breakindentopt=shift:1
  set formatoptions=l
  set tabstop=1
  set softtabstop=-1
@@ -98,7 +101,8 @@ autocmd BufWritePost Xresources,Xdefaults,xresources,xdefaults !xrdb %
 "plug.vim
 "frozen makes the plugins not update
 call plug#begin('~/.config/nvim/plugged')
-Plug 'lukas-reineke/indent-blankline.nvim', { 'frozen': 1 }
+Plug 'echasnovski/mini.indentscope', { 'branch': 'stable', 'frozen': 1 }
+Plug 'lukas-reineke/indent-blankline.nvim', { 'tag': 'v2.20.8', 'frozen': 1 }
 Plug 'morhetz/gruvbox', { 'frozen': 1 }
 Plug 'psliwka/vim-smoothie', { 'frozen': 1 }
 "Plug 'junegunn/fzf', { 'frozen': 1 }
@@ -124,8 +128,17 @@ set termguicolors                    " Enable GUI colors for the terminal to get
 hi Normal guibg=NONE ctermbg=NONE
 hi statusline guibg=NONE gui=NONE guifg=#7d8618
 hi LineNr guifg=#7d8618
+"identscope
+lua << EOF
+require('mini.indentscope').setup({
+ draw = {
+  delay = 100,
+  priority = 2,
+ },
+ symbol = '┃'
+})
+EOF
 "indentblankline
-let g:indent_blankline_char = '|'
 lua << EOF
 vim.opt.list = true
 vim.cmd [[highlight IndentBlanklineIndent1 guifg=#cc241d gui=nocombine]]
