@@ -5,7 +5,9 @@ set encoding=utf-8
 set number relativenumber
 set title
 set nohlsearch
+set paste
 set clipboard+=unnamedplus
+set clipboard+=unnamed
 set noshowmode
 set laststatus=0
 "set noshowcmd
@@ -27,6 +29,9 @@ set noswapfile
  set smartindent
  set cindent
 "remaps
+"makes o insert a blank line in normal mode
+nnoremap o o<Esc>0"_D
+"no clue
 nnoremap c "_c
 "makes d and x delete
 "nnoremap x "_x
