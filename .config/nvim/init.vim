@@ -13,8 +13,8 @@ set laststatus=0
 "set noshowcmd
 set noswapfile
 "indents
- set nowrap
-" set linebreak
+" set nowrap
+ set linebreak
  set showbreak=\ \
  set breakindent
  set breakindentopt=shift:1
@@ -31,6 +31,7 @@ set noswapfile
 "remaps
 "makes o insert a blank line in normal mode
 nnoremap o o<Esc>0"_D
+nnoremap L .
 "no clue
 nnoremap c "_c
 "makes d and x delete

@@ -453,6 +453,9 @@ awful.rules.rules = {
     { rule = { class = "steam" },
   properties = { screen = 1, tag = "6" }
  },
+    { rule = { class = "Steam" },
+  properties = { screen = 1, tag = "6" }
+ },
 }
 -- {{{ Signals
 -- Signal function to execute when a new client appears.
