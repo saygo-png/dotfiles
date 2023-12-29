@@ -1,6 +1,6 @@
 #!/bin/sh
 echo "upgrading with package managers..."
- sudo apt update && sudo apt upgrade && appman update && pipx upgrade-all
+ sudo apt update && sudo apt upgrade && appman update && pipx upgrade-all && trans -U
 echo "updating with scripts..."
  ~/Scripts/upgrade_rclone.sh
  ~/Scripts/upgrade_gomuks.sh
