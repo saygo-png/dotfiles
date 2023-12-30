@@ -27,7 +27,7 @@ set noswapfile
  set autoindent
  set cpoptions+=I
  set smartindent
- set cindent
+" set cindent
 "remaps
 "makes o insert a blank line in normal mode
 nnoremap o o<Esc>0"_D

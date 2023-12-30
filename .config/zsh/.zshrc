@@ -1,3 +1,5 @@
+#run profile
+
 #tmux autoattach
 if [ -x "$(command -v tmux)" ] && [ -z "${TMUX}" ]; then
  tmux new-session
@@ -16,6 +18,7 @@ HISTFILE=~/.cache/zsh/history
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc"
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc"
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile"
 
 #Basic auto/tab complete
 setopt MENU_COMPLETE

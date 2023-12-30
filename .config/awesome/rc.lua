@@ -109,8 +109,15 @@ local quake = lain.util.quake {
  vert = "center",
  followscreen = true,
 }
+
 globalkeys = gears.table.join(
 -- start of custom binds
+awful.key({ modkey }, "Delete", function ()
+ local focused_client = client.focus
+ if focused_client then
+  awful.spawn.easy_async("kill --signal SIGKILL " .. focused_client.pid)
+ end
+end, { description = "Hard kill focused client", group = "client" }),
 awful.key({ modkey, }, "z", function () quake:toggle() end,
 {description = "dropdown terminal", group = "launcher"}),
 awful.key({ modkey,           }, "b",

@@ -10,6 +10,7 @@ export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
 
 unsetopt PROMPT_SP
 # Default programs:
+export PAGER="most"
 export VISUAL="nvim"
 export EDITOR="nvim"
 export TERMINAL="st"
@@ -19,6 +20,8 @@ export BROWSER="librewolf"
 export GTK_IM_MODULE="ibus"
 export XMODIFIERS="@im=ibus"
 export QT_IM_MODULE="ibus"
+#most pager
+export MOST_INITFILE="$HOME/.config/most/.mostrc"
 #unreal engine .net cli tool telemetry turn off
 export DOTNET_CLI_TELEMETRY_OPTOUT="true"
 # ~/ Clean-up:
