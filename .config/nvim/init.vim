@@ -1,4 +1,6 @@
 set virtualedit+=onemore
+"convert to unix filetype on save
+set ff=unix
 let mapleader=","
 syntax on
 set encoding=utf-8
