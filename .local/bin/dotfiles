@@ -1,0 +1,21 @@
+#!/bin/sh
+echo Commit name: ""$@""
+cd ~
+case ""$@"" in
+ "")
+  echo "Provide the commit name as an argument"
+  ;;
+ "help")
+  echo "Provide the commit name as an argument"
+  ;;
+ ".")
+  git add .
+  git commit -m "changes"
+  git push
+  ;;
+ *)
+  git add .
+  git commit -m ""$@""
+  git push
+  ;;
+esac
