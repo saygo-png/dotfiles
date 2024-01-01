@@ -430,9 +430,9 @@ awful.rules.rules = {
  { rule_any = {type = { "normal", "dialog" }},
   properties = { titlebars_enabled = false }
  },
- { rule = { class = "mpv" },
-  properties = { screen = 1, tag = "4" }
- },
+-- { rule = { class = "mpv" },
+--  properties = { screen = 1, tag = "4" }
+-- },
  { rule = { class = "LibreWolf" },
   properties = { screen = 1, tag = "2" }
  },
