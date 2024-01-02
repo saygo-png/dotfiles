@@ -12,6 +12,7 @@ alias \
  shutdown="sudo shutdown now" \
  space="df --type=btrfs -h" \
  debi="gdebi" \
+ image="nsxiv" \
  unp="unp -U" \
 	cp="cp -ivr" \
 	mv="mv -iv" \
