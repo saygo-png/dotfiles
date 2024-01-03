@@ -2224,11 +2224,14 @@ linux-cpupower
 linux-headers-6.6.7-1-liquorix-amd64
 linux-headers-6.6.8-1-liquorix-amd64
 linux-headers-6.6.8-2-liquorix-amd64
+linux-headers-6.6.9-1-liquorix-amd64
 linux-headers-liquorix-amd64
 linux-image-6.1.0-16-amd64
+linux-image-6.1.0-17-amd64
 linux-image-6.6.7-1-liquorix-amd64
 linux-image-6.6.8-1-liquorix-amd64
 linux-image-6.6.8-2-liquorix-amd64
+linux-image-6.6.9-1-liquorix-amd64
 linux-image-amd64
 linux-image-liquorix-amd64
 linux-libc-dev:amd64
@@ -2334,6 +2337,7 @@ netpbm
 newsboat
 nftables
 ninja-build
+nlohmann-json3-dev
 node-acorn
 node-busboy
 node-cjs-module-lexer
@@ -2640,7 +2644,11 @@ rsync
 rsyslog
 rtkit
 runit-helper
+rust-all
+rust-clippy
+rust-gdb
 rustc
+rustfmt
 samba-common
 samba-common-bin
 samba-dsdb-modules:amd64
@@ -2864,6 +2872,9 @@ tk8.6-blt2.5
 tmux
 toilet
 toilet-fonts
+tor
+tor-geoipdb
+torbrowser-launcher
 torsocks
 tpm-udev
 translate-shell

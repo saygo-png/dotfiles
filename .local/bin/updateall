@@ -1,11 +1,17 @@
 #!/bin/sh
 echo "upgrading with package managers..."
- sudo apt update && sudo apt upgrade && appman update && pipx upgrade-all && trans -U
+ sudo apt update && sudo apt upgrade
+ appman update
+ pipx upgrade-all
+ trans -upgrade
+ rustup update
+ cargo install-update -all
 echo "updating with scripts..."
  ~/Scripts/upgrade_rclone.sh
  ~/Scripts/upgrade_gomuks.sh
  ~/Scripts/upgrade_proton.sh
  ~/Scripts/upgrade_jless.sh
+ ~/Scripts/upgrade_podbit.sh
  #~/Scripts/upgrade_mullvad.sh
  #~/Scripts/upgrade_picom.sh
  #~/Scripts/upgrade_lf.sh

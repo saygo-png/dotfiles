@@ -443,25 +443,25 @@ awful.rules.rules = {
   properties = { screen = 1, tag = "7" }
  },
    { rule = { class = "Anki" },
-  properties = { screen = 1, tag = "8" }
+  properties = { screen = 1, tag = "6" }
  },
     { rule = { class = "league of legends.exe" },
-  properties = { screen = 1, tag = "8" }
+  properties = { screen = 1, tag = "7" }
  },
     { rule = { class = "explorer.exe" },
   properties = { screen = 1, tag = "8", minimized = true }
  },
     { rule = { class = "leagueclient.exe" },
-  properties = { screen = 1, tag = "8" }
+  properties = { screen = 1, tag = "7" }
  },
     { rule = { class = "steam_app_2357570" },
   properties = { screen = 1, tag = "8" }
  },
     { rule = { class = "steam" },
-  properties = { screen = 1, tag = "6" }
+  properties = { screen = 1, tag = "8" }
  },
     { rule = { class = "Steam" },
-  properties = { screen = 1, tag = "6" }
+  properties = { screen = 1, tag = "8" }
  },
 }
 -- {{{ Signals
