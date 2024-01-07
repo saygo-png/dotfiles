@@ -118,62 +118,87 @@ awful.key({ modkey }, "Delete", function ()
   awful.spawn.easy_async("kill --signal SIGKILL " .. focused_client.pid)
  end
 end, { description = "Hard kill focused client", group = "client" }),
+
 awful.key({ modkey, }, "z", function () quake:toggle() end,
 {description = "dropdown terminal", group = "launcher"}),
+
 awful.key({ modkey,           }, "b",
-function () awful.util.spawn("librewolf")end,
-{description = "start librewolf", group = "launcher"}),
+ function ()
+  awful.util.spawn("librewolf")
+ end,
+ {description = "start librewolf", group = "launcher"}
+),
+
 awful.key({ modkey,           }, "c",
-function () awful.util.spawn("rofi -modi \"clipboard:greenclip print\" -show clipboard -run-command '{cmd}'")end,
-{description = "clipboard history", group = "launcher"}),
+ function ()
+  awful.util.spawn("rofi -modi \"clipboard:greenclip print\" -show clipboard -run-command '{cmd}'")
+ end,
+ {description = "clipboard history", group = "launcher"}
+),
+
 awful.key({ modkey,           }, "space",
 function ()
  awful.util.spawn("rofi -show run")
 end,
 {description = "start rofi", group = "launcher"}
 ),
-awful.key({ modkey,           }, "Tab",
-function ()
- awful.util.spawn("rofi -show drun")
-end,
-{description = "start rofi in drun", group = "launcher"}
+
+awful.key({ modkey,           }, "y",
+ function ()
+  awful.util.spawn("invidious.sh")
+ end,
+ {description = "start rofi youtube search", group = "launcher"}
 ),
+
+awful.key({ modkey,           }, "Tab",
+ function ()
+  awful.util.spawn("rofi -show drun")
+ end,
+ {description = "start rofi in drun", group = "launcher"}
+),
+
 awful.key({ "Mod1", },"Tab",
-function ()
- awful.util.spawn("rofi -show window")
-end,
-{description = "start rofi", group = "launcher"}
- ),
+ function ()
+  awful.util.spawn("rofi -show window")
+ end,
+ {description = "start rofi", group = "launcher"}
+),
+
 awful.key({ modkey,           }, "Print",
-function ()
- awful.util.spawn("flameshot_wrapper_ocr_trans")
-end,
-{description = "custom border ocr translate screenshot", group = "launcher"}
- ),
+ function ()
+  awful.util.spawn("flameshot_wrapper_ocr_trans")
+ end,
+ {description = "custom border ocr translate screenshot", group = "launcher"}
+),
+
 awful.key({ "Mod1", },"Print",
-function ()
- awful.util.spawn("flameshot_wrapper_ocr")
-end,
-{description = "custom border ocr screenshot", group = "launcher"}
- ),
+ function ()
+  awful.util.spawn("flameshot_wrapper_ocr")
+ end,
+ {description = "custom border ocr screenshot", group = "launcher"}
+),
+
 awful.key({}, "Print",
-function ()
- awful.util.spawn("flameshot_wrapper")
-end,
-{description = "custom border screenshot", group = "launcher"}
- ),
+ function ()
+  awful.util.spawn("flameshot_wrapper")
+ end,
+ {description = "custom border screenshot", group = "launcher"}
+),
+
 awful.key({modkey,           }, "-",
-function ()
- awful.util.spawn("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-")
-end,
-{description = "decrease volume by 5%", group = "launcher"}
- ),
+ function ()
+  awful.util.spawn("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-")
+ end,
+ {description = "decrease volume by 5%", group = "launcher"}
+),
+
 awful.key({modkey,           }, "=",
-function ()
- awful.util.spawn("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+")
-end,
-{description = "decrease volume by 5%", group = "launcher"}
- ),
+ function ()
+  awful.util.spawn("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+")
+ end,
+ {description = "decrease volume by 5%", group = "launcher"}
+),
+
 awful.key({ modkey,           }, "a",
 function (c) c.sticky = not c.sticky  end,
 {description = "toggle sticky", group = "client"}

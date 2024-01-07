@@ -109,7 +109,7 @@ autocmd BufWritePost Xresources,Xdefaults,xresources,xdefaults !xrdb %
 "plug.vim
 "frozen makes the plugins not update
 call plug#begin('~/.config/nvim/plugged')
-"Plug 'echasnovski/mini.indentscope', { 'branch': 'stable', 'frozen': 1 }
+Plug 'echasnovski/mini.indentscope', { 'branch': 'stable', 'frozen': 1 }
 Plug 'lukas-reineke/indent-blankline.nvim', { 'tag': 'v2.20.8', 'frozen': 1 }
 Plug 'morhetz/gruvbox', { 'frozen': 1 }
 Plug 'psliwka/vim-smoothie', { 'frozen': 1 }
@@ -137,15 +137,15 @@ hi Normal guibg=NONE ctermbg=NONE
 hi statusline guibg=NONE gui=NONE guifg=#7d8618
 hi LineNr guifg=#7d8618
 "identscope
-" lua << EOF
-" require('mini.indentscope').setup({
-"  draw = {
-"   delay = 100,
-"   priority = 2,
-"  },
-"  symbol = '┇'
-" })
-" EOF
+lua << EOF
+require('mini.indentscope').setup({
+ draw = {
+  delay = 100,
+  priority = 2,
+ },
+ symbol = '┇'
+})
+EOF
 "indentblankline
 let g:indent_blankline_char = '│'
 lua << EOF
@@ -157,7 +157,7 @@ vim.cmd [[highlight IndentBlanklineIndent4 guifg=#458588 gui=nocombine]]
 vim.cmd [[highlight IndentBlanklineIndent5 guifg=#b16286 gui=nocombine]]
 vim.cmd [[highlight IndentBlanklineIndent6 guifg=#689d6a gui=nocombine]]
 require("indent_blankline").setup {
- space_char_blankline = " ",
+ space_char_blankline = "",
  char_highlight_list =
  {
   "IndentBlanklineIndent1",
