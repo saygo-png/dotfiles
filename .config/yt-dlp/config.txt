@@ -1,4 +1,5 @@
 --add-metadata
+--extractor-args "youtube:player_client=default,ios"
 --no-continue
 --no-cache-dir
 --all-subs

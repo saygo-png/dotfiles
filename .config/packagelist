@@ -70,7 +70,6 @@ caca-utils
 calc
 calc-common
 calf-plugins
-cargo
 cbonsai
 chafa
 check-dfsg-status
@@ -855,6 +854,7 @@ libgimp2.0:amd64
 libgirara-gtk3-3:amd64
 libgirepository-1.0-1:amd64
 libgit2-1.5:amd64
+libgit2-dev:amd64
 libgl-dev:amd64
 libgl1:amd64
 libgl1:i386
@@ -986,6 +986,7 @@ libhttp-daemon-perl
 libhttp-date-perl
 libhttp-message-perl
 libhttp-negotiate-perl
+libhttp-parser-dev
 libhttp-parser2.9:amd64
 libhunspell-1.7-0:amd64
 libhwloc-plugins:amd64
@@ -1249,6 +1250,7 @@ libmath-base85-perl
 libmatroska7:amd64
 libmaxminddb0:amd64
 libmbedcrypto7:amd64
+libmbedtls-dev:amd64
 libmbedtls14:amd64
 libmbedx509-1:amd64
 libmd0:amd64
@@ -1816,12 +1818,11 @@ libssh-4:amd64
 libssh-gcrypt-4:amd64
 libssh2-1:amd64
 libssh2-1:i386
+libssh2-1-dev:amd64
 libssl-dev:amd64
 libssl3:amd64
 libssl3:i386
 libstartup-notification0:amd64
-libstd-rust-1.63:amd64
-libstd-rust-dev:amd64
 libstdc++-10-dev:amd64
 libstdc++-12-dev:amd64
 libstdc++6:amd64
@@ -2221,13 +2222,13 @@ libzxing2:amd64
 lintian
 linux-base
 linux-cpupower
-linux-headers-6.6.7-1-liquorix-amd64
-linux-headers-6.6.8-1-liquorix-amd64
+linux-headers-6.6.10-1-liquorix-amd64
 linux-headers-6.6.8-2-liquorix-amd64
 linux-headers-6.6.9-1-liquorix-amd64
 linux-headers-liquorix-amd64
 linux-image-6.1.0-16-amd64
 linux-image-6.1.0-17-amd64
+linux-image-6.6.10-1-liquorix-amd64
 linux-image-6.6.7-1-liquorix-amd64
 linux-image-6.6.8-1-liquorix-amd64
 linux-image-6.6.8-2-liquorix-amd64
@@ -2320,6 +2321,7 @@ mpack
 mpc
 mpv
 mscompress
+mullvad-vpn
 mysql-common
 ncdu
 ncurses-base
@@ -2397,6 +2399,7 @@ pkg-config:amd64
 pkgconf:amd64
 pkgconf-bin
 pocketsphinx-en-us
+podget
 policykit-1
 polkit-kde-agent-1
 polkitd
@@ -2473,6 +2476,7 @@ python3-docopt
 python3-docutils
 python3-et-xmlfile
 python3-evdev
+python3-eyed3
 python3-firewall
 python3-gi
 python3-gi-cairo
@@ -2644,11 +2648,6 @@ rsync
 rsyslog
 rtkit
 runit-helper
-rust-all
-rust-clippy
-rust-gdb
-rustc
-rustfmt
 samba-common
 samba-common-bin
 samba-dsdb-modules:amd64

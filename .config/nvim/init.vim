@@ -109,7 +109,7 @@ autocmd BufWritePost Xresources,Xdefaults,xresources,xdefaults !xrdb %
 "plug.vim
 "frozen makes the plugins not update
 call plug#begin('~/.config/nvim/plugged')
-Plug 'echasnovski/mini.indentscope', { 'branch': 'stable', 'frozen': 1 }
+"Plug 'echasnovski/mini.indentscope', { 'branch': 'stable', 'frozen': 1 }
 Plug 'lukas-reineke/indent-blankline.nvim', { 'tag': 'v2.20.8', 'frozen': 1 }
 Plug 'morhetz/gruvbox', { 'frozen': 1 }
 Plug 'psliwka/vim-smoothie', { 'frozen': 1 }
@@ -119,11 +119,11 @@ Plug 'tpope/vim-surround', { 'frozen': 1 }
 Plug 'tomtom/tcomment_vim', { 'frozen': 1 }
 call plug#end()
 "comment at begginign of line
-let g:tcomment#options ={
- \ 'col': 1,
- \ 'whitespace': 'no',
- \ 'strip_whitespace': '0'
-\}
+"let g:tcomment#options ={
+" \ 'col': 1,
+" \ 'whitespace': 'no',
+" \ 'strip_whitespace': '0'
+"\}
 let g:gruvbox_transparent_bg = 1
 let g:gruvbox_italic = 1
 set bg=dark
@@ -137,15 +137,15 @@ hi Normal guibg=NONE ctermbg=NONE
 hi statusline guibg=NONE gui=NONE guifg=#7d8618
 hi LineNr guifg=#7d8618
 "identscope
-lua << EOF
-require('mini.indentscope').setup({
- draw = {
-  delay = 100,
-  priority = 2,
- },
- symbol = '┇'
-})
-EOF
+" lua << EOF
+" require('mini.indentscope').setup({
+"  draw = {
+"   delay = 100,
+"   priority = 2,
+"  },
+"  symbol = '┇'
+" })
+" EOF
 "indentblankline
 let g:indent_blankline_char = '│'
 lua << EOF

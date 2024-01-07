@@ -262,7 +262,7 @@ IP_LIST="
 8.34.211.0/24
 8.34.220.0/22
 "
-if [ "$1" = "onfi" ]; then
+if [ "$1" = "onfin" ]; then
  sudo firewall-cmd --reload
  for i in $EU_NO_FI_LIST
   do
