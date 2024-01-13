@@ -82,6 +82,12 @@ cmake-data
 cmatrix
 cmus
 cmus-plugin-ffmpeg
+coinor-libcbc3:amd64
+coinor-libcgl1:amd64
+coinor-libclp1:amd64
+coinor-libcoinmp1v5:amd64
+coinor-libcoinutils3v5:amd64
+coinor-libosi1v5:amd64
 colord
 colord-data
 console-setup
@@ -92,6 +98,7 @@ cpio
 cpp
 cpp-10
 cpp-12
+cracklib-runtime
 cron
 cron-daemon-common
 cryptsetup
@@ -186,7 +193,9 @@ fonts-font-awesome
 fonts-katex
 fonts-lato
 fonts-liberation
+fonts-liberation2
 fonts-noto-mono
+fonts-opensymbol
 fonts-urw-base35
 fonts-vlgothic
 fonts-wine
@@ -514,6 +523,7 @@ libbluetooth3:amd64
 libbluray2:amd64
 libboost-filesystem1.74.0:amd64
 libboost-iostreams1.74.0:amd64
+libboost-locale1.74.0:amd64
 libboost-regex1.74.0:amd64
 libboost-thread1.74.0:amd64
 libbotan-2-19:amd64
@@ -593,6 +603,8 @@ libclass-method-modifiers-perl
 libclass-xsaccessor-perl
 libclone-perl:amd64
 libcloudproviders0:amd64
+libclucene-contribs1v5:amd64
+libclucene-core1v5:amd64
 libcodec2-1.0:amd64
 libcodec2-1.0:i386
 libcolamd2:amd64
@@ -610,6 +622,7 @@ libconfig9:amd64
 libconst-fast-perl
 libcpanel-json-xs-perl:amd64
 libcpupower1
+libcrack2:amd64
 libcrypt-dev:amd64
 libcrypt1:amd64
 libcrypt1:i386
@@ -713,12 +726,14 @@ libelf1:i386
 libemail-address-xs-perl
 libenchant-2-2:amd64
 libencode-locale-perl
+libeot0:amd64
 libepoxy-dev:amd64
 libepoxy0:amd64
 libepoxy0:i386
 liberror-perl
 libespeak-ng1:amd64
 libestr0:amd64
+libetonyek-0.1-1:amd64
 libev-dev:amd64
 libev4:amd64
 libevdev-dev:amd64
@@ -738,6 +753,8 @@ libexpat1:amd64
 libexpat1:i386
 libexpat1-dev:amd64
 libext2fs2:amd64
+libexttextcat-2.0-0:amd64
+libexttextcat-data
 libextutils-depends-perl
 libfaad2:amd64
 libfakeroot:amd64
@@ -957,6 +974,7 @@ libgusb2:amd64
 libgutenprint-common
 libgutenprint9
 libgvnc-1.0-0:amd64
+libhandy-1-0:amd64
 libharfbuzz-bin
 libharfbuzz-dev:amd64
 libharfbuzz-gobject0:amd64
@@ -1183,6 +1201,8 @@ libkrb5support0:i386
 libksba8:amd64
 libkwalletbackend5-5:amd64
 libkworkspace5-5
+liblangtag-common
+liblangtag1:amd64
 liblapack3:amd64
 liblc3-0:amd64
 liblcms2-2:amd64
@@ -1261,6 +1281,7 @@ libmenu-cache-bin
 libmenu-cache3:amd64
 libmetis5:amd64
 libmfx1:amd64
+libmhash2:amd64
 libminizip1:amd64
 libmjpegutils-2.1-0:amd64
 libmldbm-perl
@@ -1438,7 +1459,9 @@ libmtp-common
 libmtp-runtime
 libmtp9:amd64
 libmujs2:amd64
+libmwaw-0.3-3:amd64
 libmysofa1:amd64
+libmythes-1.2-0:amd64
 libnamespace-clean-perl
 libncurses-dev:amd64
 libncurses6:amd64
@@ -1491,6 +1514,8 @@ libntfs-3g89:amd64
 libnuma1:amd64
 libnuma1:i386
 libnumber-compare-perl
+libnumbertext-1.0-0:amd64
+libnumbertext-data
 libnunit-cil-dev
 libnunit-console-runner2.6.3-cil
 libnunit-core-interfaces2.6.3-cil
@@ -1508,6 +1533,7 @@ libodbc2:i386
 libodbccr2:amd64
 libodbccr2:i386
 libodbcinst2:amd64
+libodfgen-0.1-1:amd64
 libogdi4.1
 libogg-dev:amd64
 libogg-ocaml
@@ -1542,6 +1568,8 @@ libopus0:i386
 libopusfile0:amd64
 liborc-0.4-0:amd64
 liborc-0.4-0:i386
+liborcus-0.17-0:amd64
+liborcus-parser-0.17-0:amd64
 libosmesa6:amd64
 libosmesa6:i386
 libp11-kit0:amd64
@@ -1637,6 +1665,8 @@ libpulse0:i386
 libpulsedsp:amd64
 libpurple-bin
 libpurple0:amd64
+libpwquality-common
+libpwquality1:amd64
 libpython3-dev:amd64
 libpython3-stdlib:amd64
 libpython3.11:amd64
@@ -1691,6 +1721,7 @@ librabbitmq4:amd64
 librados2
 libraptor2-0:amd64
 libraqm0:amd64
+librasqal3:amd64
 librav1e0:amd64
 librav1e0:i386
 libraw1394-11:amd64
@@ -1698,11 +1729,18 @@ libraw1394-11:i386
 libraw20:amd64
 librbd1
 librcc0:amd64
+librdf0:amd64
 librdmacm1:amd64
 libreadline8:amd64
 libregexp-ipv6-perl
 libregexp-wildcards-perl
+libreoffice-base-core
+libreoffice-calc
+libreoffice-common
+libreoffice-core
+libreoffice-style-colibre
 libresid-builder0c2a
+librevenge-0.0-0:amd64
 librhash0:amd64
 librist4:amd64
 librole-tiny-perl
@@ -1822,6 +1860,7 @@ libssh2-1-dev:amd64
 libssl-dev:amd64
 libssl3:amd64
 libssl3:i386
+libstaroffice-0.0-0:amd64
 libstartup-notification0:amd64
 libstdc++-10-dev:amd64
 libstdc++-12-dev:amd64
@@ -1930,6 +1969,11 @@ libunibilium4:amd64
 libunicode-utf8-perl
 libunistring2:amd64
 libunistring2:i386
+libuno-cppu3
+libuno-cppuhelpergcc3-3
+libuno-purpenvhelpergcc3-3
+libuno-sal3
+libuno-salhelpergcc3-3
 libunwind-dev:amd64
 libunwind8:amd64
 libunwind8:i386
@@ -2025,6 +2069,7 @@ libwmflite-0.2-7:amd64
 libwoff1:amd64
 libwpe-1.0-1:amd64
 libwpebackend-fdo-1.0-1:amd64
+libwps-0.4-4:amd64
 libwrap0:amd64
 libwrap0:i386
 libwww-mechanize-perl
@@ -2161,6 +2206,8 @@ libxml2:i386
 libxml2-dev:amd64
 libxml2-utils
 libxmlb2:amd64
+libxmlsec1:amd64
+libxmlsec1-nss:amd64
 libxmu-dev:amd64
 libxmu-headers
 libxmu6:amd64
@@ -2223,12 +2270,13 @@ lintian
 linux-base
 linux-cpupower
 linux-headers-6.6.10-1-liquorix-amd64
-linux-headers-6.6.8-2-liquorix-amd64
+linux-headers-6.6.11-1-liquorix-amd64
 linux-headers-6.6.9-1-liquorix-amd64
 linux-headers-liquorix-amd64
 linux-image-6.1.0-16-amd64
 linux-image-6.1.0-17-amd64
 linux-image-6.6.10-1-liquorix-amd64
+linux-image-6.6.11-1-liquorix-amd64
 linux-image-6.6.7-1-liquorix-amd64
 linux-image-6.6.8-1-liquorix-amd64
 linux-image-6.6.8-2-liquorix-amd64
@@ -2253,6 +2301,7 @@ locales
 login
 logrotate
 logsave
+lp-solve
 lsb-base
 lsb-release
 lsof
@@ -2490,9 +2539,12 @@ python3-icalendar
 python3-icu
 python3-idna
 python3-imagesize
+python3-importlib-metadata
 python3-iniconfig
 python3-isodate
+python3-jaraco.classes
 python3-jdcal
+python3-jeepney
 python3-jinja2
 python3-joblib
 python3-json-pointer
@@ -2552,6 +2604,7 @@ python3-requests
 python3-rfc3987
 python3-roman
 python3-samba
+python3-secretstorage
 python3-send2trash
 python3-setproctitle:amd64
 python3-setuptools
@@ -2579,6 +2632,7 @@ python3-typer
 python3-tz
 python3-tzlocal
 python3-unidecode
+python3-uno
 python3-uritemplate
 python3-urllib3
 python3-urwid
@@ -2594,6 +2648,7 @@ python3-xdg
 python3-xlib
 python3-xlrd
 python3-yaml
+python3-zipp
 python3.11
 python3.11-dev
 python3.11-minimal
@@ -2871,8 +2926,6 @@ tk8.6-blt2.5
 tmux
 toilet
 toilet-fonts
-tor
-tor-geoipdb
 torbrowser-launcher
 torsocks
 tpm-udev
@@ -2886,10 +2939,12 @@ udiskie
 udisks2
 ueberzug
 unixodbc-common
+uno-libs-private
 unp
 unrar-free
 unzip
 update-inetd
+ure
 usb-modeswitch
 usb-modeswitch-data
 usb.ids
