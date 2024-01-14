@@ -7,6 +7,8 @@
 --embed-thumbnail
 --restrict-filenames
 --progress
+--yes-playlist
+--remux-video mkv
 --audio-quality 0
 -S res,codec:av1
 -o "%(uploader).15s-%(title).25s-%(id)s.%(ext)s"
