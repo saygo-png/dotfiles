@@ -458,8 +458,14 @@ awful.rules.rules = {
 -- { rule = { class = "mpv" },
 --  properties = { screen = 1, tag = "4" }
 -- },
- { rule = { class = "LibreWolf" },
+ { rule = { class = "KeePassXC" },
+  properties = { screen = 1, tag = "8" }
+ },
+{ rule = { class = "LibreWolf" },
   properties = { screen = 1, tag = "2" }
+ },
+  { rule = { name = "MarkdownPreview — LibreWolf" },
+  properties = { screen = 1, tag = "1" }
  },
  { rule = { class = "qBittorrent" },
   properties = { screen = 1, tag = "9" }
@@ -521,9 +527,9 @@ end)
  client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
  client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 --window swallowing
- dont_swallow_classname_list = { "librewolf", "nheko", "krita" }
+ dont_swallow_classname_list = { "LibreWolf", "librewolf", "nheko", "krita" }
  table_minimize_parent = { "mpv", "ranger" }
- table_cannot_swallow = { "krita", "nheko", "godot" }
+ table_cannot_swallow = { "krita", "nheko", "godot", "LibreWolf", "librewolf" }
 
 function is_in_Table(table, element)
  for _, value in pairs(table) do

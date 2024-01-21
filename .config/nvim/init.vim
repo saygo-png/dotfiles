@@ -29,7 +29,9 @@ set noswapfile
  set autoindent
  set cpoptions+=I
  set smartindent
-" set cindent
+"case insensitive search
+set ignorecase
+set smartcase
 "remaps
 "makes o insert a blank line in normal mode
 nnoremap o o<Esc>0"_D
@@ -109,6 +111,7 @@ autocmd BufWritePost Xresources,Xdefaults,xresources,xdefaults !xrdb %
 "plug.vim
 "frozen makes the plugins not update
 call plug#begin('~/.config/nvim/plugged')
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
 Plug 'echasnovski/mini.indentscope', { 'branch': 'stable', 'frozen': 1 }
 Plug 'lukas-reineke/indent-blankline.nvim', { 'tag': 'v2.20.8', 'frozen': 1 }
 Plug 'morhetz/gruvbox', { 'frozen': 1 }
@@ -169,3 +172,13 @@ require("indent_blankline").setup {
  },
 }
 EOF
+"markdownpreview
+let g:mkdp_auto_start = 1
+let g:mkdp_auto_close = 1
+let g:mkdp_page_title = 'MarkdownPreview'
+let g:mkdp_theme = 'light'
+ " Open the URL in a new Firefox window
+let g:mkdp_browserfunc = 'MarkdownPreview'
+function! MarkdownPreview(url)
+ silent exec "!librewolf --new-window " . shellescape(a:url)
+endfunction

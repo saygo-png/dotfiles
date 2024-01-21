@@ -1284,6 +1284,7 @@ libmd0:amd64
 libmd0:i386
 libmd4c0:amd64
 libmeanwhile1:amd64
+libmediainfo0v5:amd64
 libmenu-cache-bin
 libmenu-cache3:amd64
 libmetis5:amd64
@@ -1292,6 +1293,7 @@ libmhash2:amd64
 libminizip1:amd64
 libmjpegutils-2.1-0:amd64
 libmldbm-perl
+libmms0:amd64
 libmnl0:amd64
 libmodplug1:amd64
 libmodule-implementation-perl
@@ -1620,6 +1622,7 @@ libpcre2-8-0:i386
 libpcre2-dev:amd64
 libpcre2-posix3:amd64
 libpcre3:amd64
+libpcrecpp0v5:amd64
 libpcsclite1:amd64
 libpcsclite1:i386
 libperl5.36:amd64
@@ -1936,6 +1939,7 @@ libtimedate-perl
 libtinfo-dev:amd64
 libtinfo6:amd64
 libtinfo6:i386
+libtinyxml2-9:amd64
 libtirpc-common
 libtirpc-dev:amd64
 libtirpc3:amd64
@@ -2259,6 +2263,7 @@ libz3-4:amd64
 libz3-4:i386
 libz3-dev:amd64
 libzbar0:amd64
+libzen0v5:amd64
 libzephyr4:amd64
 libzimg2:amd64
 libzita-convolver4:amd64
@@ -2274,12 +2279,13 @@ libzxing2:amd64
 lintian
 linux-base
 linux-cpupower
-linux-headers-6.6.10-1-liquorix-amd64
 linux-headers-6.6.11-1-liquorix-amd64
+linux-headers-6.6.12-1-liquorix-amd64
 linux-headers-liquorix-amd64
 linux-image-6.1.0-17-amd64
 linux-image-6.6.10-1-liquorix-amd64
 linux-image-6.6.11-1-liquorix-amd64
+linux-image-6.6.12-1-liquorix-amd64
 linux-image-amd64
 linux-image-liquorix-amd64
 linux-libc-dev:amd64
@@ -2331,6 +2337,7 @@ mariadb-common
 mawk
 media-player-info
 media-types
+megacmd
 menu
 mesa-utils
 mesa-utils-bin:amd64

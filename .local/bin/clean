@@ -6,6 +6,7 @@ fi
 sudo apt clean
 appman -c
 sudo trash-empty
+trash-empty
 sudo apt autoremove
 if [ "$1" = "hard" ]; then
  notify-send "hard cleaned"
