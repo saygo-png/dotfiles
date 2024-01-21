@@ -14,5 +14,10 @@ echo "updating with scripts..."
  ~/Scripts/upgrade_mullvad.sh
 # ~/Scripts/upgrade_picom.sh
 # ~/Scripts/upgrade_lf.sh
-dpkg-query --show -f='${binary:Package}\n' > ~/.config/packagelist
+
+#nixos suck my dick
+dpkg-query --show -f='${binary:Package}\n' > ~/.config/packagelist.txt
+mkdir -p ~/.config/repos
+cp -r /etc/apt/keyrings/ ~/.config/repos/
+cp -r /etc/apt/sources.list.d/ ~/.config/repos/
 echo "all updates finished" && notify-send "finished updates"
