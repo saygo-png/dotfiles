@@ -16,13 +16,10 @@ alias \
  unp="unp -U" \
 	cp="cp -ivr" \
 	mv="mv -iv" \
-	rm="trash -v" \
+	rm="rmw" \
 	la="ls -hN --color=auto --group-directories-first -a" \
 	bc="bc -ql" \
-	mkd="mkdir -pv" \
-	yt="yt-dlp --embed-metadata -i" \
-	yta="yt -x -f bestaudio/best" \
-	ytt="yt --skip-download --write-thumbnail" \
+	mkdir="mkdir -pv" \
 	ffmpeg="ffmpeg -hide_banner"
 	lf="lfub"
 # Colorize commands when possible.

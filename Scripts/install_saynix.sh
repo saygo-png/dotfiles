@@ -50,3 +50,6 @@ done < packagelist.txt
 #install filtered packages
 xargs -a packages-valid.txt sudo apt-get -y install
 sudo apt-get -y upgrade
+
+# #replace rm with rmw (trash)
+# sudo ln -s /bin/rmw /usr/local/bin/rm
