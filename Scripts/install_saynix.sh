@@ -1,4 +1,6 @@
 #!/bin/bash
+set -o pipefail -e -u
+shopt -s failglob
 
 #continue if the script is ran only by non-root
 if (( "$EUID" != 0 )); then
@@ -23,7 +25,7 @@ if [[ $create_entry == "y" || $create_entry == "Y" ]]; then
 fi
 
 
-#temporary so i dont fuck up my system delete when using script
+#temporary so i dont fuck up my system when testing script
 exit
 
 

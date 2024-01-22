@@ -1,6 +1,12 @@
+#!/bin/bash
 #make temp working directory
-mkdir /tmp/proton-ge-custom
-cd /tmp/proton-ge-custom
+set -o pipefail -e -u
+shopt -s failglob
+
+trap 'rm -r "$tmpfile"' EXIT
+tmpfile=$(mktemp -d) || exit 1
+echo "temp file is $tmpfile"
+cd "$tmpfile"
 
 #tarball
 wget -N $(curl -s https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest | grep browser_download_url | cut -d\" -f4 | egrep .tar.gz)
