@@ -266,7 +266,7 @@ if [ "$1" = "onfin" ]; then
  sudo firewall-cmd --reload
  for i in $EU_NO_FI_LIST
   do
-   sudo firewall-cmd --direct --add-rule ipv4 filter OUTPUT 0 -d $i -j REJECT
+   sudo firewall-cmd --direct --add-rule ipv4 filter OUTPUT 0 -d "$i" -j REJECT
   done
  exit
 fi
@@ -275,7 +275,7 @@ if [ "$1" = "on" ]; then
  sudo firewall-cmd --reload
  for i in $IP_LIST
   do
-   sudo firewall-cmd --direct --add-rule ipv4 filter OUTPUT 0 -d $i -j REJECT
+   sudo firewall-cmd --direct --add-rule ipv4 filter OUTPUT 0 -d "$i" -j REJECT
   done
  notify-send "ow firewall on" && echo "ow firewall on"
  exit

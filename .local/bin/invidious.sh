@@ -10,8 +10,10 @@ function verbose {
 query=$(rofi -dmenu -P "Invidious | Search" -l 0 -width 500 | sed "s/+/%2B/g; s/ /+/g; s/'/&#39;/g")
 verbose "Query: $query"
 
+
 # Keskeytä, jos haku on tyhjä
-[ -z $query ] && exit 0
+[ -z "$query" ] && exit 0
+
 
 notify-send -u low -t 4000 "Invidious" "Searching..."
 website=$(curl -qs https://${instance}/api/v1/search?q=${query})

@@ -7,8 +7,6 @@ trap 'rm -r "$tmpfile"' EXIT
 tmpfile=$(mktemp -d) || exit 1
 echo "temp file is $tmpfile"
 
-OS='linux'
-OS_type='amd64'
 download_link="https://downloads.rclone.org/rclone-current-linux-amd64.zip"
 rclone_zip="rclone-current-linux-amd64.zip"
 unzip_dir="tmp_unzip_dir_for_rclone"

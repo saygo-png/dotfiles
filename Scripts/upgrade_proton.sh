@@ -9,7 +9,7 @@ echo "temp file is $tmpfile"
 cd "$tmpfile"
 
 #tarball
-wget -N $(curl -s https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest | grep browser_download_url | cut -d\" -f4 | egrep .tar.gz)
+wget -N "$(curl -s https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest | grep browser_download_url | cut -d\" -f4 | grep -E .tar.gz)"
 
 #make steam directory if it does not exist
 mkdir -p ~/.steam/root/compatibilitytools.d
@@ -22,9 +22,9 @@ echo "Steam Proton done"
 mkdir -p ~/.local/share/lutris/runners/wine/
 
 #tarballs
-wget -N $(curl -s https://api.github.com/repos/GloriousEggroll/wine-ge-custom/releases | grep browser_download_url | cut -d\" -f4 | egrep LoL | egrep .tar.xz)
+wget -N "$(curl -s https://api.github.com/repos/GloriousEggroll/wine-ge-custom/releases | grep browser_download_url | cut -d\" -f4 | grep -E LoL | grep -E .tar.xz)"
 
-wget -N $(curl -s https://api.github.com/repos/GloriousEggroll/wine-ge-custom/releases/latest | grep browser_download_url | cut -d\" -f4 | egrep -v LoL | egrep .tar.xz)
+wget -N "$(curl -s https://api.github.com/repos/GloriousEggroll/wine-ge-custom/releases/latest | grep browser_download_url | cut -d\" -f4 | grep -E -v LoL | grep -E .tar.xz)"
 
 #unpack
 aunpack -e wine-lutris-*.tar.xz -X ~/.local/share/lutris/runners/wine/

@@ -1,5 +1,6 @@
 #!/bin/bash
-set -o pipefail -e -u
+set -o pipefail
+set -u
 shopt -s failglob
 
 #continue if the script is ran only by non-root
@@ -16,7 +17,7 @@ Have you done the following before running this script?
 -Deleted everything in your home directory
 -Ran "git clone https://github.com/saygo-png/dotfiles.git ."
 EOF
-read -p "(y/N) " create_entry
+read -rp "(y/N) " create_entry
 if [[ $create_entry == "y" || $create_entry == "Y" ]]; then
  :
  else
