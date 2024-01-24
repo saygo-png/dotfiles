@@ -1,0 +1,73 @@
+#!/bin/bash
+# Safety.
+set -u && set -o pipefail && shopt -s failglob
+
+# Check if arguments were given.
+if [[ -z "$*" ]]; then
+ echo "Provide words for translations like so:"
+ echo " transfin <word1> <word2>"
+ exit
+fi
+
+# Get csv with stems.
+finstemcsv=$(finstem --format csv "$@")
+
+# Extract the second column.
+second_column=$(echo "$finstemcsv" | awk -F ',' 'NR>1 {print $2}')
+
+# Remove lines containing "Unknown".
+stem_words_newline_seperated=$(echo "$second_column" | grep -v "Unknown")
+
+# Check if any of the words is unknown and list the amount and the word.
+unknown_found=false
+check_unknown() {
+ if echo "$second_column" | grep -q "Unknown"; then
+   unknown_found=true
+   count=$(echo "$second_column" | grep -c "Unknown")
+   echo -e "-------------------- ERROR --------------------"
+   echo "$count"" stem couldn't be found, not printing stems."
+   echo -e "------------------ END ERROR ------------------"
+   echo -e ''
+ fi
+}
+
+# Full translate first argument.
+translate_full() {
+ trans -d -show-languages no -show-prompt-message yes -indent 1 -s fin -t eng -show-translation-phonetics no -show-dictionary no -show-alternatives yes "$1" | grep -v '^$'
+}
+
+# Full translate every argument.
+nonstem_words_newline_seperated=$(echo "$@" | tr ' ' '\n')
+translate_nonstems_loop() {
+ while IFS= read -r word_nonstem; do
+  echo -e "-------------------- ""$word_nonstem"" --------------------"
+  translate_full "$word_nonstem"
+ done <<< "$nonstem_words_newline_seperated"
+}
+
+# Full translate every stem.
+translate_stems_loop() {
+ while IFS= read -r word_stem; do
+  echo -e "-------------------- ""$word_stem"" --------------------"
+  translate_full "$word_stem"
+ done <<< "$stem_words_newline_seperated"
+}
+
+# Arrange the outputs nicely.
+tobeparsed() {
+ check_unknown
+ translate_nonstems_loop
+ if [[ "$unknown_found" = false ]] ; then
+   echo -e ''
+   echo -e ''
+   echo -e ''
+   echo -e ''
+   echo -e ''
+   echo -e ''
+   echo -e '================= Stems below ================='
+   translate_stems_loop
+ fi
+}
+
+# Output into pager.
+tobeparsed | most

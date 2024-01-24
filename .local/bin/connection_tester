@@ -1,0 +1,13 @@
+#!/bin/bash
+set -o pipefail -e -u
+shopt -s failglob
+TARGET="duck.com"
+
+# Infinite loop for continuous pinging
+while true; do
+ if ! fping -c1 -t500 -o "$TARGET" | tee -a /dev/tty | grep -E -q 'timed out|Name or service not known'; then
+  sleep 0.1
+ else
+  notify-send "Ping Failed" "Could not ping $TARGET"
+ fi
+done
