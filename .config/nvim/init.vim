@@ -6,10 +6,10 @@ syntax on
 set encoding=utf-8
 set number relativenumber
 set title
-set nohlsearch
+set hlsearch
+"highlight toggle
+nnoremap <silent><expr> <C-h> (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 set paste
-set clipboard+=unnamedplus
-set clipboard+=unnamed
 set noshowmode
 set laststatus=0
 "set noshowcmd
@@ -37,13 +37,23 @@ set smartcase
 nnoremap o o<Esc>0"_D
 nnoremap L .
 "no clue
-nnoremap c "_c
-"makes d and x delete
-"nnoremap x "_x
+"makes d delete and x cut, paste is infinite. default vim is retarded
+set clipboard+=unnamedplus
+set clipboard+=unnamed
 nnoremap d "_d
 nnoremap D "_D
 vnoremap d "_d
-"nnoremap <leader>x ""x
+nnoremap dd "_dd
+noremap c "_c
+vnoremap c "_c
+nnoremap C "_C
+" noremap x "+x
+" nnoremap Y "+y$
+" xnoremap y "+y
+" nnoremap yy "+yy
+" noremap p "+gp
+" noremap P "+gP
+vnoremap <expr> p 'pgvy'
 nnoremap <leader>d ""d
 nnoremap <leader>D ""D
 vnoremap <leader>d ""d
@@ -52,7 +62,18 @@ vnoremap ; :
 vnoremap : ;
 nnoremap ; :
 nnoremap : ;
+"makes ctrl+s increment to not conflict with tmux
+nnoremap <C-s> <C-a>
 filetype plugin indent on
+"center search and substitution
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
+nnoremap g* g*zz
+nnoremap g# g#zzo
+com! -nargs=* -complete=command ZZWrap let &scrolloff=999 | exec <q-args> | let &so=0
+noremap <Leader>s "sy:ZZWrap .,$s/<C-r>s//gc<Left><Left><Left>
 "start of tpope config
 set backspace=indent,eol,start
 set complete-=i
@@ -85,7 +106,8 @@ if !exists('g:is_posix') && !exists('g:is_bash') && !exists('g:is_kornshell') &&
  let g:is_posix = 1
 endif
 "open file at last closed location
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+autocmd BufReadPost norm zz
 "splits open at the bottom and right, which is non-retarded, unlike vim defaults.
 set splitbelow splitright
 "enable autocompletion:
@@ -94,15 +116,12 @@ set wildmode=longest,list,full
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 "perform dot commands over visual blocks:
 vnoremap . :normal .<CR>
-"save file as sudo on files that require root permission
-cabbrev w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 "automatically deletes all trailing whitespace and newlines at end of file on save. & reset cursor position
 autocmd BufWritePre * let currPos = getpos(".")
 autocmd BufWritePre * %s/\s\+$//e
 autocmd BufWritePre * %s/\n\+\%$//e
 autocmd BufWritePre *.[ch] %s/\%$/\r/e " add trailing newline for ANSI C standard
 autocmd BufWritePre *neomutt* %s/^--$/-- /e " dash-dash-space signature delimiter in emails
-autocmd BufWritePre * cal cursor(currPos[1], currPos[2])
 "run xrdb whenever Xdefaults or Xresources are updated.
 autocmd BufRead,BufNewFile Xresources,Xdefaults,xresources,xdefaults set filetype=xdefaults
 autocmd BufWritePost Xresources,Xdefaults,xresources,xdefaults !xrdb %
