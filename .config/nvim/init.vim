@@ -4,6 +4,7 @@ set ff=unix
 let mapleader=","
 syntax on
 set encoding=utf-8
+set fileencoding=utf-8
 set number relativenumber
 set title
 set hlsearch
@@ -14,8 +15,8 @@ set noshowmode
 set laststatus=0
 "set noshowcmd
 set noswapfile
-"indents
-" set nowrap
+" Indents
+ set nowrap
  set linebreak
  set showbreak=\ \
  set breakindent
@@ -108,96 +109,118 @@ endif
 "open file at last closed location
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 autocmd BufReadPost norm zz
-"splits open at the bottom and right, which is non-retarded, unlike vim defaults.
+" Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
 set splitbelow splitright
-"enable autocompletion:
+" Enable autocompletion:
 set wildmode=longest,list,full
-"disables automatic commenting on newline:
+" Disables automatic commenting on newline:
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 "perform dot commands over visual blocks:
 vnoremap . :normal .<CR>
-"automatically deletes all trailing whitespace and newlines at end of file on save. & reset cursor position
+" Automatically deletes all trailing whitespace and newlines at end of file on save.
+" and resets cursor position.
 autocmd BufWritePre * let currPos = getpos(".")
 autocmd BufWritePre * %s/\s\+$//e
 autocmd BufWritePre * %s/\n\+\%$//e
 autocmd BufWritePre *.[ch] %s/\%$/\r/e " add trailing newline for ANSI C standard
 autocmd BufWritePre *neomutt* %s/^--$/-- /e " dash-dash-space signature delimiter in emails
-"run xrdb whenever Xdefaults or Xresources are updated.
+" Run xrdb whenever Xdefaults or Xresources are updated.
 autocmd BufRead,BufNewFile Xresources,Xdefaults,xresources,xdefaults set filetype=xdefaults
 autocmd BufWritePost Xresources,Xdefaults,xresources,xdefaults !xrdb %
-"change normal mode cursor to underline
-"set guicursor=n-v-c-sm:hor100,i-ci-ve:ver25,r-cr-o:hor20"
-"plug.vim
-"frozen makes the plugins not update
+" change normal mode cursor to underline
+" set guicursor=n-v-c-sm:hor100,i-ci-ve:ver25,r-cr-o:hor20"
+" plug.vim
+" frozen makes the plugins not update
 call plug#begin('~/.config/nvim/plugged')
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npx --yes yarn install' }
-Plug 'echasnovski/mini.indentscope', { 'branch': 'stable', 'frozen': 1 }
-Plug 'lukas-reineke/indent-blankline.nvim', { 'tag': 'v2.20.8', 'frozen': 1 }
-Plug 'morhetz/gruvbox', { 'frozen': 1 }
-Plug 'psliwka/vim-smoothie', { 'frozen': 1 }
-"Plug 'junegunn/fzf', { 'frozen': 1 }
-Plug 'ap/vim-css-color', { 'frozen': 1 }
-Plug 'tpope/vim-surround', { 'frozen': 1 }
-Plug 'tomtom/tcomment_vim', { 'frozen': 1 }
+ Plug 'iamcco/markdown-preview.nvim',       { 'do': 'cd app && npx --yes yarn install' }
+ Plug 'echasnovski/mini.indentscope',       { 'branch': 'stable','frozen': 1 }
+ Plug 'lukas-reineke/indent-blankline.nvim',{ 'tag': 'v2.20.8',  'frozen': 1 }
+ Plug 'psliwka/vim-smoothie',               { 'frozen': 1 }
+ Plug 'junegunn/fzf',                       { 'frozen': 1 }
+ Plug 'brenoprata10/nvim-highlight-colors', { 'frozen': 1 }
+ Plug 'tpope/vim-surround',                 { 'frozen': 1 }
+ Plug 'tomtom/tcomment_vim',                { 'frozen': 1 }
+ Plug 'echasnovski/mini.align'
+ Plug 'morhetz/gruvbox',                    { 'frozen': 1 }
 call plug#end()
-"comment at begginign of line
-"let g:tcomment#options ={
-" \ 'col': 1,
-" \ 'whitespace': 'no',
-" \ 'strip_whitespace': '0'
-"\}
+
+"colors
 let g:gruvbox_transparent_bg = 1
 let g:gruvbox_italic = 1
 set bg=dark
-set t_8f=^[[38;2;%lu;%lu;%lum        " set foreground color
-set t_8b=^[[48;2;%lu;%lu;%lum        " set background color
-"autocmd VimEnter * hi Normal ctermbg=NONE guibg=NONE")
+set t_8f=^[[38;2;%lu;%lu;%lum " set foreground color
+set t_8b=^[[48;2;%lu;%lu;%lum " set background color
 colorscheme gruvbox
 set t_Co=256                         " Enable 256 colors
 set termguicolors                    " Enable GUI colors for the terminal to get truecolor
 hi Normal guibg=NONE ctermbg=NONE
 hi statusline guibg=NONE gui=NONE guifg=#7d8618
 hi LineNr guifg=#7d8618
-"identscope
+
+" Tcomment.
+"comment at begginign of line
+"let g:tcomment#options ={
+" \ 'col': 1,
+" \ 'whitespace': 'no',
+" \ 'strip_whitespace': '0'
+"\}
+
+"MiniAlign
 lua << EOF
-require('mini.indentscope').setup({
- draw = {
-  delay = 100,
-  priority = 2,
- },
- symbol = '┇'
-})
+ require('mini.align').setup()
 EOF
-"indentblankline
+
+" Identscope.
+lua << EOF
+ require('mini.indentscope').setup({
+  draw = {
+   delay = 100,
+   priority = 2,
+  },
+  symbol = '┇'
+ })
+EOF
+
+" Indentblankline.
 let g:indent_blankline_char = '│'
 lua << EOF
-vim.opt.list = true
-vim.cmd [[highlight IndentBlanklineIndent1 guifg=#cc241d gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent2 guifg=#98971a gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent3 guifg=#d79921 gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent4 guifg=#458588 gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent5 guifg=#b16286 gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent6 guifg=#689d6a gui=nocombine]]
-require("indent_blankline").setup {
- space_char_blankline = "",
- char_highlight_list =
- {
-  "IndentBlanklineIndent1",
-  "IndentBlanklineIndent2",
-  "IndentBlanklineIndent3",
-  "IndentBlanklineIndent4",
-  "IndentBlanklineIndent5",
-  "IndentBlanklineIndent6",
- },
-}
+ vim.opt.list = true
+ vim.cmd [[highlight IndentBlanklineIndent1 guifg=#cc241d gui=nocombine]]
+ vim.cmd [[highlight IndentBlanklineIndent2 guifg=#98971a gui=nocombine]]
+ vim.cmd [[highlight IndentBlanklineIndent3 guifg=#d79921 gui=nocombine]]
+ vim.cmd [[highlight IndentBlanklineIndent4 guifg=#458588 gui=nocombine]]
+ vim.cmd [[highlight IndentBlanklineIndent5 guifg=#b16286 gui=nocombine]]
+ vim.cmd [[highlight IndentBlanklineIndent6 guifg=#689d6a gui=nocombine]]
+ require("indent_blankline").setup {
+  space_char_blankline = "",
+  char_highlight_list =
+  {
+   "IndentBlanklineIndent1",
+   "IndentBlanklineIndent2",
+   "IndentBlanklineIndent3",
+   "IndentBlanklineIndent4",
+   "IndentBlanklineIndent5",
+   "IndentBlanklineIndent6",
+  },
+ }
 EOF
-"markdownpreview
+
+" Markdownpreview.
 let g:mkdp_auto_start = 1
 let g:mkdp_auto_close = 1
 let g:mkdp_page_title = 'MarkdownPreview'
 let g:mkdp_theme = 'light'
- " Open the URL in a new Firefox window
+" Open the URL in a new Firefox window
 let g:mkdp_browserfunc = 'MarkdownPreview'
 function! MarkdownPreview(url)
  silent exec "!librewolf --new-window " . shellescape(a:url)
 endfunction
+
+" Colors plug.
+lua << EOF
+ require('nvim-highlight-colors').setup {
+ render = 'background', -- or 'foreground' or 'first_column'
+  enable_named_colors = true,
+  enable_tailwind = true,
+ }
+EOF

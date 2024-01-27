@@ -27,7 +27,7 @@
     gruvbox-dark-yellow-dark:  #d79921;
     gruvbox-dark-yellow-light: #689d6a;
     gruvbox-dark-gray:         #a89984;
-    border-color:	       rgba (40, 40, 40, 0%);
+    border-color:              rgba (40, 40, 40, 0%);
 
     /* Theme colors */
     background:                  @gruvbox-dark-bg0;

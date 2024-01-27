@@ -5,8 +5,8 @@ if [ "$1" = "hard" ]; then
 fi
 sudo apt clean
 appman -c
-rmw --clean
-sudo rmw --clean
+rmw --purge=1
+sudo rmw --purge=1
 sudo apt autoremove
 if [ "$1" = "hard" ]; then
  notify-send "hard cleaned"

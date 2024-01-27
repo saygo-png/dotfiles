@@ -1,0 +1,105 @@
+[ColorEffects:Disabled]
+Color=               56,56,56
+ColorAmount=         -0.8
+ColorEffect=         0
+ContrastAmount=      0.65
+ContrastEffect=      1
+IntensityAmount=     0.25
+IntensityEffect=     2
+
+[ColorEffects:Inactive]
+ChangeSelectionColor=true
+Color=               184,187,38
+ColorAmount=         0.025
+ColorEffect=         2
+ContrastAmount=      0.4
+ContrastEffect=      2
+Enable=              false
+IntensityAmount=     0
+IntensityEffect=     0
+
+[Colors:Button]
+BackgroundAlternate= 30,30,30
+BackgroundNormal=    22,22,22
+DecorationFocus=     168,153,132
+DecorationHover=     168,153,132
+ForegroundActive=    253,244,193
+ForegroundInactive=  124,111,100
+ForegroundLink=      235,219,178
+ForegroundNegative=  204,36,29
+ForegroundNeutral=   215,153,33
+ForegroundNormal=    104,157,106
+ForegroundPositive=  152,151,26
+ForegroundVisited=   177,98,134
+
+[Colors:Selection]
+BackgroundAlternate= 131,165,152
+BackgroundNormal=    40,40,40
+DecorationFocus=     152,151,26
+DecorationHover=     152,151,26
+ForegroundActive=    152,151,26
+ForegroundInactive=  180,113,31
+ForegroundLink=      180,113,31
+ForegroundNegative=  204,36,29
+ForegroundNeutral=   215,153,33
+ForegroundNormal=    104,157,106
+ForegroundPositive=  152,151,26
+ForegroundVisited=   177,98,134
+
+[Colors:Tooltip]
+BackgroundAlternate= 70,133,136
+BackgroundNormal=    50,50,50
+DecorationFocus=     168,153,132
+DecorationHover=     168,153,132
+ForegroundActive=    253,244,193
+ForegroundInactive=  124,111,100
+ForegroundLink=      235,219,178
+ForegroundNegative=  251,73,52
+ForegroundNeutral=   250,189,47
+ForegroundNormal=    142,192,124
+ForegroundPositive=  184,187,38
+ForegroundVisited=   211,134,155
+
+[Colors:View]
+BackgroundAlternate= 32,32,32
+BackgroundNormal=    24,24,24
+DecorationFocus=     168,153,132
+DecorationHover=     168,153,132
+ForegroundActive=    253,244,193
+ForegroundInactive=  124,111,100
+ForegroundLink=      235,219,178
+ForegroundNegative=  251,73,52
+ForegroundNeutral=   250,189,47
+ForegroundNormal=    142,192,124
+ForegroundPositive=  184,187,38
+ForegroundVisited=   211,134,155
+
+[Colors:Window]
+BackgroundAlternate= 42,42,52
+BackgroundNormal=    26,26,26
+DecorationFocus=     168,153,132
+DecorationHover=     168,153,132
+ForegroundActive=    253,244,193
+ForegroundInactive=  124,111,100
+ForegroundLink=      235,219,178
+ForegroundNegative=  251,73,52
+ForegroundNeutral=   250,189,47
+ForegroundNormal=    142,192,124
+ForegroundPositive=  184,187,38
+ForegroundVisited=   211,134,155
+
+[General]
+ColorScheme=         Krita-Wojtryb-Darker-Redesign-Gruvboxed
+Name=                Krita-Wojtryb-Darker-Redesign-Gruvboxed
+shadeSortColumn=     true
+
+[KDE]
+contrast=            7
+
+[WM]
+activeBackground=    60,60,60
+activeBlend=         249,245,215
+activeForeground=    249,245,215
+inactiveBackground=  64,63,62
+inactiveBlend=       75,71,67
+inactiveForeground=  124,111,100
