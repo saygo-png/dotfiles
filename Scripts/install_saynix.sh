@@ -3,7 +3,7 @@ set -o pipefail
 set -u
 shopt -s failglob
 
-#continue if the script is ran only by non-root
+# Continue if the script is ran only by non-root.
 if (( "$EUID" != 0 )); then
  :
  else
@@ -11,7 +11,7 @@ if (( "$EUID" != 0 )); then
   exit
 fi
 
-#ask if stuff is setup properly
+# Ask if stuff is setup properly.
 cat << EOF
 Have you done the following before running this script?
 -Deleted everything in your home directory
@@ -30,7 +30,7 @@ fi
 exit
 
 
-cd ~/.config/
+cd ~/.config/ || exit 1
 #update base config
 sudo apt-get -y update
 sudo apt-get -y upgrade
@@ -41,16 +41,20 @@ sudo cp -r ~/.config/keyrings/* /etc/apt/keyrings/.
 sudo cp -r ~/.config/sources.list.d/* /etc/apt/sources.list.d/.
 sudo apt-get -y update
 
-#filter packages that can be installed on the system, avoiding "unable to locate package" errors
+# Filter packages that can be installed on the system, avoiding "unable to locate package" errors.
  #clear old packages-valid
 echo -n > packages-valid.txt
 while read package
 do apt show "$package" 2>/dev/null | grep -qvz 'State:.*(virtual)' && echo "$package" >> packages-valid.txt && echo "$package"
 done < packagelist.txt
 
-#install filtered packages
+# Install filtered packages.
 xargs -a packages-valid.txt sudo apt-get -y install
 sudo apt-get -y upgrade
 
 # #replace rm with rmw (trash)
 # sudo ln -s /bin/rmw /usr/local/bin/rm
+
+# Install krita theme.
+mkdir -p ~/.local/share/krita/color-schemes/
+cp ~/.config/KritaWojtrybDarkerRedesignGreenGruvboxed.colors ~/.local/share/krita/color-schemes/

@@ -1,0 +1,18 @@
+#!/bin/sh
+set -u
+rotate() {
+	degree="$1"
+	tr '\n' '\0' | xargs -0 realpath | sort | uniq | while read -r file; do
+		case "$(file -b -i "$file")" in
+		image/jpeg*) jpegtran -rotate "$degree" -copy all -outfile "$file" "$file" ;;
+		*)           mogrify  -rotate "$degree" "$file" ;;
+		esac
+	done
+}
+
+case "$1" in
+ # "C-x")      xclip -in -filter | tr '\n' ' ' | xclip -in -selection clipboard ;;
+ "C-c")      while read -r file; do xclip -selection clipboard -target image/png "$file"; done ;;
+ "C-k")      tr '\n' '\0' | xargs -0 krita & ;;
+ "C-period") rotate  90 ;;
+esac
