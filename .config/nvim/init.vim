@@ -7,38 +7,38 @@ set encoding=utf-8
 set fileencoding=utf-8
 set number relativenumber
 set title
+" Search.
 set hlsearch
-"highlight toggle
+set shortmess-=S " Show amount of search results
+" Highlight toggle.
 nnoremap <silent><expr> <C-h> (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 set paste
 set noshowmode
 set laststatus=0
-"set noshowcmd
 set noswapfile
 " Indents
- set nowrap
- set linebreak
- set showbreak=\ \
- set breakindent
- set breakindentopt=shift:1
- set formatoptions=l
- set tabstop=1
- set softtabstop=-1
- set shiftwidth=0
- set shiftround
- set expandtab
- set autoindent
- set cpoptions+=I
- set smartindent
-"case insensitive search
+set nowrap
+set linebreak
+set showbreak=\ \
+set breakindent
+set breakindentopt=shift:1
+set formatoptions=l
+set tabstop=1
+set softtabstop=-1
+set shiftwidth=0
+set shiftround
+set expandtab
+set autoindent
+set cpoptions+=I
+set smartindent
+" Case insensitive search.
 set ignorecase
 set smartcase
-"remaps
-"makes o insert a blank line in normal mode
+" Remaps.
+" Makes o insert a blank line in normal mode
 nnoremap o o<Esc>0"_D
 nnoremap L .
-"no clue
-"makes d delete and x cut, paste is infinite. default vim is retarded
+" Makes d delete and x cut, paste is infinite. default vim is retarded
 set clipboard+=unnamedplus
 set clipboard+=unnamed
 nnoremap d "_d
@@ -48,25 +48,20 @@ nnoremap dd "_dd
 noremap c "_c
 vnoremap c "_c
 nnoremap C "_C
-" noremap x "+x
-" nnoremap Y "+y$
-" xnoremap y "+y
-" nnoremap yy "+yy
-" noremap p "+gp
-" noremap P "+gP
 vnoremap <expr> p 'pgvy'
 nnoremap <leader>d ""d
 nnoremap <leader>D ""D
 vnoremap <leader>d ""d
-"no need to press shit for command mode
+" No need to press shit for command mode.
 vnoremap ; :
 vnoremap : ;
 nnoremap ; :
 nnoremap : ;
-"makes ctrl+s increment to not conflict with tmux
+" Makes ctrl+s increment to not conflict with tmux.
 nnoremap <C-s> <C-a>
 filetype plugin indent on
-"center search and substitution
+" Center search and substitution.
+" This is also configued by a plugin in the plugins section.
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
@@ -75,47 +70,49 @@ nnoremap g* g*zz
 nnoremap g# g#zzo
 com! -nargs=* -complete=command ZZWrap let &scrolloff=999 | exec <q-args> | let &so=0
 noremap <Leader>s "sy:ZZWrap .,$s/<C-r>s//gc<Left><Left><Left>
-"start of tpope config
+" Start of tpope config.
 set backspace=indent,eol,start
 set complete-=i
 set smarttab
-"set nrformats-=octal
+set nrformats-=octal
 set ttimeout
 set ttimeoutlen=1
 set incsearch
-"nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
 set laststatus=2
-"set wildmenu
+set wildmenu
 set scrolloff=1
 set sidescroll=1
 set sidescrolloff=2
-"set display+=lastline
-"set display+=truncate
-"set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-"setglobal tags-=./tags tags-=./tags; tags^=./tags;
+set display+=lastline
+set display+=truncate
+set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+setglobal tags-=./tags tags-=./tags; tags^=./tags;
 set viminfo^=!
-"set sessionoptions-=options
+set sessionoptions-=options
 set viewoptions-=options
-"set nolangremap
-"snoremap <C-U> <C-G>u<C-U>
-"snoremap <C-W> <C-G>u<C-W>
-"vnoremap <C-U> <C-G>u<C-U>
-"vnoremap <C-W> <C-G>u<C-W>
-"inoremap <C-U> <C-G>u<C-U>
-"inoremap <C-W> <C-G>u<C-W>
+set nolangremap
+snoremap <C-U> <C-G>u<C-U>
+snoremap <C-W> <C-G>u<C-W>
+vnoremap <C-U> <C-G>u<C-U>
+vnoremap <C-W> <C-G>u<C-W>
+inoremap <C-U> <C-G>u<C-U>
+inoremap <C-W> <C-G>u<C-W>
 if !exists('g:is_posix') && !exists('g:is_bash') && !exists('g:is_kornshell') && !exists('g:is_dash')
  let g:is_posix = 1
 endif
-"open file at last closed location
+" Open file at last closed location. (this is literal magic)
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 autocmd BufReadPost norm zz
+" Change normal mode cursor to underline.
+" set guicursor=n-v-c-sm:hor100,i-ci-ve:ver25,r-cr-o:hor20"
 " Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
 set splitbelow splitright
 " Enable autocompletion:
 set wildmode=longest,list,full
 " Disables automatic commenting on newline:
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-"perform dot commands over visual blocks:
+" Perform dot commands over visual blocks:
 vnoremap . :normal .<CR>
 " Automatically deletes all trailing whitespace and newlines at end of file on save.
 " and resets cursor position.
@@ -127,10 +124,9 @@ autocmd BufWritePre *neomutt* %s/^--$/-- /e " dash-dash-space signature delimite
 " Run xrdb whenever Xdefaults or Xresources are updated.
 autocmd BufRead,BufNewFile Xresources,Xdefaults,xresources,xdefaults set filetype=xdefaults
 autocmd BufWritePost Xresources,Xdefaults,xresources,xdefaults !xrdb %
-" change normal mode cursor to underline
-" set guicursor=n-v-c-sm:hor100,i-ci-ve:ver25,r-cr-o:hor20"
-" plug.vim
-" frozen makes the plugins not update
+
+" Plug.vim -- all my plugin configuration is below,
+" frozen makes the plugins not update.
 call plug#begin('~/.config/nvim/plugged')
  Plug 'iamcco/markdown-preview.nvim',       { 'do': 'cd app && npx --yes yarn install' }
  Plug 'echasnovski/mini.indentscope',       { 'branch': 'stable','frozen': 1 }
@@ -140,16 +136,23 @@ call plug#begin('~/.config/nvim/plugged')
  Plug 'brenoprata10/nvim-highlight-colors', { 'frozen': 1 }
  Plug 'tpope/vim-surround',                 { 'frozen': 1 }
  Plug 'tomtom/tcomment_vim',                { 'frozen': 1 }
- Plug 'echasnovski/mini.align'
+ Plug 'echasnovski/mini.align',             { 'frozen': 1 }
  Plug 'morhetz/gruvbox',                    { 'frozen': 1 }
+ Plug 'sbdchd/neoformat',                   { 'frozen': 0 }
+ Plug 'itspriddle/vim-shellcheck',          { 'frozen': 0 }
+ Plug 'axlebedev/vim-find-my-cursor',       { 'frozen': 1 }
+ Plug 'junegunn/vim-slash',                 { 'frozen': 1 }
 call plug#end()
 
-"colors
+" Colors (must be loaded after gruvbox plugin).
 let g:gruvbox_transparent_bg = 1
 let g:gruvbox_italic = 1
+let g:gruvbox_italicize_comments = 1
+"let g:gruvbox_invert_indent_guides = 1
+let g:gruvbox_hls_cursor = 'orange'
 set bg=dark
-set t_8f=^[[38;2;%lu;%lu;%lum " set foreground color
-set t_8b=^[[48;2;%lu;%lu;%lum " set background color
+"set t_8f=^[[38;2;%lu;%lu;%lum " set foreground color
+"set t_8b=^[[48;2;%lu;%lu;%lum " set background color
 colorscheme gruvbox
 set t_Co=256                         " Enable 256 colors
 set termguicolors                    " Enable GUI colors for the terminal to get truecolor
@@ -158,14 +161,13 @@ hi statusline guibg=NONE gui=NONE guifg=#7d8618
 hi LineNr guifg=#7d8618
 
 " Tcomment.
-"comment at begginign of line
-"let g:tcomment#options ={
-" \ 'col': 1,
-" \ 'whitespace': 'no',
-" \ 'strip_whitespace': '0'
-"\}
+" Comment at start of line.
+let g:tcomment#options ={
+\ 'whitespace': 'no',
+\ 'strip_whitespace': '0'
+\}
 
-"MiniAlign
+" MiniAlign.
 lua << EOF
  require('mini.align').setup()
 EOF
@@ -205,7 +207,7 @@ lua << EOF
  }
 EOF
 
-" Markdownpreview.
+" Markdownpreview plug.
 let g:mkdp_auto_start = 1
 let g:mkdp_auto_close = 1
 let g:mkdp_page_title = 'MarkdownPreview'
@@ -224,3 +226,14 @@ lua << EOF
   enable_tailwind = true,
  }
 EOF
+
+" Search plug.
+noremap <plug>(slash-after) zz
+if has('timers')
+  " Blink 2 times with 50ms interval.
+  noremap <expr> <plug>(slash-after) 'zz'.slash#blink(5, 50)
+endif
+
+" Find cursor plug.
+nnoremap <leader>f <CMD>FindCursor #7d8618 500<CR>
+noremap % %<CMD>FindCursor 0 500<CR>
