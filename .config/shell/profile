@@ -10,7 +10,9 @@ export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
 # Adds rustup to $PATH
 export PATH="$PATH:$(echo ~/.config/cargo/bin)"
 
-unsetopt PROMPT_SP
+#unsetopt PROMPT_SP
+# Firefox hardware decode
+export MOZ_X11_EGL=1
 # Default programs:
 export PAGER="most"
 export VISUAL="nvim"

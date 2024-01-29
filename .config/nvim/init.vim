@@ -142,6 +142,7 @@ call plug#begin('~/.config/nvim/plugged')
  Plug 'itspriddle/vim-shellcheck',          { 'frozen': 0 }
  Plug 'axlebedev/vim-find-my-cursor',       { 'frozen': 1 }
  Plug 'junegunn/vim-slash',                 { 'frozen': 1 }
+ Plug 'monaqa/dial.nvim',                   { 'frozen': 1 }
 call plug#end()
 
 " Colors (must be loaded after gruvbox plugin).
@@ -176,7 +177,7 @@ EOF
 lua << EOF
  require('mini.indentscope').setup({
   draw = {
-   delay = 100,
+   delay = 200,
    priority = 2,
   },
   symbol = '┇'
@@ -208,7 +209,7 @@ lua << EOF
 EOF
 
 " Markdownpreview plug.
-let g:mkdp_auto_start = 1
+let g:mkdp_auto_start = 0
 let g:mkdp_auto_close = 1
 let g:mkdp_page_title = 'MarkdownPreview'
 let g:mkdp_theme = 'light'
@@ -237,3 +238,26 @@ endif
 " Find cursor plug.
 nnoremap <leader>f <CMD>FindCursor #7d8618 500<CR>
 noremap % %<CMD>FindCursor 0 500<CR>
+
+" Extended increment, dial.nvim plug.
+lua << EOF
+local augend = require("dial.augend")
+require("dial.config").augends:register_group{
+-- default augends used when no group name is specified
+default = {
+ augend.integer.alias.decimal,   -- nonnegative decimal number (0, 1, 2, 3, ...)
+ augend.integer.alias.hex,       -- nonnegative hex number  (0x01, 0x1a1f, etc.)
+ augend.date.alias["%Y/%m/%d"],  -- date (2022/02/19, etc.)
+ augend.constant.alias.bool,    -- boolean value (true <-> false)
+ augend.semver.alias.semver
+ }
+}
+EOF
+nmap  <C-s>  <Plug>(dial-increment)
+nmap  <C-x>  <Plug>(dial-decrement)
+nmap g<C-s> g<Plug>(dial-increment)
+nmap g<C-x> g<Plug>(dial-decrement)
+vmap  <C-s>  <Plug>(dial-increment)
+vmap  <C-x>  <Plug>(dial-decrement)
+vmap g<C-s> g<Plug>(dial-increment)
+vmap g<C-x> g<Plug>(dial-decrement)

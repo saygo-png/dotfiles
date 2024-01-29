@@ -58,3 +58,5 @@ sudo apt-get -y upgrade
 # Install krita theme.
 mkdir -p ~/.local/share/krita/color-schemes/
 cp ~/.config/KritaWojtrybDarkerRedesignGreenGruvboxed.colors ~/.local/share/krita/color-schemes/
+
+# Enable video accel in librewolf. (just google it i dont rememember how and it willc hange i know its supposed to be an automated script but i dont care)
