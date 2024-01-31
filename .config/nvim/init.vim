@@ -8,9 +8,11 @@ set fileencoding=utf-8
 set number relativenumber
 set title
 " Search.
+nnoremap <Tab> :noh<CR>
+"  ^tab to clear search
 set hlsearch
 set shortmess-=S " Show amount of search results
-" Highlight toggle.
+"  Highlight toggle.
 nnoremap <silent><expr> <C-h> (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 set paste
 set noshowmode
