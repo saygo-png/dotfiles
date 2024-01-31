@@ -19,17 +19,18 @@ HISTFILE=~/.cache/zsh/history
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/profile"
 
 # Autocomplete.
-setopt MENU_COMPLETE
 setopt extendedglob
-unsetopt CASE_GLOB
 setopt no_list_ambiguous
+setopt GLOB_COMPLETE      # Show autocompletion menu with globs
+setopt MENU_COMPLETE        # Automatically highlight first element of completion menu
+setopt AUTO_LIST            # Automatically list choices on ambiguous completion.
+setopt COMPLETE_IN_WORD     # Complete from both ends of a word.
+unsetopt CASE_GLOB
 zstyle ':completion:*' menu select
 zmodload zsh/complist
 _comp_options+=(globdots)		# Include hidden files.
-
 # Load more completions.
 fpath=($HOME/.config/zsh/plugins/zsh-completions/src $fpath)
-
 # Use hjlk in menu selection (during completion)
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
@@ -45,11 +46,8 @@ autoload -U compinit; compinit
 
 # Only work with the Zsh function vman
 compdef vman="man"
-setopt GLOB_COMPLETE      # Show autocompletion menu with globs
-setopt MENU_COMPLETE        # Automatically highlight first element of completion menu
-setopt AUTO_LIST            # Automatically list choices on ambiguous completion.
-setopt COMPLETE_IN_WORD     # Complete from both ends of a word.
-
+# fix git autocomp
+compdef git="cd"
 # Define completers
 zstyle ':completion:*' completer _extensions _complete _approximate
 # Use cache for commands using cache
@@ -60,9 +58,6 @@ zstyle ':completion:*' complete true
 zle -C alias-expension complete-word _generic
 bindkey '^Xa' alias-expension
 zstyle ':completion:alias-expension:*' completer _expand_alias
-# Use cache for commands which use it
-# Allow you to select in a menu
-zstyle ':completion:*' menu select
 # Autocomplete options for cd instead of directory stack
 zstyle ':completion:*' complete-options true
 zstyle ':completion:*' file-sort modification
@@ -85,9 +80,7 @@ zstyle ':completion:*:*:-command-:*:*' group-order aliases builtins functions co
 
 # See ZSHCOMPWID "completion matching control"
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-
 zstyle ':completion:*' keep-prefix true
-
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
 
 # vi mode
