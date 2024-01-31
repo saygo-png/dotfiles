@@ -1,6 +1,13 @@
 #!/bin/sh
-echo Commit name: ""$@""
-cd ~
+case ""$@"" in
+  '.')
+  echo Commit name: "changes"
+  ;;
+  "*")
+   echo Commit name: ""$@""
+  ;;
+esac
+cd "$HOME" || exit 1
 case ""$@"" in
  "")
   echo "Provide the commit name as an argument"
