@@ -41,8 +41,8 @@ fi
 # Concatenate both url lists.
 url_list=$(echo -ne "$urls_from_args\n$urls_from_stdin")
 
-# If url_list is empty, exit with error
+# If url_list is empty, exit with error.
 [[ "$url_list" ]] || exit 1
 
-# Open url_list in browser
-echo "$url_list" | xargs -I "%" sh -c '{ '"$BROWSER"' --new-tab "%"; sleep 0.25; }'
+# Open url_list in browser.
+echo "$url_list" | xargs -I "%" sh -c '{ '"$BROWSER"' --new-tab "%"; }'
