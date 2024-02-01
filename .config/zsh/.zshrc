@@ -44,6 +44,12 @@ bindkey -M menuselect '^xu' undo                           # Undo
 
 autoload -U compinit; compinit
 
+# Don't glob urls.
+autoload -Uz bracketed-paste-magic
+zle -N bracketed-paste bracketed-paste-magic
+autoload -Uz url-quote-magic
+zle -N self-insert url-quote-magic
+
 # Only work with the Zsh function vman
 compdef vman="man"
 # fix git autocomp

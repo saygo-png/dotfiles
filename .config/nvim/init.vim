@@ -135,7 +135,7 @@ function! GetVisualSelection()
    endif
    return join(lines)  "returns selection as a string of space seperated line
   endfunction
-vnoremap <leader>o :<BS><BS><BS><BS><BS>silent execute '!openlisturl' GetVisualSelection()<CR>
+vnoremap <leader>o :<BS><BS><BS><BS><BS>execute '!openlisturl' shellescape(GetVisualSelection())<CR>
 "nnoremap <leader>o :execute "!notify-send \"" . GetVisualSelection() . "\""
 "exe "!notify-send \"" . abc . "\""
 " Open file at last closed location. (this is literal magic)

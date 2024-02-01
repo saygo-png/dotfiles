@@ -45,4 +45,4 @@ url_list=$(echo -ne "$urls_from_args\n$urls_from_stdin")
 [[ "$url_list" ]] || exit 1
 
 # Open url_list in browser.
-echo "$url_list" | xargs -I "%" sh -c '{ '"$BROWSER"' --new-tab "%"; }'
+echo "$url_list" | xargs -I "%" sh -c '{ '"$BROWSER"' --new-tab '"%"'; }'
