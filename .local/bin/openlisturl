@@ -1,0 +1,48 @@
+#!/bin/bash
+# Safety.
+set -u && set -o pipefail && shopt -s failglob
+
+# Declare variables.
+urls_from_stdin=""
+urls_from_args=""
+
+# Print usage if no arguments or pipe given.
+if [[ -z "$*" ]] && [[ ! -p /dev/stdin ]]; then
+  echo 'Provide newline seperated list of urls as stdin or argument'
+  echo 'openlisturl <url>'
+  echo 'cat url_list.txt | openlisturl'
+  exit 1
+fi
+
+# Create or keep a newline seperated list of urls from stdin.
+if [[ -p /dev/stdin ]]; then
+ # Cat stdin.
+ urls_from_stdin="$(cat)"
+ if [[ ! "${urls_from_stdin//[$'\t\r\n ']/}" ]]; then
+   # If it is, do nothing.
+   :
+  else
+   # If not, create a newline-separated list.
+   urls_from_stdin="${urls_from_stdin// /$'\n'}"
+ fi
+fi
+
+# Create or keep a newline seperated list of urls from args.
+if [[ "$#" -eq 1 && ! "${1//[$'\t\r\n ']/}" ]]; then
+  # If it is, do nothing
+  urls_from_args=("$@")
+ else
+  # If not, create a newline-separated list.
+  urls_from_args=("$@")
+  urls_from_args="${urls_from_args[*]}"
+  urls_from_args="${urls_from_args// /$'\n'}"
+fi
+
+# Concatenate both url lists.
+url_list=$(echo -ne "$urls_from_args\n$urls_from_stdin")
+
+# If url_list is empty, exit with error
+[[ "$url_list" ]] || exit 1
+
+# Open url_list in browser
+echo "$url_list" | xargs -I "%" sh -c '{ '"$BROWSER"' --new-tab "%"; sleep 0.25; }'
