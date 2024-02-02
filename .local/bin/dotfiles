@@ -1,14 +1,14 @@
 #!/bin/sh
-case ""$@"" in
+case "$@" in
   '.')
   echo Commit name: "changes"
   ;;
   "*")
-   echo Commit name: ""$@""
+   echo Commit name: "$@"
   ;;
 esac
 cd "$HOME" || exit 1
-case ""$@"" in
+case "$@" in
  "")
   echo "Provide the commit name as an argument"
   ;;
@@ -22,7 +22,7 @@ case ""$@"" in
   ;;
  *)
   git add .
-  git commit -m ""$@""
+  git commit -m "$@"
   git push
   ;;
 esac

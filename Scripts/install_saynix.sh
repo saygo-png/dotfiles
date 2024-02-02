@@ -36,7 +36,7 @@ sudo apt-get -y update
 sudo apt-get -y upgrade
 sudo apt-get -y dist-upgrade
 
-#add repos
+# Add repos.
 sudo cp -r ~/.config/keyrings/* /etc/apt/keyrings/.
 sudo cp -r ~/.config/sources.list.d/* /etc/apt/sources.list.d/.
 sudo apt-get -y update
@@ -44,7 +44,7 @@ sudo apt-get -y update
 # Filter packages that can be installed on the system, avoiding "unable to locate package" errors.
  #clear old packages-valid
 echo -n > packages-valid.txt
-while read package
+while read -r package
 do apt show "$package" 2>/dev/null | grep -qvz 'State:.*(virtual)' && echo "$package" >> packages-valid.txt && echo "$package"
 done < packagelist.txt
 
@@ -60,3 +60,8 @@ mkdir -p ~/.local/share/krita/color-schemes/
 cp ~/.config/KritaWojtrybDarkerRedesignGreenGruvboxed.colors ~/.local/share/krita/color-schemes/
 
 # Enable video accel in librewolf. (just google it i dont rememember how and it willc hange i know its supposed to be an automated script but i dont care)
+
+# Install LSPs
+sudo npm i -g vscode-langservers-extracted
+sudo npm i -g bash-language-server
+sudo npm install -g vim-language-server
