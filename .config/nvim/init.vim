@@ -298,3 +298,16 @@ vmap  <C-s>  <Plug>(dial-increment)
 vmap  <C-x>  <Plug>(dial-decrement)
 vmap g<C-s> g<Plug>(dial-increment)
 vmap g<C-x> g<Plug>(dial-decrement)
+
+" Language server.
+lua << EOF
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'sh',
+  callback = function()
+    vim.lsp.start({
+      name = 'bash-language-server',
+      cmd = { 'bash-language-server', 'start' },
+    })
+  end,
+})
+EOF
