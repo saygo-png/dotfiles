@@ -170,9 +170,10 @@ autocmd BufWritePost Xresources,Xdefaults,xresources,xdefaults !xrdb %
 " frozen makes the plugins not update.
 call plug#begin('~/.config/nvim/plugged')
  Plug 'iamcco/markdown-preview.nvim',       { 'do': 'cd app && npx --yes yarn install' }
- Plug 'echasnovski/mini.indentscope',       { 'branch': 'stable','frozen': 1 }
- Plug 'lukas-reineke/indent-blankline.nvim',{ 'tag': 'v2.20.8',  'frozen': 1 }
- Plug 'nvim-treesitter/nvim-treesitter',    {'do': ':TSUpdate'}
+ Plug 'echasnovski/mini.indentscope',       { 'branch': 'stable', 'frozen': 1 }
+" Plug 'lukas-reineke/indent-blankline.nvim',{ 'frozen': 0 }
+ Plug 'lukas-reineke/indent-blankline.nvim',{ 'tag': 'v2.20.8',   'frozen': 1 }
+ Plug 'nvim-treesitter/nvim-treesitter',    { 'do': ':TSUpdate'}
  Plug 'psliwka/vim-smoothie',               { 'frozen': 1 }
  Plug 'junegunn/fzf',                       { 'frozen': 1 }
  Plug 'brenoprata10/nvim-highlight-colors', { 'frozen': 1 }
@@ -181,11 +182,11 @@ call plug#begin('~/.config/nvim/plugged')
  Plug 'echasnovski/mini.align',             { 'frozen': 1 }
  Plug 'morhetz/gruvbox',                    { 'frozen': 1 }
  Plug 'sbdchd/neoformat',                   { 'frozen': 0 }
- Plug 'itspriddle/vim-shellcheck',          { 'frozen': 0 }
  Plug 'axlebedev/vim-find-my-cursor',       { 'frozen': 1 }
  Plug 'junegunn/vim-slash',                 { 'frozen': 1 }
  Plug 'monaqa/dial.nvim',                   { 'frozen': 1 }
  Plug 'neovim/nvim-lspconfig',              { 'frozen': 1 }
+ Plug 'kien/rainbow_parentheses.vim',       { 'frozen': 1 }
 call plug#end()
 
 " Colors (must be loaded after gruvbox plugin).
@@ -228,6 +229,30 @@ lua << EOF
 EOF
 
 " Indentblankline.
+"NEW
+"lua << EOF
+"require("ibl").setup{
+" debounce = 100,
+" indent = {
+"  char = "│",
+"  --tab_char = { "a", "b", "c" },
+"  repeat_linebreak = true,
+" },
+" whitespace = {
+"  remove_blankline_trail = true,
+"  highlight = { "Whitespace", "NonText" },
+" },
+" scope = {
+"  enabled = true,
+"  show_start = true,
+"  show_end = false,
+"  injected_languages = true,
+"  highlight = { "Function", "Label" },
+"  priority = 600,
+"	},
+"}
+"EOF
+"OLD
 let g:indent_blankline_char = '│'
 lua << EOF
  vim.opt.list = true
@@ -239,6 +264,8 @@ lua << EOF
  vim.cmd [[highlight IndentBlanklineIndent6 guifg=#689d6a gui=nocombine]]
  require("indent_blankline").setup {
   space_char_blankline = "",
+  show_current_context = true,
+  show_current_context_start = true,
   char_highlight_list =
   {
    "IndentBlanklineIndent1",
@@ -252,7 +279,7 @@ lua << EOF
 EOF
 
 " Markdownpreview plug.
-let g:mkdp_auto_start = 0
+let g:mkdp_auto_start = 1
 let g:mkdp_auto_close = 1
 let g:mkdp_page_title = 'MarkdownPreview'
 let g:mkdp_theme = 'light'
@@ -270,6 +297,11 @@ lua << EOF
   enable_tailwind = true,
  }
 EOF
+" Rainbow parentheses plug.
+autocmd VimEnter * :RainbowParenthesesToggle
+autocmd Syntax * :RainbowParenthesesLoadRound
+autocmd Syntax * :RainbowParenthesesLoadSquare
+autocmd Syntax * :RainbowParenthesesLoadBraces
 
 " Search plug.
 noremap <plug>(slash-after) zz
@@ -333,7 +365,7 @@ vim.diagnostic.config({
   win_options = {
    winblend = 100
   },
-		border = "none",
+		border = "single",
 		format = function(diagnostic)
 			return string.format(
 				"%s (%s) [%s]",
