@@ -52,8 +52,6 @@ zle -N self-insert url-quote-magic
 
 # Only work with the Zsh function vman
 compdef vman="man"
-# fix git autocomp
-compdef git="cd"
 # Define completers
 zstyle ':completion:*' completer _extensions _complete _approximate
 # Use cache for commands using cache

@@ -196,6 +196,7 @@ call plug#begin('~/.config/nvim/plugged')
 call plug#end()
 
 " Colors (must be loaded after gruvbox plugin).
+" More in the plugins section.
 let g:gruvbox_transparent_bg = 1
 let g:gruvbox_italic = 1
 let g:gruvbox_italicize_comments = 1
@@ -262,12 +263,12 @@ EOF
 let g:indent_blankline_char = '│'
 lua << EOF
  vim.opt.list = true
- vim.cmd [[highlight IndentBlanklineIndent1 guifg=#cc241d gui=nocombine]]
- vim.cmd [[highlight IndentBlanklineIndent2 guifg=#98971a gui=nocombine]]
- vim.cmd [[highlight IndentBlanklineIndent3 guifg=#d79921 gui=nocombine]]
- vim.cmd [[highlight IndentBlanklineIndent4 guifg=#458588 gui=nocombine]]
- vim.cmd [[highlight IndentBlanklineIndent5 guifg=#b16286 gui=nocombine]]
- vim.cmd [[highlight IndentBlanklineIndent6 guifg=#689d6a gui=nocombine]]
+ vim.cmd [[highlight IndentBlanklineIndent1 guifg=#79740e gui=nocombine]]
+ vim.cmd [[highlight IndentBlanklineIndent2 guifg=#b57614 gui=nocombine]]
+ vim.cmd [[highlight IndentBlanklineIndent3 guifg=#076678 gui=nocombine]]
+ vim.cmd [[highlight IndentBlanklineIndent4 guifg=#8f3f71 gui=nocombine]]
+ vim.cmd [[highlight IndentBlanklineIndent5 guifg=#427b58 gui=nocombine]]
+ vim.cmd [[highlight IndentBlanklineIndent6 guifg=#af3a03 gui=nocombine]]
  require("indent_blankline").setup {
   space_char_blankline = "",
   -- show_current_context = true,
