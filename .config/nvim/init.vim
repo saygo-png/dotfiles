@@ -22,12 +22,17 @@ set paste
 set noshowmode
 set laststatus=0
 set noswapfile
-" Indents
+" Wrap.
+autocmd BufRead,BufNewFile *.md setlocal wrap
+autocmd BufRead,BufNewFile *.html setlocal wrap
+noremap j gj
+noremap k gk
 set nowrap
-set linebreak
-set showbreak=\ \
-set breakindent
-set breakindentopt=shift:1
+"set linebreak
+set showbreak=>
+"set breakindent
+"set breakindentopt=shift:1
+" Indents.
 set formatoptions=l
 set tabstop=1
 set softtabstop=-1
@@ -175,6 +180,7 @@ call plug#begin('~/.config/nvim/plugged')
  Plug 'lukas-reineke/indent-blankline.nvim',{ 'tag': 'v2.20.8',   'frozen': 1 }
  Plug 'nvim-treesitter/nvim-treesitter',    { 'do': ':TSUpdate'}
  Plug 'psliwka/vim-smoothie',               { 'frozen': 1 }
+ Plug '/easymotion/vim-easymotion',         { 'frozen': 1 }
  Plug 'junegunn/fzf',                       { 'frozen': 1 }
  Plug 'brenoprata10/nvim-highlight-colors', { 'frozen': 1 }
  Plug 'tpope/vim-surround',                 { 'frozen': 1 }

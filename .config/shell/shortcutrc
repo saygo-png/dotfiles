@@ -1,12 +1,13 @@
 #!/bin/sh
 
 # Use $XINITRC variable if file exists.
-[ -f "$XINITRC" ] && alias startx="startx $XINITRC"
+[ -f "${XINITRC}" ] && alias startx="startx $XINITRC"
 
-[ -f "$MBSYNCRC" ] && alias mbsync="mbsync -c $MBSYNCRC"
+[ -f "${MBSYNCRC}" ] && alias mbsync="mbsync -c $MBSYNCRC"
 
 # Verbosity and settings that you pretty much just always are going to want.
 alias \
+ shellcheck="shellcheck -o all --enable all" \
  gitignored="git ls-files --others --ignored --exclude-standard" \
  restart="sudo restart now" \
  shutdown="sudo shutdown now" \
@@ -20,7 +21,7 @@ alias \
 	la="ls -hN --color=auto --group-directories-first -a" \
 	bc="bc -ql" \
 	mkdir="mkdir -pv" \
-	ffmpeg="ffmpeg -hide_banner"
+	ffmpeg="ffmpeg -hide_banner" \
 	lf="lfub"
 # Colorize commands when possible.
 alias \
@@ -30,5 +31,5 @@ alias \
 	ccat="highlight --out-format=ansi" \
 	ip="ip -color=auto" \
 #retarded wget rc history file in .cache
-alias wget="wget --hsts-file="$XDG_CACHE_HOME/wget-hsts""
+alias wget="wget --hsts-file=\"~/.config/wget-hsts\""
 #aliases
