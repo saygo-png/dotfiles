@@ -1,0 +1,126 @@
+#!/bin/bash
+# Extract subtitles from each MKV/MP4 file in the given directory
+#   [updated 2023-08-03 by FurloSK]
+#   Permanent gist address: https://gist.github.com/FurloSK/7f52303a10ab7478e3cddfe4bcc50881
+#
+# ===== Usage =====
+# extractSubtitles.sh [-i] [<fileOrDirectory>]
+#   -i
+#     Supplying this option will skip extraction and only print information about subtitles in file
+#   <fileOrDirectory>
+#     If a directory is given, will process all MKV/MP4 files in this directory (and subdirectories)
+#     If a file is given, will process this single file
+#     If the parameter is skipped altogether, will process current directory (and subdirectories)
+#
+# ===== History =====
+# Original version by ComputerNerdFromHell (site no longer working):
+#   http://www.computernerdfromhell.com/blog/automatically-extract-subtitles-from-mkv
+#   Archived here: https://web.archive.org/web/20181119144734/http://www.computernerdfromhell.com/blog/automatically-extract-subtitles-from-mkv/
+# Resubmitted by nux:
+#   https://askubuntu.com/questions/452268/extract-subtitle-from-mkv-files/452279#452279
+# Completely rewritten and tweaked by FurloSK:
+#   https://superuser.com/questions/1527829/extracting-subtitles-from-mkv-file/1649627#1649627
+#   Permanent gist address: https://gist.github.com/FurloSK/7f52303a10ab7478e3cddfe4bcc50881
+#
+# =============================================================================
+# Config part: this is the only thing you need to tweak
+
+# MKVToolNix path - Leave empty if you have the tools added to $PATH.
+#   This is needed e.g. on macOS, if you just downloaded MKVToolNix app and dragged it to Applications folder
+#toolPath='/Applications/+ Moje/MKVToolNix.app/Contents/MacOS/'
+
+# =============================================================================
+# Start of script
+
+# by default, process all files in local dir
+DIR="."
+skipExtraction=false
+
+# first parameter might be -i switch, which will only print subtitle tracks instead of extracting them
+if [[ "$1" == "-i" ]] ; then
+  skipExtraction=true
+  # if also directory or file is given, print info about it instead of default local dir
+  if [[ "$#" -eq 2  &&  "$1" == "-i" ]] ; then
+    DIR="$2"
+  fi
+# otherwise if directory or file is given, extract subtitles from that one
+elif [[ "$#" -eq 1 ]] ; then
+  DIR="$1"
+fi
+
+# Get all the MKV/MP4 files in this dir and its subdirs
+find "$DIR" -type f \( -iname '*.mkv' -o -iname '*.mp4' -o -iname '*.avi' \) | while read -r filename
+do
+  echo -en "\nProcessing file $filename:"
+
+  # Get base file name (without extension)
+  fileBasename=${filename%.*}
+
+  # Parse info about all subtitles tracks from file
+  # This will output lines in this format, one line per subtitle track, fields delimited by tabulator:
+  #   trackID <tab> trackLanguage <tab> trackCodecID <tab> trackCodec
+  "mkvmerge" -J "$filename" | python3 -c "exec(\"import sys, json;\nfor track in json.load(sys.stdin)['tracks']:\n\tif track['type'] == 'subtitles':\n\t\tprint(str(track['id']) + '\t' + track['properties']['language'] + '\t' + track['properties']['codec_id'] + '\t' + track['codec'])\")" | while IFS=$'\t' read -r trackNumber trackLanguage trackCodecID trackCodec;
+  do
+    # if we are only printing tracks, not extracting them, print track and continue
+    if [ $skipExtraction = true ] ; then
+      echo "  track #${trackNumber}: $trackLanguage ($trackCodec, $trackCodecID)"
+      continue;
+    fi
+
+    # optional: process only some types of subtitle tracks (according to $trackCodecID)
+    #   See codec types here (under header Subtitle Codec Mappings):
+    #   https://datatracker.ietf.org/doc/html/draft-ietf-cellar-codec/#name-subtitle-codec-mappings
+    #   E.g. to skip DVD subtitles, add S_VOBSUB
+    if [[ $trackCodecID == 'unwantedCodecID_#1' || $trackCodecID == 'unwantedCodecID_#2' ]] ; then
+      echo "  skipping track #${trackNumber}: $trackLanguage ($trackCodec, $trackCodecID)"
+      continue;
+    fi
+
+    # determine proper extension
+    if [ "$trackCodecID" = 'S_TEXT/SSA' ] ; then
+      extension='ssa'
+    elif [ "$trackCodecID" = 'S_TEXT/ASS' ] ; then
+      extension='ass'
+    elif [ "$trackCodecID" = 'S_TEXT/USF' ] ; then
+      extension='usf'
+    elif [ "$trackCodecID" = 'S_TEXT/WEBVTT' ] ; then
+      extension='vtt'
+    else # fallback to standard .srt file (S_VOBSUB files will still get their proper extension)
+      extension='srt'
+    fi
+
+    echo "  extracting track #${trackNumber}: $trackLanguage ($trackCodec, $trackCodecID)"
+
+    # extract track with language and track id
+    #   (adding . [dot] between filename and language, so VLC will properly recognize the language)
+    outFilename="${fileBasename} [#${trackNumber}].${trackLanguage}.${extension}"
+    `"${toolPath}mkvextract" tracks "${filename}" ${trackNumber}:"${outFilename}" > /dev/null 2>&1`
+
+    #==========================================================================
+    # Lines below are from the original source by ComputerNerdFromHell.
+    # They are now all obsolete and redundant (kept just for reference)
+
+    # Extract the track to a .tmp file
+    #`"${toolPath}mkvextract" tracks "$filename" $trackNumber:"$subtitlename.srt.tmp" > /dev/null 2>&1`
+    #`chmod g+rw "$subtitlename.srt.tmp"`
+
+    # # Do a super-primitive language guess: ENGLISH
+    # langtest=`egrep -ic ' you | to | the ' "$subtitlename".srt.tmp`
+    # trimregex=""
+    #
+    # # Check if subtitle passes our language filter (10 or more matches)
+    # if [ $langtest -ge 10 ]; then
+    #   # Regex to remove credits at the end of subtitles (read my reason why!)
+    #   `sed 's/\r//g' < "$subtitlename.srt.tmp" \
+    #     | sed 's/%/%%/g' \
+    #     | awk '{if (a){printf("\t")};printf $0; a=1; } /^$/{print ""; a=0;}' \
+    #     | grep -iv "$trimregex" \
+    #     | sed 's/\t/\r\n/g' > "$subtitlename.srt"`
+    #   `rmw "$subtitlename.srt.tmp"`
+    #   `chmod g+rw "$subtitlename.srt"`
+    # else
+    #   # Not our desired language: add a number to the filename and keep anyway, just in case
+    #   `mv "$subtitlename.srt.tmp" "$subtitlename.$tracknumber.srt" > /dev/null 2>&1`
+    # fi
+  done
+done

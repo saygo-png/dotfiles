@@ -279,7 +279,7 @@ lua << EOF
 EOF
 
 " Markdownpreview plug.
-let g:mkdp_auto_start = 1
+let g:mkdp_auto_start = 0
 let g:mkdp_auto_close = 1
 let g:mkdp_page_title = 'MarkdownPreview'
 let g:mkdp_theme = 'light'
