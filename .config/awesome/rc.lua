@@ -122,6 +122,13 @@ end, { description = "Hard kill focused client", group = "client" }),
 awful.key({ modkey, }, "z", function () quake:toggle() end,
 {description = "dropdown terminal", group = "launcher"}),
 
+awful.key({ modkey,           }, "p",
+ function ()
+  awful.util.spawn("pastebookmark.sh")
+ end,
+ {description = "paste bookmark", group = "launcher"}
+),
+
 awful.key({ modkey,           }, "b",
  function ()
   awful.util.spawn("librewolf")
@@ -289,8 +296,6 @@ awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle         
 {description = "toggle floating", group = "client"}),
 awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
 {description = "move to master", group = "client"}),
-awful.key({ modkey,           }, "o",      function (c) c:move_to_screen()               end,
-{description = "move to screen", group = "client"}),
 awful.key({ modkey,           }, "t",
 function (c) c.ontop = not c.ontop            end,
 {description = "toggle keep on top", group = "client"}),

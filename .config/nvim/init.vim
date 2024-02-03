@@ -12,12 +12,12 @@ set signcolumn=number
 " Goodbye mouse.
 set mouse=
 " Search.
-nnoremap <Tab> :noh<CR>
-"  ^tab to clear search
+"nnoremap <silent><Tab> :noh<CR>
+""  ^tab to clear search
 set hlsearch
 set shortmess-=S " Show amount of search results
 "  Highlight toggle.
-nnoremap <silent><expr> <C-h> (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
+nnoremap <silent><expr> <Tab> (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 set paste
 set noshowmode
 set laststatus=0
@@ -270,8 +270,8 @@ lua << EOF
  vim.cmd [[highlight IndentBlanklineIndent6 guifg=#689d6a gui=nocombine]]
  require("indent_blankline").setup {
   space_char_blankline = "",
-  show_current_context = true,
-  show_current_context_start = true,
+  -- show_current_context = true,
+  -- show_current_context_start = true,
   char_highlight_list =
   {
    "IndentBlanklineIndent1",
@@ -382,6 +382,39 @@ vim.diagnostic.config({
 		end,
 	},
 })
+
+-- Transparent and groovy popup.
+vim.api.nvim_set_hl(0, "Normal"                    , { bg = "none"    })
+vim.api.nvim_set_hl(0, "NormalFloat"               , { bg = "none"    })
+vim.api.nvim_set_hl(0, "FloatBorder"               , { fg = "#7d8618", bg = "none"})
+vim.api.nvim_set_hl(0, "DiagnosticError"           , { fg = "#fb4934" })
+vim.api.nvim_set_hl(0, "DiagnosticWarn"            , { fg = "#fe8019" })
+vim.api.nvim_set_hl(0, "DiagnosticInfo"            , { fg = "#8ec07c" })
+vim.api.nvim_set_hl(0, "DiagnosticHint"            , { fg = "#83a598" })
+vim.api.nvim_set_hl(0, "DiagnosticOk"              , { fg = "#fabd2f" })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextError", { fg = "#fb4934" })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextWarn" , { fg = "#fe8019" })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextInfo" , { fg = "#8ec07c" })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint" , { fg = "#83a598" })
+vim.api.nvim_set_hl(0, "DiagnosticVirtualTextOk"   , { fg = "#fabd2f" })
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineError"  , { fg = "#fb4934" })
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineWarn"   , { fg = "#fe8019" })
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineInfo"   , { fg = "#8ec07c" })
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineHint"   , { fg = "#83a598" })
+vim.api.nvim_set_hl(0, "DiagnosticUnderlineOk"     , { fg = "#fabd2f" })
+vim.api.nvim_set_hl(0, "DiagnosticFloatingError"   , { fg = "#fb4934" })
+vim.api.nvim_set_hl(0, "DiagnosticFloatingWarn"    , { fg = "#fe8019" })
+vim.api.nvim_set_hl(0, "DiagnosticFloatingInfo"    , { fg = "#8ec07c" })
+vim.api.nvim_set_hl(0, "DiagnosticFloatingHint"    , { fg = "#83a598" })
+vim.api.nvim_set_hl(0, "DiagnosticFloatingOk"      , { fg = "#fabd2f" })
+vim.api.nvim_set_hl(0, "DiagnosticSignError"       , { fg = "#fb4934" })
+vim.api.nvim_set_hl(0, "DiagnosticSignWarn"        , { fg = "#fe8019" })
+vim.api.nvim_set_hl(0, "DiagnosticSignInfo"        , { fg = "#8ec07c" })
+vim.api.nvim_set_hl(0, "DiagnosticSignHint"        , { fg = "#83a598" })
+vim.api.nvim_set_hl(0, "DiagnosticSignOk"          , { fg = "#fabd2f" })
+vim.api.nvim_set_hl(0, "DiagnosticDeprecated"      , { fg = "#d3869b" })
+vim.api.nvim_set_hl(0, "DiagnosticUnnecessary"     , { fg = "#d3869b" })
+
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
@@ -420,7 +453,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 EOF
-
 " Treesitter
 lua << EOF
 require'nvim-treesitter.configs'.setup {

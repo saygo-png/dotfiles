@@ -16,10 +16,13 @@ echo "updating with scripts..."
 # ~/Scripts/upgrade_picom.sh
 # ~/Scripts/upgrade_lf.sh
 
-#nixos suck my dick
+# Bookmarks url update.
+ ~/Scripts/extract_url.sh
+
+# Nixos suck my dick.
 dpkg-query --show -f='${binary:Package}\n' > ~/.config/packagelist.txt
-mkdir -p ~/.config/repos
-cp -r /etc/apt/keyrings/ ~/.config/repos/
-cp -r /etc/apt/sources.list.d/ ~/.config/repos/
+mkdir -p ~/.config/repos || exit 1
+cp -r /etc/apt/keyrings/ ~/.config/repos/ || exit 1
+cp -r /etc/apt/sources.list.d/ ~/.config/repos/ || exit 1
 echo "all updates finished" && notify-send "finished updates" || :
 exit 0
