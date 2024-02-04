@@ -193,6 +193,8 @@ call plug#begin('~/.config/nvim/plugged')
  Plug 'monaqa/dial.nvim',                   { 'frozen': 1 }
  Plug 'neovim/nvim-lspconfig',              { 'frozen': 1 }
  Plug 'kien/rainbow_parentheses.vim',       { 'frozen': 1 }
+ Plug 'nvim-treesitter/nvim-treesitter-context',{ 'frozen': 1 }
+ Plug 'Eandrju/cellular-automaton.nvim',        { 'frozen': 1 }
 call plug#end()
 
 " Colors (must be loaded after gruvbox plugin).
@@ -497,3 +499,6 @@ require'nvim-treesitter.configs'.setup {
    },
 }
 EOF
+
+" Automaton plug.
+nmap <leader>fml <cmd>CellularAutomaton make_it_rain<CR>

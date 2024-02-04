@@ -1,73 +1,79 @@
 #!/bin/bash
 # Safety.
-set -u && set -o pipefail && shopt -s failglob
+handle_error() {
+ echo -E "Error ${?}: ${1}" >&2
+ echo -E "Exiting..."
+ exit 1
+}
+set -uo pipefail || handle_error "Failed to set -uo pipefail"
+shopt -s failglob || handle_error "Failed to set -s failglob"
 
 # Check if arguments were given.
-if [[ -z "$*" ]]; then
- echo "Provide words for translations like so:"
- echo " transfin <word1> <word2>"
+if [[ -z "${*}" ]]; then
+ echo -E "Provide words for translations like so:" || handle_error "Echo failed"
+ echo -E " transfin <word1> <word2>" || handle_error "Echo failed"
  exit
 fi
 
 # Get csv with stems.
-finstemcsv=$(finstem --format csv "$@")
+finstemcsv=$(finstem --format csv "${@}") || handle_error "Failed to set finstemcsv"
 
 # Extract the second column.
-second_column=$(echo "$finstemcsv" | awk -F ',' 'NR>1 {print $2}')
+second_column=$(echo -En "${finstemcsv}" | awk -F ',' 'NR>1 {print $2}') || handle_error "Failed to set second_column"
 
 # Remove lines containing "Unknown".
-stem_words_newline_seperated=$(echo "$second_column" | grep -v "Unknown")
+stem_words_newline_seperated=$(echo -En "${second_column}" | grep -v "Unknown") || handle_error "Failed to set stem_words_newline_seperated"
 
 # Check if any of the words is unknown and list the amount and the word.
-unknown_found=false
+unknown_found=false || handle_error "Failed to set unknown_found"
 check_unknown() {
- if echo "$second_column" | grep -q "Unknown"; then
-   unknown_found=true
-   count=$(echo "$second_column" | grep -c "Unknown")
-   echo -e "-------------------- ERROR --------------------"
-   echo "$count"" stem couldn't be found, not printing stems."
-   echo -e "------------------ END ERROR ------------------"
-   echo -e ''
+ if echo -En "${second_column}" | grep -q "Unknown"; then
+   unknown_found=true || handle_error "Failed to set unknown_found"
+   count=$(echo -En "${second_column}" | grep -c "Unknown") || handle_error "Failed to set count"
+   echo -E "-------------------- ERROR --------------------" || handle_error "Failed echo"
+   echo -E "${count}"" stem couldn't be found, not printing stems." || handle_error "Failed echo"
+   echo -E "------------------ END ERROR ------------------" || handle_error "Failed echo"
+   echo -E '' || handle_error "Failed echo"
  fi
 }
 
 # Full translate first argument.
 translate_full() {
- trans -d -show-languages no -show-prompt-message yes -indent 1 -s fin -t eng -show-translation-phonetics no -show-dictionary no -show-alternatives yes "$1" | grep -v '^$'
+ trans -d -show-languages no -show-prompt-message yes -indent 1 -s fin -t eng -show-translation-phonetics no -show-dictionary no -show-alternatives yes "$1" | grep -v '^$' || handle_error "failed trans in translate_full"
 }
 
 # Full translate every argument.
-nonstem_words_newline_seperated=$(echo "$@" | tr ' ' '\n')
+nonstem_words_newline_seperated=$(echo -E "$@" | tr ' ' '\n') || handle_error "Failed to set nonstem_words_newline_seperated"
 translate_nonstems_loop() {
  while IFS= read -r word_nonstem; do
-  echo -e "-------------------- ""$word_nonstem"" --------------------"
-  translate_full "$word_nonstem"
- done <<< "$nonstem_words_newline_seperated"
+  echo -E "-------------------- ""${word_nonstem}"" --------------------" || handle_error "Failed echo"
+  translate_full "${word_nonstem}" || handle_error "failed translate_full"
+ done <<< "${nonstem_words_newline_seperated}"
 }
 
 # Full translate every stem.
 translate_stems_loop() {
  while IFS= read -r word_stem; do
-  echo -e "-------------------- ""$word_stem"" --------------------"
-  translate_full "$word_stem"
- done <<< "$stem_words_newline_seperated"
+  echo -E "-------------------- ""${word_stem}"" --------------------" || handle_error "Failed echo"
+  translate_full "${word_stem}" || handle_error "failed translate_full"
+ done <<< "${stem_words_newline_seperated}"
 }
 
 # Arrange the outputs nicely.
 tobeparsed() {
- check_unknown
- translate_nonstems_loop
- if [[ "$unknown_found" = false ]] ; then
-   echo -e ''
-   echo -e ''
-   echo -e ''
-   echo -e ''
-   echo -e ''
-   echo -e ''
-   echo -e '================= Stems below ================='
-   translate_stems_loop
+ check_unknown || handle_error "failed check_unknown"
+ translate_nonstems_loop || handle_error "failed translate_nonstems_loop"
+ if [[ "${unknown_found}" = false ]] ; then
+   echo -E '' || handle_error "Echo failed"
+   echo -E '' || handle_error "Echo failed"
+   echo -E '' || handle_error "Echo failed"
+   echo -E '' || handle_error "Echo failed"
+   echo -E '' || handle_error "Echo failed"
+   echo -E '' || handle_error "Echo failed"
+   echo -E '================= Stems below =================' || handle_error "Echo failed"
+   translate_stems_loop || handle_error "Failed translate_stems_loop"
  fi
 }
 
 # Output into pager.
-tobeparsed | most
+tobeparsed | most || handle_error "Failed to output into pager"

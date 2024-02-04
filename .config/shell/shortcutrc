@@ -22,7 +22,7 @@ alias \
 	bc="bc -ql" \
 	mkdir="mkdir -pv" \
 	ffmpeg="ffmpeg -hide_banner" \
-	lf="lfub"
+#	lf="lfub"
 # Colorize commands when possible.
 alias \
 	ls="ls -hN --color=auto --group-directories-first" \
