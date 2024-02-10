@@ -16,8 +16,6 @@ if [ $? -eq 0 ]; then
   exit
  else
   echo "Attempting install"
-  for f in "$tmpfile"/mullvad/*; do
-   sudo gdebi "$f" && echo "Mullvad done" || echo "Error while updating Mullvad"
-  done
+  sudo gdebi "$tmpfile/latest" && echo "Mullvad done" || echo "Error while updating Mullvad"
  exit
 fi
