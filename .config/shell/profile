@@ -1,9 +1,6 @@
 #!/bin/zsh
 
-# profile file. Runs on login. Environmental variables are set here.
-
-# If you don't plan on reverting to bash, you can remove the link in ~/.profile
-# to clean up.
+# Profile file. Runs on login. Environmental variables are set here.
 
 # Adds `~/.local/bin` to $PATH
 export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
@@ -15,6 +12,8 @@ export PATH="$PATH:$(echo ~/.config/cargo/bin)"
 export MOZ_X11_EGL=1
 # Default programs:
 export PAGER="most"
+# Systemd is retarded and doesnt use normal pager variable :DDDDD
+export SYSTEMD_PAGER="most"
 export VISUAL="nvim"
 export EDITOR="nvim"
 export TERMINAL="st"

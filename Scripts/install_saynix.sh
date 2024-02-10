@@ -77,6 +77,8 @@ appman -i krita librewolf blender element schildichat
 # Install from pipx
 pipx install yt-dlp gallery-dl
 
+# Set ibus delay to 0
+gsettings set org.freedesktop.ibus.general switcher-delay-time '0'
 # MANUAL INTERVENTION
 # Change user's shell to zsh (need manual intervention).
 chsh -s "$(which zsh)"

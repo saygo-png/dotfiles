@@ -174,6 +174,12 @@ autocmd BufWritePost Xresources,Xdefaults,xresources,xdefaults !xrdb %
 
 " Plug.vim -- all my plugin configuration is below,
 " frozen makes the plugins not update.
+" Auto install plug
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 call plug#begin('~/.config/nvim/plugged')
  Plug 'iamcco/markdown-preview.nvim',           { 'do': 'cd app && npx --yes yarn install' }
  Plug 'echasnovski/mini.indentscope',           { 'branch': 'stable', 'frozen': 1 }
