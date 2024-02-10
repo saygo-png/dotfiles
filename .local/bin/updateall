@@ -10,12 +10,11 @@ echo "upgrading with package managers..."
  nvim -c 'PlugUpdate' -c '<\CR>' -c 'qa'
  nvim -c "UpdateRemotePlugins<\CR>" -c "qa!"
 echo "updating with scripts..."
- ~/Scripts/upgrade_krita.sh
  ~/Scripts/upgrade_rclone.sh
  ~/Scripts/upgrade_gomuks.sh
-# ~/Scripts/upgrade_proton.sh
+ ~/Scripts/upgrade_proton.sh
  ~/Scripts/upgrade_jless.sh
-# ~/Scripts/upgrade_mullvad.sh
+ ~/Scripts/upgrade_mullvad.sh
 # ~/Scripts/upgrade_picom.sh
 # ~/Scripts/upgrade_lf.sh
 

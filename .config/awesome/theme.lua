@@ -11,7 +11,7 @@ local themes_path = "/home/samsepi0l/.config/awesome"
 
 local theme = {}
 
-theme.font          = "Fira Code 8"
+theme.font          = "Courier Code 8"
 
 theme.bg_normal     = "#00000000"
 theme.bg_focus      = "#7d8618"
