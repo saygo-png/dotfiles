@@ -13,7 +13,7 @@ set signcolumn=number
 set mouse=
 " Search.
 "nnoremap <silent><Tab> :noh<CR>
-""  ^tab to clear search
+"  ^tab to clear search
 set hlsearch
 set shortmess-=S " Show amount of search results
 "  Highlight toggle.
@@ -33,10 +33,13 @@ set showbreak=>
 "set breakindent
 "set breakindentopt=shift:1
 " Indents.
+set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+nnoremap <silent><F2> :setlocal listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣,nbsp:+<CR>:IndentBlanklineDisable<CR>
+nnoremap <silent><F3> :setlocal listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+<CR>:IndentBlanklineEnable<CR>
 set formatoptions=l
 set tabstop=1
 set softtabstop=-1
-set shiftwidth=0
+set shiftwidth=1
 set shiftround
 set expandtab
 set autoindent
@@ -45,6 +48,8 @@ set smartindent
 " Case insensitive search.
 set ignorecase
 set smartcase
+" Hide tildes on emtpy lines
+set fillchars=fold:\ ,vert:\│,eob:\ ,msgsep:‾
 " Remaps.
 " Makes o insert a blank line in normal mode
 nnoremap o o<Esc>0"_D
@@ -97,7 +102,6 @@ set sidescroll=1
 set sidescrolloff=2
 set display+=lastline
 set display+=truncate
-set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
 setglobal tags-=./tags tags-=./tags; tags^=./tags;
 set viminfo^=!
 set sessionoptions-=options
@@ -121,7 +125,6 @@ function! GetVisualSelection()
   let [line_start, column_start] = getpos("'<")[1:2]
   let [line_end, column_end] = getpos("'>")[1:2]
   end
-
   if (line2byte(line_start)+column_start) > (line2byte(line_end)+column_end)
    let [line_start, column_start, line_end, column_end] =
       \   [line_end, column_end, line_start, column_start]
@@ -161,12 +164,10 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " Perform dot commands over visual blocks:
 vnoremap . :normal .<CR>
 " Automatically deletes all trailing whitespace and newlines at end of file on save.
-" and resets cursor position.
-autocmd BufWritePre * let currPos = getpos(".")
 autocmd BufWritePre * %s/\s\+$//e
 autocmd BufWritePre * %s/\n\+\%$//e
 autocmd BufWritePre *.[ch] %s/\%$/\r/e " add trailing newline for ANSI C standard
-autocmd BufWritePre *neomutt* %s/^--$/-- /e " dash-dash-space signature delimiter in emails
+autocmd BufWritePre * %retab!
 " Run xrdb whenever Xdefaults or Xresources are updated.
 autocmd BufRead,BufNewFile Xresources,Xdefaults,xresources,xdefaults set filetype=xdefaults
 autocmd BufWritePost Xresources,Xdefaults,xresources,xdefaults !xrdb %
@@ -174,27 +175,30 @@ autocmd BufWritePost Xresources,Xdefaults,xresources,xdefaults !xrdb %
 " Plug.vim -- all my plugin configuration is below,
 " frozen makes the plugins not update.
 call plug#begin('~/.config/nvim/plugged')
- Plug 'iamcco/markdown-preview.nvim',       { 'do': 'cd app && npx --yes yarn install' }
- Plug 'echasnovski/mini.indentscope',       { 'branch': 'stable', 'frozen': 1 }
-" Plug 'lukas-reineke/indent-blankline.nvim',{ 'frozen': 0 }
- Plug 'lukas-reineke/indent-blankline.nvim',{ 'tag': 'v2.20.8',   'frozen': 1 }
- Plug 'nvim-treesitter/nvim-treesitter',    { 'do': ':TSUpdate'}
- Plug 'psliwka/vim-smoothie',               { 'frozen': 1 }
- Plug '/easymotion/vim-easymotion',         { 'frozen': 1 }
- Plug 'junegunn/fzf',                       { 'frozen': 1 }
- Plug 'brenoprata10/nvim-highlight-colors', { 'frozen': 1 }
- Plug 'tpope/vim-surround',                 { 'frozen': 1 }
- Plug 'tomtom/tcomment_vim',                { 'frozen': 1 }
- Plug 'echasnovski/mini.align',             { 'frozen': 1 }
- Plug 'morhetz/gruvbox',                    { 'frozen': 1 }
-" Plug 'sbdchd/neoformat',                   { 'frozen': 0 }
- Plug 'axlebedev/vim-find-my-cursor',       { 'frozen': 1 }
- Plug 'junegunn/vim-slash',                 { 'frozen': 1 }
- Plug 'monaqa/dial.nvim',                   { 'frozen': 1 }
- Plug 'neovim/nvim-lspconfig',              { 'frozen': 1 }
- Plug 'kien/rainbow_parentheses.vim',       { 'frozen': 1 }
- Plug 'nvim-treesitter/nvim-treesitter-context',{ 'frozen': 1 }
+ Plug 'iamcco/markdown-preview.nvim',           { 'do': 'cd app && npx --yes yarn install' }
+ Plug 'echasnovski/mini.indentscope',           { 'branch': 'stable', 'frozen': 1 }
+" Plug 'lukas-reineke/indent-blankline.nvim',   { 'frozen': 0 }
+ Plug 'lukas-reineke/indent-blankline.nvim',    { 'tag': 'v2.20.8',   'frozen': 1 }
+ Plug 'nvim-treesitter/nvim-treesitter',        { 'frozen': 0, 'do': ':TSUpdate'}
+ Plug 'psliwka/vim-smoothie',                   { 'frozen': 1 }
+ Plug '/easymotion/vim-easymotion',             { 'frozen': 1 }
+ Plug 'junegunn/fzf',                           { 'frozen': 1 }
+ Plug 'brenoprata10/nvim-highlight-colors',     { 'frozen': 1 }
+ Plug 'tpope/vim-surround',                     { 'frozen': 1 }
+ Plug 'tomtom/tcomment_vim',                    { 'frozen': 1 }
+ Plug 'echasnovski/mini.align',                 { 'frozen': 1 }
+ Plug 'morhetz/gruvbox',                        { 'frozen': 1 }
+ Plug 'sbdchd/neoformat',                       { 'frozen': 1 }
+ Plug 'axlebedev/vim-find-my-cursor',           { 'frozen': 1 }
+ Plug 'junegunn/vim-slash',                     { 'frozen': 1 }
+ Plug 'monaqa/dial.nvim',                       { 'frozen': 1 }
+ Plug 'kien/rainbow_parentheses.vim',           { 'frozen': 1 }
+ Plug 'nvim-treesitter/nvim-treesitter-context',{ 'frozen': 0 }
  Plug 'Eandrju/cellular-automaton.nvim',        { 'frozen': 1 }
+ Plug 'andrewferrier/wrapping.nvim',            { 'frozen': 1 }
+ Plug 'williamboman/mason.nvim',                { 'frozen': 0 }
+ Plug 'williamboman/mason-lspconfig.nvim',      { 'frozen': 0 }
+ Plug 'neovim/nvim-lspconfig',                  { 'frozen': 0 }
 call plug#end()
 
 " Colors (must be loaded after gruvbox plugin).
@@ -258,7 +262,7 @@ EOF
 "  injected_languages = true,
 "  highlight = { "Function", "Label" },
 "  priority = 600,
-"	},
+" },
 "}
 "EOF
 "OLD
@@ -347,13 +351,37 @@ vmap g<C-s> g<Plug>(dial-increment)
 vmap g<C-x> g<Plug>(dial-decrement)
 
 " Language server.
+
+" Mason
 lua << EOF
+require("mason").setup({
+ ui = {
+ check_outdated_packages_on_open = true,
+ }
+})
+
+require("mason-lspconfig").setup{
+ ensure_installed = {
+  "bashls",
+  "cssls",
+  "html",
+  "clangd",
+  "vimls",
+  "jsonls",
+--"grammarly",
+  "marksman"
+ },
+}
+
 local lspconfig = require('lspconfig')
 lspconfig.bashls.setup {}
 lspconfig.cssls.setup{}
 lspconfig.html.setup{}
-lspconfig.ccls.setup{}
+lspconfig.clangd.setup{}
 lspconfig.vimls.setup{}
+lspconfig.jsonls.setup{}
+--lspconfig.grammarly.setup{}
+lspconfig.marksman.setup{}
 -- lspconfig.rust_analyzer.setup {
 --  -- Server-specific settings. See `:help lspconfig-setup`
 --  settings = {
@@ -368,22 +396,22 @@ lspconfig.vimls.setup{}
 vim.diagnostic.config({
  underline = false,
  update_in_insert = false,
-	virtual_text = false,
+ virtual_text = false,
  signs = true,
-	float = {
+ float = {
   win_options = {
    winblend = 100
   },
-		border = "single",
-		format = function(diagnostic)
-			return string.format(
-				"%s (%s) [%s]",
-				diagnostic.message,
-				diagnostic.source,
-				diagnostic.code or diagnostic.user_data.lsp.code
-			)
-		end,
-	},
+  border = "single",
+  format = function(diagnostic)
+   return string.format(
+    "%s (%s) [%s]",
+    diagnostic.message,
+    diagnostic.source,
+    diagnostic.code or diagnostic.user_data.lsp.code
+   )
+  end,
+ },
 })
 
 -- Transparent and groovy popup.
@@ -428,32 +456,32 @@ vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 -- Use LspAttach autocommand to only map the following keys
 -- after the language server attaches to the current buffer
 vim.api.nvim_create_autocmd('LspAttach', {
-  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
-  callback = function(ev)
-    -- Enable completion triggered by <c-x><c-o>
-    vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+ group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+ callback = function(ev)
+ -- Enable completion triggered by <c-x><c-o>
+ vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
 
-    -- Buffer local mappings.
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local opts = { buffer = ev.buf }
-    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-    vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-    vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-    vim.keymap.set('n', '<space>wl', function()
-      print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, opts)
-    vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-    vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-    vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-    vim.keymap.set('n', '<space>f', function()
-      vim.lsp.buf.format { async = true }
-    end, opts)
-  end,
+ -- Buffer local mappings.
+ -- See `:help vim.lsp.*` for documentation on any of the below functions
+ local opts = { buffer = ev.buf }
+ vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+ vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+ vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+ vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+ vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+ vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+ vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+ vim.keymap.set('n', '<space>wl', function()
+ print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+ end, opts)
+ vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+ vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+ vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+ vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+ vim.keymap.set('n', '<space>f', function()
+ vim.lsp.buf.format { async = true }
+ end, opts)
+ end,
 })
 EOF
 " Treesitter
@@ -464,20 +492,15 @@ require'nvim-treesitter.configs'.setup {
  ensure_installed = { all },
  -- Install parsers synchronously (only applied to `ensure_installed`)
  sync_install = false,
-
  -- Automatically install missing parsers when entering buffer
  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
  auto_install = true,
-
  -- List of parsers to ignore installing (or "all")
  ignore_install = { },
-
  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
  -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
-
  highlight = {
   enable = true,
-
   -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
   -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
   -- the name of the parser)
@@ -496,30 +519,33 @@ require'nvim-treesitter.configs'.setup {
    -- Using this option may slow down your editor, and you may see some duplicate highlights.
    -- Instead of true it can also be a list of languages
    additional_vim_regex_highlighting = false,
-   },
+ },
 }
 EOF
-
+" Wrapper.nvim plug.
+lua << EOF
+ require("wrapping").setup()
+EOF
 " Automaton plug.
 nmap <leader>fml <cmd>CellularAutomaton make_it_rain<CR>
 
 " Treesitter context.
 lua << EOF
 require'treesitter-context'.setup{
-  enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-  max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
-  min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
-  line_numbers = true,
-  multiline_threshold = 20, -- Maximum number of lines to show for a single context
-  trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-  mode = 'cursor',  -- Line used to calculate context. Choices: 'cursor', 'topline'
-  -- Separator between context and content. Should be a single character string, like '-'.
-  -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
-  separator = nil,
-  zindex = 20, -- The Z-index of the context window
-  on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
+ enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+ max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+ min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+ line_numbers = true,
+ multiline_threshold = 20, -- Maximum number of lines to show for a single context
+ trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+ mode = 'cursor',  -- Line used to calculate context. Choices: 'cursor', 'topline'
+ -- Separator between context and content. Should be a single character string, like '-'.
+ -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
+ separator = nil,
+ zindex = 20, -- The Z-index of the context window
+ on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
 }
 vim.keymap.set("n", "[c", function()
-  require("treesitter-context").go_to_context(vim.v.count1)
+ require("treesitter-context").go_to_context(vim.v.count1)
 end, { silent = true })
 EOF

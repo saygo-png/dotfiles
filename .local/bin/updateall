@@ -6,6 +6,9 @@ echo "upgrading with package managers..."
  pipx upgrade-all
  trans -upgrade
  cargo install-update --all
+ sudo npm update -g
+ nvim -c 'PlugUpdate' -c '<\CR>' -c 'qa'
+ nvim -c "UpdateRemotePlugins<\CR>" -c "qa!"
 echo "updating with scripts..."
  ~/Scripts/upgrade_krita.sh
  ~/Scripts/upgrade_rclone.sh
@@ -19,7 +22,7 @@ echo "updating with scripts..."
 # Bookmarks url update.
  ~/Scripts/extract_url.sh
 
-# Nixos suck my dick.
+# Debian > NixOS.
 dpkg-query --show -f='${binary:Package}\n' > ~/.config/packagelist.txt
 mkdir -p ~/.config/repos || exit 1
 cp -r /etc/apt/keyrings/ ~/.config/repos/ || exit 1

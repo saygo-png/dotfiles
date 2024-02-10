@@ -27,7 +27,7 @@ fi
 
 
 #temporary so i dont fuck up my system when testing script
-exit
+#exit
 
 
 cd ~/.config/ || exit 1
@@ -39,29 +39,33 @@ sudo apt-get -y dist-upgrade
 # Add repos.
 sudo cp -r ~/.config/keyrings/* /etc/apt/keyrings/.
 sudo cp -r ~/.config/sources.list.d/* /etc/apt/sources.list.d/.
+sudo dpkg --add-architecture i386
 sudo apt-get -y update
 
 # Filter packages that can be installed on the system, avoiding "unable to locate package" errors.
- #clear old packages-valid
-echo -n > packages-valid.txt
-while read -r package
-do apt show "$package" 2>/dev/null | grep -qvz 'State:.*(virtual)' && echo "$package" >> packages-valid.txt && echo "$package"
-done < packagelist.txt
+#clear old packages-valid
+#echo -n > packages-valid.txt
+#while read -r package
+#do apt show "$package" 2>/dev/null | grep -qvz 'State:.*(virtual)' && echo "$package" >> packages-valid.txt && echo "$package"
+#done < packagelist.txt
 
 # Install filtered packages.
-xargs -a packages-valid.txt sudo apt-get -y install
-sudo apt-get -y upgrade
-
+#xargs -a packages-valid.txt sudo apt-get -y install
+#sudo apt-get -y upgrade
+# Install line by line
+while read -r line; do sudo apt-get -y install "$line"; done < packagelist.txt
 # #replace rm with rmw (trash)
 # sudo ln -s /bin/rmw /usr/local/bin/rm
 
 # Install krita theme.
-mkdir -p ~/.local/share/krita/color-schemes/
-cp ~/.config/KritaWojtrybDarkerRedesignGreenGruvboxed.colors ~/.local/share/krita/color-schemes/
+#mkdir -p ~/.local/share/krita/color-schemes/
+#cp ~/.config/KritaWojtrybDarkerRedesignGreenGruvboxed.colors ~/.local/share/krita/color-schemes/
 
 # Enable video accel in librewolf. (just google it i dont rememember how and it willc hange i know its supposed to be an automated script but i dont care)
 
+# Install from appman
+appman -i krita librewolf blender element schildichat
 # Install LSPs
-sudo npm i -g vscode-langservers-extracted
-sudo npm i -g bash-language-server
-sudo npm install -g vim-language-server
+#sudo npm i -g vscode-langservers-extracted
+#sudo npm i -g bash-language-server
+#sudo npm install -g vim-language-server

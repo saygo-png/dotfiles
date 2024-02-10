@@ -5,6 +5,7 @@ if [ "$1" = "hard" ]; then
 fi
 sudo apt clean
 appman -c
+nvim +PlugClean +qa
 rmw --purge=1
 sudo rmw --purge=1
 sudo apt autoremove
