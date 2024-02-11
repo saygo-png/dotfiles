@@ -1,0 +1,6 @@
+[General]
+EnableHiDPI=true
+LogUsage=false
+OpenGLRenderer=desktop
+canvasState=OPENGL_SUCCESS
+rootSurfaceFormat=bt2020-pq
