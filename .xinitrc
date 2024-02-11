@@ -10,7 +10,7 @@
 
 USRRESOURCES="$HOME"/.config/x11/xresources
 ERRFILE="$HOME"/.config/x11/.xsession-errors
-#autostart
+# Autostart.
 "$HOME"/.config/shell/profile &
 picom &
 udiskie &
