@@ -2,7 +2,7 @@
 output_file=~/Scripts/output.txt
 oldoutput_file=~/Scripts/oldoutput.txt
 browser_db="$(echo ~/.librewolf/*.default/sessionstore-backups/recovery.baklz4)"
-download_dir=~/Downloads/music/yt_music_rips/
+download_dir=~/Music/yt_music_rips/
 
 # get urls in history and output and overwrite them to file
 lz4jsoncat "$browser_db" | jq -r .| grep 'https://music.youtube.com/watch?v' | awk '{ print $2 }' | tr -d '",' | awk -F '&' '{print $1}' | sed 's/.*\\//' | sort -u -o"$output_file"

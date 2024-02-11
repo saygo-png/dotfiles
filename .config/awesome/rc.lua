@@ -513,19 +513,12 @@ client.connect_signal("manage", function (c)
    awful.placement.no_offscreen(c)
   end
 end)
--- Autostart things.
- awful.util.spawn("systemctl --user start timers.target")
- awful.util.spawn("pkill -i 'greenclip|autocutsel|udiskie|picom|qbittorrent'")
- awful.util.spawn("autocutsel -s CLIPBOARD &")
- awful.util.spawn("autocutsel -s PRIMARY &")
- awful.util.spawn("ibus-daemon -x -d -r")
- awful.util.spawn("xrandr --output HDMI-A-1 --mode 1920x1080 --rate 144")
- awful.util.spawn("udiskie")
- awful.util.spawn("remaps")
- awful.util.spawn("picom")
- awful.util.spawn("greenclip daemon")
- awful.util.spawn("qbittorrent")
- awful.util.spawn("st")
+
+-- Autostart things (should put most in .xinitrc unless it dont work :D.
+-- this straight up does not fucking work if its not both "with_shell" and the util one and idont know why im sick of it, it looks so retartded
+awful.spawn.with_shell("remaps")
+awful.util.spawn("remaps")
+
 -- change border color on focus
  client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
  client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
