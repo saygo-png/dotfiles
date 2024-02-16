@@ -1,0 +1,5 @@
+[user]
+ name = saygo-png
+ email = saygo.mail@proton.me
+[credential]
+ helper = store
