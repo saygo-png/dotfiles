@@ -187,8 +187,8 @@ call plug#begin('~/.config/nvim/plugged')
  Plug 'lukas-reineke/indent-blankline.nvim',    { 'tag': 'v2.20.8',   'frozen': 1 }
  Plug 'nvim-treesitter/nvim-treesitter',        { 'frozen': 0, 'do': ':TSUpdate'}
  Plug 'psliwka/vim-smoothie',                   { 'frozen': 1 }
- Plug '/easymotion/vim-easymotion',             { 'frozen': 1 }
- Plug 'junegunn/fzf',                           { 'frozen': 1 }
+ Plug 'easymotion/vim-easymotion',              { 'frozen': 1 }
+" Plug 'junegunn/fzf',                           { 'frozen': 1 }
  Plug 'brenoprata10/nvim-highlight-colors',     { 'frozen': 1 }
  Plug 'tpope/vim-surround',                     { 'frozen': 1 }
  Plug 'tomtom/tcomment_vim',                    { 'frozen': 1 }

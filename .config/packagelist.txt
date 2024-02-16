@@ -203,6 +203,7 @@ debianutils
 deborphan
 default-jre-headless
 desktop-file-utils
+dex
 dialog
 dictionaries-common
 diffstat
@@ -2438,13 +2439,12 @@ lintian
 linux-base
 linux-compiler-gcc-12-x86
 linux-cpupower
-linux-headers-6.1.0-17-amd64
-linux-headers-6.1.0-17-common
 linux-headers-6.1.0-18-amd64
 linux-headers-6.1.0-18-common
 linux-headers-6.7.2-3-liquorix-amd64
 linux-headers-6.7.3-3-liquorix-amd64
 linux-headers-6.7.4-1-liquorix-amd64
+linux-headers-6.7.4-2-liquorix-amd64
 linux-headers-amd64
 linux-headers-liquorix-amd64
 linux-image-6.1.0-15-amd64
@@ -2455,6 +2455,7 @@ linux-image-6.7.2-1-liquorix-amd64
 linux-image-6.7.2-3-liquorix-amd64
 linux-image-6.7.3-3-liquorix-amd64
 linux-image-6.7.4-1-liquorix-amd64
+linux-image-6.7.4-2-liquorix-amd64
 linux-image-amd64
 linux-image-liquorix-amd64
 linux-kbuild-6.1
@@ -2568,6 +2569,7 @@ mpc
 mpv
 mscompress
 mueller7-dict
+mullvad-vpn
 mysql-common
 nano
 ncdu
@@ -2964,6 +2966,7 @@ npm
 nss-plugin-pem:amd64
 nsxiv
 ntfs-3g
+ntpsec
 nuspell
 nvidia-openjdk-8-jre
 ocaml-base
@@ -3131,9 +3134,9 @@ python3-markupsafe
 python3-mergedeep
 python3-minimal
 python3-more-itertools
-python3-mutagen
 python3-nftables
 python3-nltk
+python3-ntp
 python3-numpy
 python3-oauthlib
 python3-olefile
@@ -3148,7 +3151,6 @@ python3-pkg-resources
 python3-pluggy
 python3-psutil
 python3-py
-python3-pycryptodome
 python3-pycurl
 python3-pygments
 python3-pyinotify
@@ -3161,7 +3163,6 @@ python3-pytest
 python3-pytimeparse
 python3-pytz-deprecation-shim
 python3-pyudev
-python3-pyxattr:amd64
 python3-pyyaml-env-tag
 python3-regex
 python3-reportbug
@@ -3206,7 +3207,6 @@ python3-wadllib
 python3-watchdog
 python3-webcolors
 python3-webencodings
-python3-websockets
 python3-wheel
 python3-wxgtk4.0
 python3-xdg
@@ -3270,7 +3270,6 @@ rpcsvc-proto
 rsync
 rsyslog
 rtkit
-rtmpdump
 runit-helper
 samba-common
 samba-common-bin
@@ -3717,7 +3716,6 @@ xvfb
 xxd
 xz-utils
 yafc
-yt-dlp
 yudit-common
 zathura
 zathura-pdf-poppler:amd64

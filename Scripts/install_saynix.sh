@@ -70,7 +70,6 @@ systemctl --user enable syncthing.service
 #mkdir -p ~/.local/share/krita/color-schemes/
 #cp ~/.config/KritaWojtrybDarkerRedesignGreenGruvboxed.colors ~/.local/share/krita/color-schemes/
 
-# Enable video accel in librewolf. (just google it i dont rememember how and it willc hange i know its supposed to be an automated script but i dont care)
 
 # Install from appman
 appman -i krita librewolf blender element schildichat
@@ -79,6 +78,17 @@ pipx install yt-dlp gallery-dl
 
 # Set ibus delay to 0
 gsettings set org.freedesktop.ibus.general switcher-delay-time '0'
+# Install polish-finnish keyboard
+sudo ln -s "$HOME".config/plfi /usr/share/X11/xkb/symbols/plfi
+
+
 # MANUAL INTERVENTION
 # Change user's shell to zsh (need manual intervention).
 chsh -s "$(which zsh)"
+
+# How to make ibus see the pol-fin keyboard
+#edit the /usr/share/ibus/component/simple.xml file
+#pick one of the engines there, and just replace the layout section with "plfi" (name of the xkb file) then turn ibus on and off
+#.add the keyboard to input options
+
+# Enable video accel in librewolf. (just google it i dont rememember how and it willc hange i know its supposed to be an automated script but i dont care)
