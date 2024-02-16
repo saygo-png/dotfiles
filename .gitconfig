@@ -2,4 +2,4 @@
  name = saygo-png
  email = saygo.mail@proton.me
 [credential]
- helper = cache
+	helper = store
