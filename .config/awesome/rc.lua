@@ -45,7 +45,7 @@ end
 -- {{{ Variable definitions
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init("/home/samsepi0l/.config/awesome/theme.lua")
-terminal = "st"
+terminal = "alacritty"
 editor = os.getenv("EDITOR") or "nvim"
 editor_cmd = terminal .. " -e " .. editor
 -- Dropdown terminal
@@ -99,9 +99,9 @@ awful.screen.connect_for_each_screen(function(s)
 awful.tag({ "1", "2", "3", "4", "5", "6", "7", "8", "9" }, s, awful.layout.layouts[1])end)
 
 local quake = lain.util.quake {
- app = "st",
+ app = "alacritty",
  name = "Dropterm",
- argname = "-n Dropterm",
+ argname = "--class Dropterm",
  border = 1,
  width = 0.4,
  height = 0.4,

@@ -11,7 +11,7 @@ local themes_path = "/home/samsepi0l/.config/awesome"
 
 local theme = {}
 
-theme.font          = "Courier Code 15"
+theme.font          = "Courier Prime 15"
 
 theme.bg_normal     = "#00000000"
 theme.bg_focus      = "#7d8618"
@@ -36,6 +36,7 @@ theme.snap_bg = "#7d8618"
 naughty.config = {
     defaults = {
         ontop = true,
+        font = theme.font,
 --        screen = awful.screen.focused(),
         timeout = 10,
         margin = 20,

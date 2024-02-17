@@ -374,7 +374,6 @@ require("mason-lspconfig").setup{
   "clangd",
   "vimls",
   "jsonls",
---"grammarly",
   "marksman"
  },
 }
@@ -386,7 +385,6 @@ lspconfig.html.setup{}
 lspconfig.clangd.setup{}
 lspconfig.vimls.setup{}
 lspconfig.jsonls.setup{}
---lspconfig.grammarly.setup{}
 lspconfig.marksman.setup{}
 -- lspconfig.rust_analyzer.setup {
 --  -- Server-specific settings. See `:help lspconfig-setup`

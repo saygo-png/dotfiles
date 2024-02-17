@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 # Safety.
 set -e || exit 1
 set -u && set -o pipefail && shopt -s failglob

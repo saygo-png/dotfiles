@@ -28,7 +28,7 @@ setopt COMPLETE_IN_WORD     # Complete from both ends of a word.
 unsetopt CASE_GLOB
 zstyle ':completion:*' menu select
 zmodload zsh/complist
-_comp_options+=(globdots)		# Include hidden files.
+_comp_options+=(globdots)  # Include hidden files.
 # Load more completions.
 fpath=($HOME/.config/zsh/plugins/zsh-completions/src $fpath)
 # Use hjlk in menu selection (during completion)
