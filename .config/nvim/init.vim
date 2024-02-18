@@ -208,6 +208,11 @@ call plug#begin('~/.config/nvim/plugged')
 call plug#end()
 
 " Colors (must be loaded after gruvbox plugin).
+if !has('gui_running') && &term =~ '^\%(screen\|tmux\)'
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
+set termguicolors                    " Enable GUI colors for the terminal to get truecolor
 " More in the plugins section.
 let g:gruvbox_transparent_bg = 1
 let g:gruvbox_italic = 1
@@ -218,7 +223,6 @@ set bg=dark
 "set t_8f=^[[38;2;%lu;%lu;%lum " set foreground color
 "set t_8b=^[[48;2;%lu;%lu;%lum " set background color
 colorscheme gruvbox
-set t_Co=256                         " Enable 256 colors
 set termguicolors                    " Enable GUI colors for the terminal to get truecolor
 hi Normal guibg=NONE ctermbg=NONE
 hi statusline guibg=NONE gui=NONE guifg=#7d8618
@@ -509,7 +513,7 @@ require'nvim-treesitter.configs'.setup {
   -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
   -- the name of the parser)
   -- list of language that will be disabled
-  disable = { },
+  disable = { toml, c },
   -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
   disable = function(lang, buf)
   local max_filesize = 100 * 1024 -- 100 KB
