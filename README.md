@@ -1,6 +1,6 @@
 my dotfiles it's not that deep.
 
-+ gruvbox
++ gruvbox dark
 + everything transparent
 + blurry
 + MUTED GREEN
