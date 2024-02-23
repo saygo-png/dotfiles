@@ -250,5 +250,7 @@ PROMPT=$PROMPT
 PROMPT+='${GITSTATUS_PROMPT:+ $GITSTATUS_PROMPT}'      # git status
 PROMPT+=$'\n'                                          # new line
 PROMPT+='%F{green}>%f'
+# Load zoxide (cd replacement)
+eval "$(zoxide init zsh)"
 #Load zsh-syntax-highlighting; should be last.
 source "$HOME"/.config/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

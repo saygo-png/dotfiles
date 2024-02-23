@@ -75,7 +75,8 @@ systemctl --user enable syncthing.service
 appman -i krita librewolf blender element schildichat
 # Install from pipx
 pipx install yt-dlp gallery-dl
-
+# Install from cargo
+cargo instal zoxide
 # Set ibus delay to 0
 gsettings set org.freedesktop.ibus.general switcher-delay-time '0'
 # Install polish-finnish keyboard

@@ -11,25 +11,30 @@ alias \
  gitignored="git ls-files --others --ignored --exclude-standard" \
  restart="sudo restart now" \
  shutdown="sudo shutdown now" \
- space="df --type=btrfs -h" \
+ space="df --type=xfs -h" \
  debi="gdebi" \
  image="nsxiv" \
  unp="unp -U" \
-	cp="cp -ivr" \
-	mv="mv -iv" \
-	rm="rmw" \
-	la="ls -hN --color=auto --group-directories-first -a" \
-	bc="bc -ql" \
-	mkdir="mkdir -pv" \
-	ffmpeg="ffmpeg -hide_banner" \
-#	lf="lfub"
+ cp="cp -ivr" \
+ mv="mv -iv" \
+ la="ls -hN --color=auto --group-directories-first -a" \
+ bc="bc -ql" \
+ mkdir="mkdir -pv" \
+ ffmpeg="ffmpeg -hide_banner" \
+# lf="lfub"
 # Colorize commands when possible.
 alias \
-	ls="ls -hN --color=auto --group-directories-first" \
-	grep="grep --color=auto" \
-	diff="diff --color=auto" \
-	ccat="highlight --out-format=ansi" \
-	ip="ip -color=auto" \
+ ls="ls -hN --color=auto --group-directories-first" \
+ grep="grep --color=auto" \
+ diff="diff --color=auto" \
+ ccat="highlight --out-format=ansi" \
+ ip="ip -color=auto" \
 #retarded wget rc history file in .cache
 alias wget="wget --hsts-file=\"~/.config/wget-hsts\""
-#aliases
+# Aliases
+alias \
+ la="lsd -a" \
+ ls="lsd" \
+ rm="rmw" \
+ cd="z" \
+ cdi="zi" \
