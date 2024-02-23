@@ -188,6 +188,8 @@ call plug#begin('~/.config/nvim/plugged')
  Plug 'nvim-treesitter/nvim-treesitter',        { 'frozen': 0, 'do': ':TSUpdate'}
  Plug 'psliwka/vim-smoothie',                   { 'frozen': 1 }
  Plug 'easymotion/vim-easymotion',              { 'frozen': 1 }
+ Plug 'HiPhish/rainbow-delimiters.nvim',        { 'frozen': 0 }
+ Plug 'folke/which-key.nvim',                   { 'frozen': 1 }
 " Plug 'junegunn/fzf',                           { 'frozen': 1 }
  Plug 'brenoprata10/nvim-highlight-colors',     { 'frozen': 1 }
  Plug 'tpope/vim-surround',                     { 'frozen': 1 }
@@ -198,7 +200,6 @@ call plug#begin('~/.config/nvim/plugged')
  Plug 'axlebedev/vim-find-my-cursor',           { 'frozen': 1 }
  Plug 'junegunn/vim-slash',                     { 'frozen': 1 }
  Plug 'monaqa/dial.nvim',                       { 'frozen': 1 }
- Plug 'kien/rainbow_parentheses.vim',           { 'frozen': 1 }
  Plug 'nvim-treesitter/nvim-treesitter-context',{ 'frozen': 0 }
  Plug 'Eandrju/cellular-automaton.nvim',        { 'frozen': 1 }
  Plug 'andrewferrier/wrapping.nvim',            { 'frozen': 1 }
@@ -208,22 +209,32 @@ call plug#begin('~/.config/nvim/plugged')
 call plug#end()
 
 " Colors (must be loaded after gruvbox plugin).
-if !has('gui_running') && &term =~ '^\%(screen\|tmux\)'
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+"if !has('gui_running') && &term =~ '^\%(screen\|tmux\)'
+"  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+"  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+"endif
+if has('termguicolors')
+ set termguicolors
 endif
-set termguicolors                    " Enable GUI colors for the terminal to get truecolor
 " More in the plugins section.
-let g:gruvbox_transparent_bg = 1
+let g:gruvbox_transparent_bg = 2
 let g:gruvbox_italic = 1
 let g:gruvbox_italicize_comments = 1
 "let g:gruvbox_invert_indent_guides = 1
 let g:gruvbox_hls_cursor = 'orange'
 set bg=dark
-"set t_8f=^[[38;2;%lu;%lu;%lum " set foreground color
-"set t_8b=^[[48;2;%lu;%lu;%lum " set background color
 colorscheme gruvbox
-set termguicolors                    " Enable GUI colors for the terminal to get truecolor
+
+"set background=dark
+"let g:gruvbox_material_enable_bold = 1
+"let g:gruvbox_material_enable_italic = 1
+"let g:gruvbox_material_transparent_background = 2
+"let g:gruvbox_material_better_performance = 1
+"let g:gruvbox_material_menu_selection_background = 'blue'
+"let g:gruvbox_material_foreground = 'original'
+""let g:gruvbox_material_diagnostic_virtual_text = 'colored'
+"colorscheme gruvbox-material
+
 hi Normal guibg=NONE ctermbg=NONE
 hi statusline guibg=NONE gui=NONE guifg=#7d8618
 hi LineNr guifg=#7d8618
@@ -320,11 +331,6 @@ lua << EOF
   enable_tailwind = true,
  }
 EOF
-" Rainbow parentheses plug.
-autocmd VimEnter * :RainbowParenthesesToggle
-autocmd Syntax * :RainbowParenthesesLoadRound
-autocmd Syntax * :RainbowParenthesesLoadSquare
-autocmd Syntax * :RainbowParenthesesLoadBraces
 
 " Search plug.
 noremap <plug>(slash-after) zz
@@ -534,8 +540,52 @@ EOF
 lua << EOF
  require("wrapping").setup()
 EOF
+
 " Automaton plug.
 nmap <leader>fml <cmd>CellularAutomaton make_it_rain<CR>
+
+" Rainbow parentheses.
+lua << EOF
+-- This module contains a number of default definitions
+local rainbow_delimiters = require 'rainbow-delimiters'
+---@type rainbow_delimiters.config
+vim.g.rainbow_delimiters = {
+ strategy = {
+  [''] = rainbow_delimiters.strategy['global'],
+  vim = rainbow_delimiters.strategy['global'],
+ },
+ query = {
+  [''] = 'rainbow-delimiters',
+  lua = 'rainbow-delimiters',
+ },
+ priority = {
+  [''] = 110,
+  lua = 210,
+ },
+ highlight = {
+  'RainbowDelimiterRed',
+  'RainbowDelimiterYellow',
+  'RainbowDelimiterBlue',
+  'RainbowDelimiterOrange',
+  'RainbowDelimiterGreen',
+  'RainbowDelimiterViolet',
+  'RainbowDelimiterCyan',
+ },
+}
+
+query = {
+ -- Use parentheses by default
+ [''] = 'rainbow-delimiters',
+ -- Use blocks for Lua
+ lua = 'rainbow-delimiters',
+ -- Determine the query dynamically
+ query = function(bufnr)
+ -- Use blocks for read-only buffers like in `:InspectTree`
+ local is_nofile = vim.bo[bufnr].buftype == 'nofile'
+ return is_nofile and 'rainbow-blocks' or 'rainbow-delimiters'
+ end
+}
+EOF
 
 " Treesitter context.
 lua << EOF

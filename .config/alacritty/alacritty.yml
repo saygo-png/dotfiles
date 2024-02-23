@@ -1,7 +1,7 @@
 env:
   TERM: alacritty
 window:
-  opacity: 0.0
+  opacity: 0.4
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
   padding:
@@ -44,7 +44,7 @@ font:
   #  y: 0
 
 # If `true`, bold text is drawn using the bright color variants.
-draw_bold_text_with_bright_colors: false
+draw_bold_text_with_bright_colors: true
 
 
 # Colors (Gruvbox dark)
@@ -52,13 +52,14 @@ colors:
   # Default colors
   primary:
     # hard contrast: background = '0x1d2021'
-    background: '0x282828'
+    background: '0x151603'
+    #background: '0x282828'
     # soft contrast: background = '0x32302f'
     foreground: '0xebdbb2'
 
   # Normal colors
   normal:
-    black:   '0x282828'
+    black:   '0x161616'
     red:     '0xcc241d'
     green:   '0x98971a'
     yellow:  '0xd79921'
