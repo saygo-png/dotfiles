@@ -24,6 +24,6 @@ systemctl --user start timers.target &
 flameshot &
 qbittorrent &
 keepassxc &
-st &
+alacritty &
 "$HOME"/.local/bin/remaps
 exec awesome
