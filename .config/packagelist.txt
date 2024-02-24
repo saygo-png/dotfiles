@@ -2445,6 +2445,7 @@ linux-headers-6.7.2-3-liquorix-amd64
 linux-headers-6.7.3-3-liquorix-amd64
 linux-headers-6.7.4-1-liquorix-amd64
 linux-headers-6.7.4-2-liquorix-amd64
+linux-headers-6.7.6-1-liquorix-amd64
 linux-headers-amd64
 linux-headers-liquorix-amd64
 linux-image-6.1.0-15-amd64
@@ -2456,6 +2457,7 @@ linux-image-6.7.2-3-liquorix-amd64
 linux-image-6.7.3-3-liquorix-amd64
 linux-image-6.7.4-1-liquorix-amd64
 linux-image-6.7.4-2-liquorix-amd64
+linux-image-6.7.6-1-liquorix-amd64
 linux-image-amd64
 linux-image-liquorix-amd64
 linux-kbuild-6.1
@@ -2479,6 +2481,7 @@ logsave
 lp-solve
 lsb-base
 lsb-release
+lsd
 lsof
 lsp-plugins-lv2
 lsp-plugins-r3d-glx
@@ -2966,7 +2969,6 @@ npm
 nss-plugin-pem:amd64
 nsxiv
 ntfs-3g
-ntpsec
 nuspell
 nvidia-openjdk-8-jre
 ocaml-base
@@ -3136,7 +3138,6 @@ python3-minimal
 python3-more-itertools
 python3-nftables
 python3-nltk
-python3-ntp
 python3-numpy
 python3-oauthlib
 python3-olefile

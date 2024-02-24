@@ -87,9 +87,20 @@ sudo ln -s "$HOME".config/plfi /usr/share/X11/xkb/symbols/plfi
 # Change user's shell to zsh (need manual intervention).
 chsh -s "$(which zsh)"
 
-# How to make ibus see the pol-fin keyboard
+# How to make ibus see the pol-fin keyboard.
 #edit the /usr/share/ibus/component/simple.xml file
 #pick one of the engines there, and just replace the layout section with "plfi" (name of the xkb file) then turn ibus on and off
 #.add the keyboard to input options
 
-# Enable video accel in librewolf. (just google it i dont rememember how and it willc hange i know its supposed to be an automated script but i dont care)
+# Enable video accel in librewolf.
+#(just google it i dont rememember how and it willchange i know its supposed to be an automated script but i dont care)
+
+# Wiktionary finnish search.
+#Download the Add custom search engine plugin to Firefox
+#Click on it to start adding a new search engine
+#Type a name like "FI wiktionary"
+#Type the URL with the desired language flag at the end (https://en.wiktionary.org/wiki/%s#Finnish)
+#Click save
+#Go to Settings -> Search and double-click on the Keyword column
+#(right of the search engine names at the bottom table).
+#use it by typing the keyword into the search bar
