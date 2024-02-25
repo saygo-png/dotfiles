@@ -1,7 +1,6 @@
 set virtualedit+=onemore
 "convert to unix filetype on save
 set ff=unix
-let mapleader=","
 syntax on
 set encoding=utf-8
 set fileencoding=utf-8
@@ -48,9 +47,23 @@ set smartindent
 " Case insensitive search.
 set ignorecase
 set smartcase
-" Hide tildes on emtpy lines
+" Hide tildes on empty lines
 set fillchars=fold:\ ,vert:\│,eob:\ ,msgsep:‾
 " Remaps.
+let mapleader=","
+" Tabs
+nnoremap tk :tabnext<CR>
+nnoremap tj :tabprev<CR>
+nnoremap td :tabclose<CR>
+nnoremap <leader>1 1gt
+nnoremap <leader>2 2gt
+nnoremap <leader>3 3gt
+nnoremap <leader>4 4gt
+nnoremap <leader>5 5gt
+nnoremap <leader>6 6gt
+nnoremap <leader>7 7gt
+nnoremap <leader>8 8gt
+nnoremap <leader>9 9gt
 " Makes o insert a blank line in normal mode
 nnoremap o o<Esc>0"_D
 nnoremap L .
@@ -76,6 +89,11 @@ nnoremap : ;
 " Makes ctrl+s increment to not conflict with tmux.
 nnoremap <C-s> <C-a>
 filetype plugin indent on
+" This makes :checkhealth not yell about providers
+let g:loaded_python3_provider = 0
+let g:loaded_perl_provider = 0
+let g:loaded_node_provider = 0
+let g:loaded_ruby_provider = 0
 " Center search and substitution.
 " This is also configued by a plugin in the plugins section.
 nnoremap n nzz
@@ -181,62 +199,51 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 call plug#begin('~/.config/nvim/plugged')
- Plug 'iamcco/markdown-preview.nvim',           { 'do': 'cd app && npx --yes yarn install' }
- Plug 'echasnovski/mini.indentscope',           { 'branch': 'stable', 'frozen': 1 }
-" Plug 'lukas-reineke/indent-blankline.nvim',   { 'frozen': 0 }
- Plug 'lukas-reineke/indent-blankline.nvim',    { 'tag': 'v2.20.8',   'frozen': 1 }
- Plug 'nvim-treesitter/nvim-treesitter',        { 'frozen': 0, 'do': ':TSUpdate'}
- Plug 'psliwka/vim-smoothie',                   { 'frozen': 1 }
- Plug 'easymotion/vim-easymotion',              { 'frozen': 1 }
- Plug 'HiPhish/rainbow-delimiters.nvim',        { 'frozen': 0 }
- Plug 'folke/which-key.nvim',                   { 'frozen': 1 }
-" Plug 'junegunn/fzf',                           { 'frozen': 1 }
- Plug 'brenoprata10/nvim-highlight-colors',     { 'frozen': 1 }
- Plug 'tpope/vim-surround',                     { 'frozen': 1 }
- Plug 'tomtom/tcomment_vim',                    { 'frozen': 1 }
- Plug 'echasnovski/mini.align',                 { 'frozen': 1 }
- Plug 'morhetz/gruvbox',                        { 'frozen': 1 }
- Plug 'sbdchd/neoformat',                       { 'frozen': 1 }
- Plug 'axlebedev/vim-find-my-cursor',           { 'frozen': 1 }
- Plug 'junegunn/vim-slash',                     { 'frozen': 1 }
- Plug 'monaqa/dial.nvim',                       { 'frozen': 1 }
- Plug 'nvim-treesitter/nvim-treesitter-context',{ 'frozen': 0 }
- Plug 'Eandrju/cellular-automaton.nvim',        { 'frozen': 1 }
- Plug 'andrewferrier/wrapping.nvim',            { 'frozen': 1 }
- Plug 'williamboman/mason.nvim',                { 'frozen': 0 }
- Plug 'williamboman/mason-lspconfig.nvim',      { 'frozen': 0 }
- Plug 'neovim/nvim-lspconfig',                  { 'frozen': 0 }
+ Plug 'iamcco/markdown-preview.nvim'                   ,{ 'frozen': 1, 'do': 'cd app && npx --yes yarn install' }
+" Plug 'lukas-reineke/indent-blankline.nvim'           ,{ 'frozen': 0 }
+ Plug 'lukas-reineke/indent-blankline.nvim'            ,{ 'frozen': 1, 'tag': 'v2.20.8' }
+ Plug 'nvim-treesitter/nvim-treesitter'                ,{ 'frozen': 0, 'do': ':TSUpdate' }
+  Plug 'nvim-treesitter/nvim-treesitter-context'       ,{ 'frozen': 0 }
+ Plug 'psliwka/vim-smoothie'                           ,{ 'frozen': 1 }
+ Plug 'easymotion/vim-easymotion'                      ,{ 'frozen': 1 }
+ Plug 'HiPhish/rainbow-delimiters.nvim'                ,{ 'frozen': 0 }
+ Plug 'folke/which-key.nvim'                           ,{ 'frozen': 1 }
+ Plug 'nvim-telescope/telescope.nvim'                  ,{ 'frozen': 1 }
+  Plug 'nvim-lua/plenary.nvim'                         ,{ 'frozen': 1 }
+  Plug 'nvim-telescope/telescope-fzf-native.nvim'      ,{ 'frozen': 1, 'do': 'make' }
+  Plug 'MunifTanjim/nui.nvim'                          ,{ 'frozen': 1 }
+ Plug 'brenoprata10/nvim-highlight-colors'             ,{ 'frozen': 1 }
+ Plug 'tpope/vim-surround'                             ,{ 'frozen': 1 }
+ Plug 'tomtom/tcomment_vim'                            ,{ 'frozen': 1 }
+ Plug 'echasnovski/mini.align'                         ,{ 'frozen': 1 }
+ Plug 'preservim/nerdtree'                             ,{ 'frozen': 1 }
+ Plug 'echasnovski/mini.indentscope'                   ,{ 'frozen': 1, 'branch': 'stable' }
+ Plug 'morhetz/gruvbox'                                ,{ 'frozen': 1 }
+ Plug 'sbdchd/neoformat'                               ,{ 'frozen': 1 }
+ Plug 'axlebedev/vim-find-my-cursor'                   ,{ 'frozen': 1 }
+ Plug 'junegunn/vim-slash'                             ,{ 'frozen': 1 }
+ Plug 'monaqa/dial.nvim'                               ,{ 'frozen': 1 }
+ Plug 'Eandrju/cellular-automaton.nvim'                ,{ 'frozen': 1 }
+ Plug 'andrewferrier/wrapping.nvim'                    ,{ 'frozen': 1 }
+ Plug 'williamboman/mason.nvim'                        ,{ 'frozen': 0 }
+  Plug 'williamboman/mason-lspconfig.nvim'             ,{ 'frozen': 0 }
+  Plug 'neovim/nvim-lspconfig'                         ,{ 'frozen': 0 }
 call plug#end()
 
 " Colors (must be loaded after gruvbox plugin).
-"if !has('gui_running') && &term =~ '^\%(screen\|tmux\)'
-"  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-"  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-"endif
 if has('termguicolors')
  set termguicolors
 endif
 " More in the plugins section.
-let g:gruvbox_transparent_bg = 2
+let g:gruvbox_transparent_bg = 1
 let g:gruvbox_italic = 1
 let g:gruvbox_italicize_comments = 1
 "let g:gruvbox_invert_indent_guides = 1
 let g:gruvbox_hls_cursor = 'orange'
 set bg=dark
 colorscheme gruvbox
-
-"set background=dark
-"let g:gruvbox_material_enable_bold = 1
-"let g:gruvbox_material_enable_italic = 1
-"let g:gruvbox_material_transparent_background = 2
-"let g:gruvbox_material_better_performance = 1
-"let g:gruvbox_material_menu_selection_background = 'blue'
-"let g:gruvbox_material_foreground = 'original'
-""let g:gruvbox_material_diagnostic_virtual_text = 'colored'
-"colorscheme gruvbox-material
-
 hi Normal guibg=NONE ctermbg=NONE
-hi statusline guibg=NONE gui=NONE guifg=#7d8618
+hi statusline ctermbg=NONE guibg=NONE gui=NONE guifg=#7d8618
 hi LineNr guifg=#7d8618
 
 " Tcomment.
@@ -262,30 +269,6 @@ lua << EOF
  })
 EOF
 
-" Indentblankline.
-"NEW
-"lua << EOF
-"require("ibl").setup{
-" debounce = 100,
-" indent = {
-"  char = "│",
-"  --tab_char = { "a", "b", "c" },
-"  repeat_linebreak = true,
-" },
-" whitespace = {
-"  remove_blankline_trail = true,
-"  highlight = { "Whitespace", "NonText" },
-" },
-" scope = {
-"  enabled = true,
-"  show_start = true,
-"  show_end = false,
-"  injected_languages = true,
-"  highlight = { "Function", "Label" },
-"  priority = 600,
-" },
-"}
-"EOF
 "OLD
 let g:indent_blankline_char = '│'
 lua << EOF
@@ -367,7 +350,6 @@ vmap g<C-s> g<Plug>(dial-increment)
 vmap g<C-x> g<Plug>(dial-decrement)
 
 " Language server.
-
 " Mason
 lua << EOF
 require("mason").setup({
@@ -546,64 +528,301 @@ nmap <leader>fml <cmd>CellularAutomaton make_it_rain<CR>
 
 " Rainbow parentheses.
 lua << EOF
--- This module contains a number of default definitions
-local rainbow_delimiters = require 'rainbow-delimiters'
----@type rainbow_delimiters.config
-vim.g.rainbow_delimiters = {
- strategy = {
-  [''] = rainbow_delimiters.strategy['global'],
-  vim = rainbow_delimiters.strategy['global'],
- },
- query = {
-  [''] = 'rainbow-delimiters',
-  lua = 'rainbow-delimiters',
- },
- priority = {
-  [''] = 110,
-  lua = 210,
- },
- highlight = {
-  'RainbowDelimiterRed',
-  'RainbowDelimiterYellow',
-  'RainbowDelimiterBlue',
-  'RainbowDelimiterOrange',
-  'RainbowDelimiterGreen',
-  'RainbowDelimiterViolet',
-  'RainbowDelimiterCyan',
- },
-}
+ -- This module contains a number of default definitions
+ local rainbow_delimiters = require 'rainbow-delimiters'
+ ---@type rainbow_delimiters.config
+ vim.g.rainbow_delimiters = {
+  strategy = {
+   [''] = rainbow_delimiters.strategy['global'],
+   vim = rainbow_delimiters.strategy['global'],
+  },
+  query = {
+   [''] = 'rainbow-delimiters',
+   lua = 'rainbow-delimiters',
+  },
+  priority = {
+   [''] = 110,
+   lua = 210,
+  },
+  highlight = {
+   'RainbowDelimiterRed',
+   'RainbowDelimiterYellow',
+   'RainbowDelimiterBlue',
+   'RainbowDelimiterOrange',
+   'RainbowDelimiterGreen',
+   'RainbowDelimiterViolet',
+   'RainbowDelimiterCyan',
+  },
+ }
 
-query = {
- -- Use parentheses by default
- [''] = 'rainbow-delimiters',
- -- Use blocks for Lua
- lua = 'rainbow-delimiters',
- -- Determine the query dynamically
- query = function(bufnr)
- -- Use blocks for read-only buffers like in `:InspectTree`
- local is_nofile = vim.bo[bufnr].buftype == 'nofile'
- return is_nofile and 'rainbow-blocks' or 'rainbow-delimiters'
- end
-}
+ query = {
+  -- Use parentheses by default
+  [''] = 'rainbow-delimiters',
+  -- Use blocks for Lua
+  lua = 'rainbow-delimiters',
+  -- Determine the query dynamically
+  query = function(bufnr)
+  -- Use blocks for read-only buffers like in `:InspectTree`
+  local is_nofile = vim.bo[bufnr].buftype == 'nofile'
+  return is_nofile and 'rainbow-blocks' or 'rainbow-delimiters'
+  end
+ }
 EOF
 
 " Treesitter context.
 lua << EOF
-require'treesitter-context'.setup{
- enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
- max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
- min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
- line_numbers = true,
- multiline_threshold = 20, -- Maximum number of lines to show for a single context
- trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
- mode = 'cursor',  -- Line used to calculate context. Choices: 'cursor', 'topline'
- -- Separator between context and content. Should be a single character string, like '-'.
- -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
- separator = nil,
- zindex = 20, -- The Z-index of the context window
- on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
-}
-vim.keymap.set("n", "[c", function()
- require("treesitter-context").go_to_context(vim.v.count1)
-end, { silent = true })
+ require'treesitter-context'.setup{
+  enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+  max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
+  min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+  line_numbers = true,
+  multiline_threshold = 20, -- Maximum number of lines to show for a single context
+  trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
+  mode = 'cursor',  -- Line used to calculate context. Choices: 'cursor', 'topline'
+  -- Separator between context and content. Should be a single character string, like '-'.
+  -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
+  separator = nil,
+  zindex = 20, -- The Z-index of the context window
+  on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
+ }
+ vim.keymap.set("n", "[c", function()
+  require("treesitter-context").go_to_context(vim.v.count1)
+ end, { silent = true })
 EOF
+
+" Telescope
+lua << EOF
+local Layout = require("nui.layout")
+local Popup = require("nui.popup")
+local telescope = require("telescope")
+local TSLayout = require("telescope.pickers.layout")
+
+local function make_popup(options)
+  local popup = Popup(options)
+  function popup.border:change_title(title)
+    popup.border.set_text(popup.border, "top", title)
+  end
+  return TSLayout.Window(popup)
+end
+
+telescope.setup({
+  defaults = {
+    layout_strategy = "flex",
+    layout_config = {
+      horizontal = {
+        size = {
+          width = "90%",
+          height = "60%",
+        },
+      },
+      vertical = {
+        size = {
+          width = "90%",
+          height = "90%",
+        },
+      },
+    },
+    create_layout = function(picker)
+      local border = {
+        results = {
+          top_left = "┌",
+          top = "─",
+          top_right = "┬",
+          right = "│",
+          bottom_right = "",
+          bottom = "",
+          bottom_left = "",
+          left = "│",
+        },
+        results_patch = {
+          minimal = {
+            top_left = "┌",
+            top_right = "┐",
+          },
+          horizontal = {
+            top_left = "┌",
+            top_right = "┬",
+          },
+          vertical = {
+            top_left = "├",
+            top_right = "┤",
+          },
+        },
+        prompt = {
+          top_left = "├",
+          top = "─",
+          top_right = "┤",
+          right = "│",
+          bottom_right = "┘",
+          bottom = "─",
+          bottom_left = "└",
+          left = "│",
+        },
+        prompt_patch = {
+          minimal = {
+            bottom_right = "┘",
+          },
+          horizontal = {
+            bottom_right = "┴",
+          },
+          vertical = {
+            bottom_right = "┘",
+          },
+        },
+        preview = {
+          top_left = "┌",
+          top = "─",
+          top_right = "┐",
+          right = "│",
+          bottom_right = "┘",
+          bottom = "─",
+          bottom_left = "└",
+          left = "│",
+        },
+        preview_patch = {
+          minimal = {},
+          horizontal = {
+            bottom = "─",
+            bottom_left = "",
+            bottom_right = "┘",
+            left = "",
+            top_left = "",
+          },
+          vertical = {
+            bottom = "",
+            bottom_left = "",
+            bottom_right = "",
+            left = "│",
+            top_left = "┌",
+          },
+        },
+      }
+
+      local results = make_popup({
+        focusable = false,
+        border = {
+          style = border.results,
+          text = {
+            top = picker.results_title,
+            top_align = "center",
+          },
+        },
+        win_options = {
+          winhighlight = "Normal:Normal",
+        },
+      })
+
+      local prompt = make_popup({
+        enter = true,
+        border = {
+          style = border.prompt,
+          text = {
+            top = picker.prompt_title,
+            top_align = "center",
+          },
+        },
+        win_options = {
+          winhighlight = "Normal:Normal",
+        },
+      })
+
+      local preview = make_popup({
+        focusable = false,
+        border = {
+          style = border.preview,
+          text = {
+            top = picker.preview_title,
+            top_align = "center",
+          },
+        },
+      })
+
+      local box_by_kind = {
+        vertical = Layout.Box({
+          Layout.Box(preview, { grow = 1 }),
+          Layout.Box(results, { grow = 1 }),
+          Layout.Box(prompt, { size = 3 }),
+        }, { dir = "col" }),
+        horizontal = Layout.Box({
+          Layout.Box({
+            Layout.Box(results, { grow = 1 }),
+            Layout.Box(prompt, { size = 3 }),
+          }, { dir = "col", size = "50%" }),
+          Layout.Box(preview, { size = "50%" }),
+        }, { dir = "row" }),
+        minimal = Layout.Box({
+          Layout.Box(results, { grow = 1 }),
+          Layout.Box(prompt, { size = 3 }),
+        }, { dir = "col" }),
+      }
+
+      local function get_box()
+        local strategy = picker.layout_strategy
+        if strategy == "vertical" or strategy == "horizontal" then
+          return box_by_kind[strategy], strategy
+        end
+
+        local height, width = vim.o.lines, vim.o.columns
+        local box_kind = "horizontal"
+        if width < 100 then
+          box_kind = "vertical"
+          if height < 40 then
+            box_kind = "minimal"
+          end
+        end
+        return box_by_kind[box_kind], box_kind
+      end
+
+      local function prepare_layout_parts(layout, box_type)
+        layout.results = results
+        results.border:set_style(border.results_patch[box_type])
+
+        layout.prompt = prompt
+        prompt.border:set_style(border.prompt_patch[box_type])
+
+        if box_type == "minimal" then
+          layout.preview = nil
+        else
+          layout.preview = preview
+          preview.border:set_style(border.preview_patch[box_type])
+        end
+      end
+
+      local function get_layout_size(box_kind)
+        return picker.layout_config[box_kind == "minimal" and "vertical" or box_kind].size
+      end
+
+      local box, box_kind = get_box()
+      local layout = Layout({
+        relative = "editor",
+        position = "50%",
+        size = get_layout_size(box_kind),
+      }, box)
+
+      layout.picker = picker
+      prepare_layout_parts(layout, box_kind)
+
+      local layout_update = layout.update
+      function layout:update()
+        local box, box_kind = get_box()
+        prepare_layout_parts(layout, box_kind)
+        layout_update(self, { size = get_layout_size(box_kind) }, box)
+      end
+
+      return TSLayout(layout)
+    end,
+  },
+})
+ require('telescope').load_extension('fzf')
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+EOF
+
+" Nerdtree (file tree)
+nnoremap <leader>nf :NERDTreeFocus<CR>
+"nnoremap <leader>n :NERDTree<CR>
+"nnoremap <leader>nt :NERDTreeToggle<CR>
+nnoremap <leader>nf :NERDTreeFind<CR>

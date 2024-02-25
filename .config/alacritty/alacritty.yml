@@ -400,7 +400,7 @@ key_bindings:
   - { key: C,        mods: Control,                          action: Copy        }
   - { key: C,        mods: Control|Shift,                    chars: "\x03"       }
   # other
-  - { key: Q,        mods: Control,                          action: Quit            }
+  - { key: Q,        mods: Control,                          action: ReceiveChar     }
   - { key: PageUp,   mods: Control,                          action: IncreaseFontSize}
   - { key: PageDown, mods: Control,                          action: DecreaseFontSize}
   - { key: Home,     mods: Control,                          action: ResetFontSize   }

@@ -203,7 +203,7 @@ awful.key({modkey,           }, "=",
  function ()
   awful.util.spawn("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+")
  end,
- {description = "decrease volume by 5%", group = "launcher"}
+ {description = "increase volume by 5%", group = "launcher"}
 ),
 
 awful.key({ modkey,           }, "a",
@@ -215,6 +215,10 @@ function (c) c.sticky = not c.sticky  end,
 awful.key({ modkey }, "Left", function () lain.util.tag_view_nonempty(-1) end,
 {description="view previous non empty", group="tag"}),
 awful.key({ modkey }, "Right", function () lain.util.tag_view_nonempty(1) end,
+{description="view next non empty", group="tag"}),
+awful.key({ modkey, "Control" }, "h", function () lain.util.tag_view_nonempty(-1) end,
+{description="view previous non empty", group="tag"}),
+awful.key({ modkey, "Control" }, "l", function () lain.util.tag_view_nonempty(1) end,
 {description="view next non empty", group="tag"}),
 awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
 {description="show help", group="awesome"}),
