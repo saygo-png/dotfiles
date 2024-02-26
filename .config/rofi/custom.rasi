@@ -37,9 +37,9 @@
     separatorcolor:              @border-color;
     scrollbar-handle:            @border-color;
 
-    normal-background:           @background;
+    normal-background:           rgba (0, 0, 0, 0%);
     normal-foreground:           @foreground;
-    alternate-normal-background: @gruvbox-dark-bg0-soft;
+    alternate-normal-background: rgba (0, 0, 0, 0%);
     alternate-normal-foreground: @foreground;
     selected-normal-background:  @gruvbox-dark-bg3;
     selected-normal-foreground:  @gruvbox-dark-fg0;
@@ -71,7 +71,7 @@ mainbox {
 
 message {
     border:       2px 0 0;
-    border-color: @separatorcolor;
+    border-color: rgba (21, 22, 3, 10%);
     padding:      1px;
 }
 
@@ -83,7 +83,7 @@ textbox {
 listview {
     border:       0px solid 0 0;
     padding:      0px 0 0;
-    border-color: @separatorcolor;
+    border-color: rgba (21, 22, 3, 10%);
     spacing:      0px;
     scrollbar:    @scrollbar;
 }
@@ -94,7 +94,7 @@ element {
 }
 
 element.normal.normal {
-    background-color: @normal-background;
+    background-color: rgba (21, 22, 3, 0%);
     text-color:       @normal-foreground;
 }
 
@@ -141,14 +141,14 @@ element.alternate.active {
 scrollbar {
     width:        4px;
     border:       0;
-    handle-color: @scrollbar-handle;
+    handle-color: rgba (21, 22, 3, 10%);
     handle-width: 8px;
     padding:      0;
 }
 
 mode-switcher {
     border:       2px 0 0;
-    border-color: @separatorcolor;
+    border-color: rgba (21, 22, 3, 10%);
 }
 
 inputbar {
@@ -175,7 +175,7 @@ textbox-prompt-sep {
     expand:     false;
     str:        ":";
     text-color: @normal-foreground;
-    margin:     0 0.2em 0 0;
+    margin:     0 0.2em 0.3em 0;
 }
 element-text, element-icon {
     background-color: inherit;
