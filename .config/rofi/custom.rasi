@@ -17,8 +17,8 @@
     scrollbar: false;
 
     /* Gruvbox dark colors */
-    gruvbox-dark-bg0:          rgba (40, 40, 40, 0%);
-    gruvbox-dark-bg0-soft:     rgba (40, 40, 40, 0%);
+    gruvbox-dark-bg0:          rgba (21, 22, 3, 10%);
+    gruvbox-dark-bg0-soft:     rgba (21, 22, 3, 10%);
     gruvbox-dark-bg3:          rgba (125, 134, 24, 100%);
     gruvbox-dark-fg0:          #fbf1c7;
     gruvbox-dark-fg1:          #ebdbb2;
@@ -27,7 +27,7 @@
     gruvbox-dark-yellow-dark:  #d79921;
     gruvbox-dark-yellow-light: #689d6a;
     gruvbox-dark-gray:         #a89984;
-    border-color:              rgba (40, 40, 40, 0%);
+    border-color:              rgba (21, 22, 3, 10%);
 
     /* Theme colors */
     background:                  @gruvbox-dark-bg0;

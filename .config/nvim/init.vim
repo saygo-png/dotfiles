@@ -66,6 +66,7 @@ nnoremap <leader>8 8gt
 nnoremap <leader>9 9gt
 " Makes o insert a blank line in normal mode
 nnoremap o o<Esc>0"_D
+nnoremap O O<Esc>0"_D
 nnoremap L .
 " Makes d delete and x cut, paste is infinite. default vim is retarded
 set clipboard+=unnamedplus
@@ -265,7 +266,21 @@ lua << EOF
    delay = 200,
    priority = 2,
   },
-  symbol = '┇'
+  symbol = '┇',
+  options = {
+   -- Type of scope's border: which line(s) with smaller indent to
+   -- categorize as border. Can be one of: 'both', 'top', 'bottom', 'none'.
+   border = 'top',
+
+   -- Whether to use cursor column when computing reference indent.
+   -- Useful to see incremental scopes with horizontal cursor movements.
+   indent_at_cursor = true,
+
+   -- Whether to first check input line to be a border of adjacent scope.
+   -- Use it if you want to place cursor on function header to get scope of
+   -- its body.
+   try_as_border = true,
+  },
  })
 EOF
 
@@ -366,7 +381,9 @@ require("mason-lspconfig").setup{
   "clangd",
   "vimls",
   "jsonls",
-  "marksman"
+  "marksman",
+  "ruff_lsp",
+  "pylsp",
  },
 }
 
@@ -378,6 +395,19 @@ lspconfig.clangd.setup{}
 lspconfig.vimls.setup{}
 lspconfig.jsonls.setup{}
 lspconfig.marksman.setup{}
+lspconfig.ruff_lsp.setup{}
+lspconfig.pylsp.setup{
+ settings = {
+  pylsp = {
+   plugins = {
+    pycodestyle = {
+     ignore = {'E302', 'E305'},
+     -- maxLineLength = 100
+    }
+   }
+  }
+ }
+}
 -- lspconfig.rust_analyzer.setup {
 --  -- Server-specific settings. See `:help lspconfig-setup`
 --  settings = {
@@ -826,3 +856,4 @@ nnoremap <leader>nf :NERDTreeFocus<CR>
 "nnoremap <leader>n :NERDTree<CR>
 "nnoremap <leader>nt :NERDTreeToggle<CR>
 nnoremap <leader>nf :NERDTreeFind<CR>
+nnoremap <silent> <C-o> :<CR>

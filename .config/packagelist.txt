@@ -244,6 +244,7 @@ expat
 f3
 fakeroot
 fbterm
+fd-find
 fdisk
 feh
 ffmpeg
@@ -1419,6 +1420,7 @@ libmagickcore-6.q16-6:amd64
 libmagickcore-6.q16-6-extra:amd64
 libmagickwand-6.q16-6:amd64
 libmailtools-perl
+libmalcontent-0-0:amd64
 libmanette-0.2-0:amd64
 libmariadb3:amd64
 libmarisa0:amd64
@@ -1731,6 +1733,7 @@ liborcus-0.17-0:amd64
 liborcus-parser-0.17-0:amd64
 libosmesa6:amd64
 libosmesa6:i386
+libostree-1-1:amd64
 libotf1:amd64
 libp11-kit0:amd64
 libp11-kit0:i386
@@ -3583,6 +3586,7 @@ udev
 udiskie
 udisks2
 ueberzug
+unclutter-xfixes
 unifont
 unixodbc-common
 uno-libs-private
