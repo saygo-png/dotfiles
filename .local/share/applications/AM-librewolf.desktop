@@ -1,0 +1,25 @@
+[Desktop Entry]
+Name=LibreWolf
+Exec=env MOZ_X11_EGL=1 /home/samsepi0l/.local/bin/librewolf %u
+Icon=/home/samsepi0l/.local/appimages//librewolf/icons/librewolf
+Type=Application
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;application/x-xpinstall;application/pdf;application/json;
+StartupWMClass=LibreWolf
+Categories=Network;WebBrowser;
+StartupNotify=true
+Terminal=false
+X-MultipleArgs=false
+Keywords=Internet;WWW;Browser;Web;Explorer;
+Actions=new-window;new-private-window;profilemanager;
+
+[Desktop Action new-window]
+Name=Open a New Window
+Exec=/home/samsepi0l/.local/bin/librewolf %u
+
+[Desktop Action new-private-window]
+Name=Open a New Private Window
+Exec=/home/samsepi0l/.local/bin/librewolf --private-window %u
+
+[Desktop Action profilemanager]
+Name=Open the Profile Manager
+Exec=/home/samsepi0l/.local/bin/librewolf --ProfileManager %u

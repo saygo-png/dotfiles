@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=aunpack
+Exec=aunpack %F
+Categories=Other;
+NoDisplay=true
+MimeType=application/zip
+Terminal=false

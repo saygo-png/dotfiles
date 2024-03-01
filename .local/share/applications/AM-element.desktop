@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Element
+Exec=/home/samsepi0l/.local/bin/element --no-sandbox %U
+Terminal=false
+Type=Application
+Icon=/home/samsepi0l/.local/appimages//element/icons/element
+StartupWMClass=Element
+X-AppImage-Version=1.11.58
+MimeType=x-scheme-handler/element;
+Comment=A feature-rich client for Matrix.org
+Categories=Network;InstantMessaging;Chat;

@@ -1,0 +1,14 @@
+[MIME Cache]
+application/json=AM-librewolf.desktop;
+application/pdf=AM-librewolf.desktop;
+application/x-krita=AM-krita.desktop;
+application/x-krita-paintoppreset=AM-krita.desktop;
+application/x-xpinstall=AM-librewolf.desktop;
+application/xhtml+xml=AM-librewolf.desktop;
+image/openraster=AM-krita.desktop;
+text/html=AM-librewolf.desktop;
+text/xml=AM-librewolf.desktop;
+x-scheme-handler/element=AM-element.desktop;AM-schildichat.desktop;
+x-scheme-handler/http=AM-librewolf.desktop;
+x-scheme-handler/https=AM-librewolf.desktop;
+x-scheme-handler/schildichat=AM-schildichat.desktop;

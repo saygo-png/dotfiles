@@ -264,6 +264,7 @@ IP_LIST="
 "
 if [ "$1" = "onfi" ]; then
  sudo firewall-cmd --reload
+ echo sudo success
  for i in $EU_NO_FI_LIST
   do
    sudo firewall-cmd --direct --add-rule ipv4 filter OUTPUT 0 -d "$i" -j REJECT
@@ -273,6 +274,7 @@ fi
 
 if [ "$1" = "on" ]; then
  sudo firewall-cmd --reload
+ echo sudo success
  for i in $IP_LIST
   do
    sudo firewall-cmd --direct --add-rule ipv4 filter OUTPUT 0 -d "$i" -j REJECT
@@ -281,8 +283,9 @@ if [ "$1" = "on" ]; then
  exit
 fi
 if [ "$1" = "off" ]; then
-  sudo firewall-cmd --reload
-  notify-send "ow firewall off" && echo "ow firewall off"
-  exit
+ sudo firewall-cmd --reload
+ echo sudo success
+ notify-send "ow firewall off" && echo "ow firewall off"
+ exit
 fi
 echo "usage: owfirewall on/off or onfi - only allow finland"

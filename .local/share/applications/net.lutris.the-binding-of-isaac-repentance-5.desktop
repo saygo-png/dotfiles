@@ -1,0 +1,7 @@
+
+[Desktop Entry]
+Type=Application
+Name=The Binding of Isaac: Repentance
+Icon=lutris_the-binding-of-isaac-repentance
+Exec=env LUTRIS_SKIP_INIT=1 lutris lutris:rungameid/5
+Categories=Game

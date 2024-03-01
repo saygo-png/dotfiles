@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=SchildiChat
+Exec=/home/samsepi0l/.local/bin/schildichat --no-sandbox %U
+Terminal=false
+Type=Application
+Icon=/home/samsepi0l/.local/appimages//schildichat/icons/schildichat
+StartupWMClass=schildichat
+X-AppImage-Version=1.11.30-sc.2
+Comment=A Matrix Client based on Element with a more traditional instant messaging experience
+MimeType=x-scheme-handler/element;x-scheme-handler/schildichat;
+Categories=Network;InstantMessaging;Chat;VideoConference;

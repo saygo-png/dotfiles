@@ -1,0 +1,7 @@
+
+[Desktop Entry]
+Type=Application
+Name=Don't Starve Together
+Icon=lutris_dont-starve-together
+Exec=env LUTRIS_SKIP_INIT=1 lutris lutris:rungameid/4
+Categories=Game
