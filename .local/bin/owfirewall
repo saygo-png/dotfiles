@@ -1,291 +1,95 @@
-#!/bin/sh
-EU_NO_FI_LIST="
-64.224.26.0/23
-24.105.40.0/24
-104.155.0.0/17
-104.199.0.0/18
-104.199.66.0/23
-104.199.68.0/22
-104.199.72.0/21
-104.199.80.0/20
-104.199.96.0/20
-130.211.48.0/20
-130.211.64.0/19
-130.211.96.0/20
-146.148.112.0/20
-146.148.16.0/20
-146.148.2.0/23
-146.148.4.0/22
-146.148.8.0/21
-192.158.28.0/22
-23.251.128.0/20
-34.104.110.0/23
-34.104.112.0/23
-34.104.126.0/23
-34.105.128.0/17
-34.107.0.0/17
-34.118.244.0/22
-34.118.254.0/23
-34.124.46.0/23
-34.124.48.0/23
-34.124.62.0/23
-34.127.186.0/23
-34.140.0.0/16
-34.141.0.0/17
-34.141.128.0/17
-34.142.0.0/17
-34.147.0.0/17
-34.147.128.0/17
-34.154.0.0/16
-34.155.0.0/16
-34.157.12.0/22
-34.157.136.0/23
-34.157.140.0/22
-34.157.168.0/22
-34.157.176.0/20
-34.157.208.0/23
-34.157.220.0/22
-34.157.36.0/22
-34.157.40.0/22
-34.157.48.0/20
-34.157.8.0/23
-34.157.80.0/23
-34.157.92.0/22
-34.159.0.0/16
-34.163.0.0/16
-34.65.0.0/16
-34.76.0.0/14
-34.89.0.0/17
-34.89.128.0/17
-34.90.0.0/15
-35.187.0.0/17
-35.187.160.0/19
-35.189.192.0/18
-35.189.64.0/18
-35.190.192.0/19
-35.195.0.0/16
-35.197.192.0/18
-35.198.128.0/18
-35.198.64.0/18
-35.203.210.0/23
-35.203.212.0/22
-35.203.216.0/22
-35.204.0.0/16
-35.205.0.0/16
-35.206.128.0/18
-35.207.128.0/18
-35.207.64.0/18
-35.210.0.0/16
-35.214.0.0/17
-35.214.128.0/17
-35.216.128.0/17
-35.219.224.0/19
-35.220.16.0/23
-35.220.18.0/23
-35.220.20.0/22
-35.220.44.0/24
-35.220.96.0/19
-35.230.128.0/19
-35.233.0.0/17
-35.234.128.0/19
-35.234.160.0/20
-35.234.64.0/18
-35.235.216.0/21
-35.235.32.0/20
-35.235.48.0/20
-35.240.0.0/17
-35.241.128.0/17
-35.242.128.0/18
-35.242.16.0/23
-35.242.18.0/23
-35.242.192.0/18
-35.242.20.0/22
-35.242.44.0/24
-35.242.64.0/19
-35.246.0.0/17
-35.246.128.0/17
-5.42.0.0/16
-8.34.208.0/23
-8.34.211.0/24
-8.34.220.0/22
-34.22.128.0/17
-34.104.116.0/22
-34.116.128.0/17
-34.118.0.0/17
-34.124.52.0/22
-34.157.44.0/23
-34.157.172.0/23
-34.164.0.0/16
-34.175.0.0/16
-34.22.112.0/20
-34.17.0.0/16
-34.157.124.0/23
-34.157.250.0/23
-34.0.160.0/19
-34.157.121.0/24
-34.157.249.0/24
-34.0.192.0/19
-"
-IP_LIST="
-104.155.0.0/17
-104.199.0.0/18
-104.199.66.0/23
-104.199.68.0/22
-104.199.72.0/21
-104.199.80.0/20
-104.199.96.0/20
-130.211.48.0/20
-130.211.64.0/19
-130.211.96.0/20
-146.148.112.0/20
-146.148.16.0/20
-146.148.2.0/23
-146.148.4.0/22
-146.148.8.0/21
-192.158.28.0/22
-23.251.128.0/20
-34.0.160.0/19
-34.0.192.0/19
-34.104.110.0/23
-34.104.112.0/23
-34.104.116.0/22
-34.104.126.0/23
-34.104.96.0/21
-34.105.128.0/17
-34.107.0.0/17
-34.116.128.0/17
-34.118.0.0/17
-34.118.244.0/22
-34.118.254.0/23
-34.124.32.0/21
-34.124.46.0/23
-34.124.48.0/23
-34.124.52.0/22
-34.124.62.0/23
-34.127.186.0/23
-34.140.0.0/16
-34.141.0.0/17
-34.141.128.0/17
-34.142.0.0/17
-34.147.0.0/17
-34.147.128.0/17
-34.154.0.0/16
-34.155.0.0/16
-34.157.12.0/22
-34.157.121.0/24
-34.157.124.0/23
-34.157.136.0/23
-34.157.140.0/22
-34.157.168.0/22
-34.157.172.0/23
-34.157.176.0/20
-34.157.208.0/23
-34.157.220.0/22
-34.157.249.0/24
-34.157.250.0/23
-34.157.36.0/22
-34.157.40.0/22
-34.157.44.0/23
-34.157.48.0/20
-34.157.8.0/23
-34.157.80.0/23
-34.157.92.0/22
-34.159.0.0/16
-34.163.0.0/16
-34.164.0.0/16
-34.17.0.0/16
-34.175.0.0/16
-34.22.112.0/20
-34.22.128.0/17
-34.65.0.0/16
-34.76.0.0/14
-34.88.0.0/16
-34.89.0.0/17
-34.89.128.0/17
-34.90.0.0/15
-35.187.0.0/17
-35.187.160.0/19
-35.189.192.0/18
-35.189.64.0/18
-35.190.192.0/19
-35.195.0.0/16
-35.197.192.0/18
-35.198.128.0/18
-35.198.64.0/18
-35.203.210.0/23
-35.203.212.0/22
-35.203.216.0/22
-35.203.232.0/21
-35.204.0.0/16
-35.205.0.0/16
-35.206.128.0/18
-35.207.128.0/18
-35.207.64.0/18
-35.210.0.0/16
-35.214.0.0/17
-35.214.128.0/17
-35.216.128.0/17
-35.217.0.0/18
-35.219.224.0/19
-35.220.16.0/23
-35.220.18.0/23
-35.220.20.0/22
-35.220.26.0/24
-35.220.44.0/24
-35.220.96.0/19
-35.228.0.0/16
-35.230.128.0/19
-35.233.0.0/17
-35.234.128.0/19
-35.234.160.0/20
-35.234.64.0/18
-35.235.216.0/21
-35.235.32.0/20
-35.235.48.0/20
-35.240.0.0/17
-35.241.128.0/17
-35.242.128.0/18
-35.242.16.0/23
-35.242.18.0/23
-35.242.192.0/18
-35.242.20.0/22
-35.242.26.0/24
-35.242.44.0/24
-35.242.64.0/19
-35.246.0.0/17
-35.246.128.0/17
-5.42.0.0/16
-5.42.168.0/23
-5.42.184.0/23
-64.224.26.0/23
-8.34.208.0/23
-8.34.211.0/24
-8.34.220.0/22
-"
-if [ "$1" = "onfi" ]; then
- sudo firewall-cmd --reload
- echo sudo success
- for i in $EU_NO_FI_LIST
-  do
-   sudo firewall-cmd --direct --add-rule ipv4 filter OUTPUT 0 -d "$i" -j REJECT
-  done
- exit
+#!/bin/bash
+# This script is for people living in EU, so wording is from that perpsective.
+# Safety.
+handle_error() {
+ echo "Error ${?}: ${1}" >&2
+ echo "Exiting..."
+ exit 1
+}
+set -o pipefail || handle_error "Failed to set -o pipefail"
+shopt -s failglob || handle_error "Failed to set -s failglob"
+
+declare -r REPO="https://github.com/foryVERX/Overwatch-Server-Selector.git"
+declare -r IP_LIST_ROOT_PATH="${HOME}/.local/share/Overwatch-Server-Selector"
+declare -r EU_IP_LIST_FILE="${IP_LIST_ROOT_PATH}/ip_lists/Ip_ranges_EU.txt"
+declare -r FI_IP_LIST_FILE="${IP_LIST_ROOT_PATH}/ip_lists/cfg - EU - Finland 2 - GEN1.txt"
+
+# Sanity checks.
+if [[ ! -e "${IP_LIST_ROOT_PATH}" ]]; then
+ mkdir -p "${HOME}/.local/share" || handle_error "failed mkdir"
+ cd "${HOME}/.local/share" || handle_error "failed cd"
+ git clone "${REPO}" || handle_error "Failed git clone"
+fi
+if [[ ! -e "${IP_LIST_ROOT_PATH}" ]]; then
+ handle_error "Cant download repo for some reason"
+fi
+if [[ ! -e "${EU_IP_LIST_FILE}" ]]; then
+ handle_error "Cant find eu ip list"
+fi
+if [[ ! -e "${FI_IP_LIST_FILE}" ]]; then
+ handle_error "Cant find fi ip list"
 fi
 
-if [ "$1" = "on" ]; then
- sudo firewall-cmd --reload
- echo sudo success
- for i in $IP_LIST
-  do
-   sudo firewall-cmd --direct --add-rule ipv4 filter OUTPUT 0 -d "$i" -j REJECT
-  done
- notify-send "ow firewall on" && echo "ow firewall on"
- exit
-fi
-if [ "$1" = "off" ]; then
- sudo firewall-cmd --reload
- echo sudo success
- notify-send "ow firewall off" && echo "ow firewall off"
- exit
-fi
-echo "usage: owfirewall on/off or onfi - only allow finland"
+# Update ip database.
+cd "${IP_LIST_ROOT_PATH}" || handle_error "Failed cd"
+git pull || handle_error "Failed git pull"
+
+# Get the ips.
+# The tr command turns windows line endings into newlines
+# Filter out entries containing '-' from eu ips (firewall cant process them)
+EU_IP_LIST_WITHOUT_DASH=$(tr "\015" "\n" < "${EU_IP_LIST_FILE}" | grep -v '-')
+declare -r EU_IP_LIST_WITHOUT_DASH
+# Sort the lists before subtraction
+SORTED_EU_IP_LIST_WITHOUT_DASH=$(echo "${EU_IP_LIST_WITHOUT_DASH}" | sort)
+declare -r SORTED_EU_IP_LIST_WITHOUT_DASH
+SORTED_EXCLUDE_LIST=$(tr "\015" "\n" < "${FI_IP_LIST_FILE}" | sort)
+declare -r SORTED_EXCLUDE_LIST
+# Subtract the content of finnish ips (gen1)
+IPS_TO_BLOCK_FOR_FINLAND=$(comm --check-order -23  <(echo "${SORTED_EU_IP_LIST_WITHOUT_DASH}") <(echo "${SORTED_EXCLUDE_LIST}"))
+declare -r IPS_TO_BLOCK_FOR_FINLAND
+declare -r IPS_TO_BLOCK_FOR_AMERICA="${SORTED_EU_IP_LIST_WITHOUT_DASH}"
+
+
+case "${1}" in
+ "onfi")
+  sudo firewall-cmd --reload
+  echo "Blocking all EU ips EXCEPT Finland (gen1)"
+  for i in ${IPS_TO_BLOCK_FOR_FINLAND}
+   do
+    echo "${i}"
+    sudo firewall-cmd --direct --add-rule ipv4 filter OUTPUT 0 -d "${i}" -j REJECT
+   done
+    sudo firewall-cmd --direct --add-rule ipv4 filter OUTPUT 0 -d 5.42.0.0/16 -j REJECT
+  exit
+ ;;
+ "onus")
+  sudo firewall-cmd --reload
+  echo "Blocking all EU"
+  for i in ${IPS_TO_BLOCK_FOR_AMERICA}
+   do
+    echo "${i}"
+    sudo firewall-cmd --direct --add-rule ipv4 filter OUTPUT 0 -d "${i}" -j REJECT
+   done
+    sudo firewall-cmd --direct --add-rule ipv4 filter OUTPUT 0 -d 5.42.0.0/16 -j REJECT
+  exit
+ ;;
+ "off")
+  sudo firewall-cmd --reload
+  echo "firewall off"
+ ;;
+ "debug")
+  echo "FINNISH IPS:"
+  comm --check-order -12 <(echo "${SORTED_EU_IP_LIST_WITHOUT_DASH}") <(echo "${SORTED_EXCLUDE_LIST}")
+  echo ---
+  for i in ${IPS_TO_BLOCK_FOR_FINLAND}
+   do
+    echo "${i}"
+   done
+  exit
+ ;;
+ *)
+  echo "usage: owfirewall onus - only allow United States"
+  echo "usage: owfirewall onfi - only allow Finland"
+  echo "usage: owfirewall off  - turn off"
+ ;;
+esac

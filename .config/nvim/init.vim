@@ -205,8 +205,8 @@ call plug#begin('~/.config/nvim/plugged')
  Plug 'lukas-reineke/indent-blankline.nvim'            ,{ 'frozen': 1, 'tag': 'v2.20.8' }
  Plug 'nvim-treesitter/nvim-treesitter'                ,{ 'frozen': 0, 'do': ':TSUpdate' }
   Plug 'nvim-treesitter/nvim-treesitter-context'       ,{ 'frozen': 0 }
- Plug 'psliwka/vim-smoothie'                           ,{ 'frozen': 1 }
- Plug 'easymotion/vim-easymotion'                      ,{ 'frozen': 1 }
+" Plug 'psliwka/vim-smoothie'                           ,{ 'frozen': 1 }
+ Plug 'ggandor/leap.nvim'                              ,{ 'frozen': 1 }
  Plug 'HiPhish/rainbow-delimiters.nvim'                ,{ 'frozen': 0 }
  Plug 'folke/which-key.nvim'                           ,{ 'frozen': 1 }
  Plug 'nvim-telescope/telescope.nvim'                  ,{ 'frozen': 1 }

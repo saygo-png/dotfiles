@@ -9,9 +9,9 @@
 alias \
  shellcheck="shellcheck -o all --enable all" \
  gitignored="git ls-files --others --ignored --exclude-standard" \
- restart="sudo restart now" \
- shutdown="sudo shutdown now" \
  space="df --type=xfs -h" \
+ shutdown="sudo shutdown now" \
+ restart="sudo restart now" \
  debi="gdebi" \
  image="nsxiv" \
  unp="unp -U" \
