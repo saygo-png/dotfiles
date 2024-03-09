@@ -844,16 +844,16 @@ telescope.setup({
   },
 })
  require('telescope').load_extension('fzf')
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+ local builtin = require('telescope.builtin')
+ vim.keymap.set('n', '<leader>tf', builtin.find_files, {})
+ vim.keymap.set('n', '<leader>tg', builtin.live_grep, {})
+ vim.keymap.set('n', '<leader>tb', builtin.buffers, {})
+ vim.keymap.set('n', '<leader>th', builtin.help_tags, {})
 EOF
 
-" Nerdtree (file tree)
-nnoremap <leader>nf :NERDTreeFocus<CR>
+" Nerdtree (file tree).
+"nnoremap <leader>nf :NERDTreeFocus<CR>
 "nnoremap <leader>n :NERDTree<CR>
-"nnoremap <leader>nt :NERDTreeToggle<CR>
-nnoremap <leader>nf :NERDTreeFind<CR>
+nnoremap <leader>nt :NERDTreeToggle<CR>
+nnoremap <leader>ns :NERDTreeFind<CR>
 nnoremap <silent> <C-o> :<CR>

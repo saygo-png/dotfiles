@@ -79,8 +79,9 @@ pipx install yt-dlp gallery-dl
 cargo instal zoxide
 # Set ibus delay to 0
 gsettings set org.freedesktop.ibus.general switcher-delay-time '0'
-# Install polish-finnish keyboard
+# Install polish-finnish keyboard and ms extended
 sudo ln -s "$HOME".config/plfi /usr/share/X11/xkb/symbols/plfi
+sudo ln -s "$HOME".config/interslavic /usr/share/X11/xkb/symbols/interslavic
 
 
 # MANUAL INTERVENTION

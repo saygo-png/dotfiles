@@ -10,7 +10,6 @@ alias \
  shellcheck="shellcheck -o all --enable all" \
  gitignored="git ls-files --others --ignored --exclude-standard" \
  space="df --type=xfs -h" \
- shutdown="sudo shutdown now" \
  restart="sudo restart now" \
  debi="gdebi" \
  image="nsxiv" \
@@ -21,6 +20,7 @@ alias \
  bc="bc -ql" \
  mkdir="mkdir -pv" \
  ffmpeg="ffmpeg -hide_banner" \
+ shutdown="sudo shutdown now" \
 # lf="lfub"
 # Colorize commands when possible.
 alias \
