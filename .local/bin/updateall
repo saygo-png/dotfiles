@@ -10,10 +10,12 @@ echo "upgrading with package managers..."
  sudo npm update -g
  nvim -c 'PlugUpdate' -c '<\CR>' -c 'qa'
  nvim -c "UpdateRemotePlugins<\CR>" -c "qa!"
+ tldr --update
+ mandb
 echo "updating with scripts..."
  ~/Scripts/upgrade_rclone.sh
  ~/Scripts/upgrade_gomuks.sh
- ~/Scripts/upgrade_proton.sh
+# ~/Scripts/upgrade_proton.sh
 # ~/Scripts/upgrade_mullvad.sh
 # ~/Scripts/upgrade_picom.sh
 # ~/Scripts/upgrade_lf.sh

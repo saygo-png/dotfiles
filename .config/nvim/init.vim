@@ -22,8 +22,6 @@ set noshowmode
 set laststatus=0
 set noswapfile
 " Wrap.
-autocmd BufRead,BufNewFile *.md setlocal wrap
-autocmd BufRead,BufNewFile *.html setlocal wrap
 noremap j gj
 noremap k gk
 set nowrap
@@ -173,7 +171,7 @@ vnoremap <leader>o :<BS><BS><BS><BS><BS>execute '!openlisturl' shellescape(GetVi
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 autocmd BufReadPost norm zz
 " Change normal mode cursor to underline.
-" set guicursor=n-v-c-sm:hor100,i-ci-ve:ver25,r-cr-o:hor20"
+"set guicursor=n-v-c-sm:hor100,i-ci-ve:ver25,r-cr-o:hor20"
 " Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
 set splitbelow splitright
 " Enable autocompletion:
@@ -219,7 +217,8 @@ call plug#begin('~/.config/nvim/plugged')
  Plug 'echasnovski/mini.align'                         ,{ 'frozen': 1 }
  Plug 'preservim/nerdtree'                             ,{ 'frozen': 1 }
  Plug 'echasnovski/mini.indentscope'                   ,{ 'frozen': 1, 'branch': 'stable' }
- Plug 'morhetz/gruvbox'                                ,{ 'frozen': 1 }
+" Plug 'morhetz/gruvbox'                                ,{ 'frozen': 1 }
+ Plug 'luisiacc/gruvbox-baby'                          ,{ 'frozen': 1 }
  Plug 'sbdchd/neoformat'                               ,{ 'frozen': 1 }
  Plug 'axlebedev/vim-find-my-cursor'                   ,{ 'frozen': 1 }
  Plug 'junegunn/vim-slash'                             ,{ 'frozen': 1 }
@@ -235,14 +234,18 @@ call plug#end()
 if has('termguicolors')
  set termguicolors
 endif
-" More in the plugins section.
-let g:gruvbox_transparent_bg = 1
-let g:gruvbox_italic = 1
-let g:gruvbox_italicize_comments = 1
-"let g:gruvbox_invert_indent_guides = 1
-let g:gruvbox_hls_cursor = 'orange'
-set bg=dark
-colorscheme gruvbox
+"" More in the plugins section.
+"let g:gruvbox_transparent_bg = 1
+"let g:gruvbox_italic = 1
+"let g:gruvbox_italicize_comments = 1
+""let g:gruvbox_invert_indent_guides = 1
+"let g:gruvbox_hls_cursor = 'orange'
+"set bg=dark
+"colorscheme gruvbox
+let g:gruvbox_baby_transparent_mode = "true"
+let g:gruvbox_baby_telescope_theme = 1
+let g:gruvbox_baby_transparent_mode = 1
+colorscheme gruvbox-baby
 hi Normal guibg=NONE ctermbg=NONE
 hi statusline ctermbg=NONE guibg=NONE gui=NONE guifg=#7d8618
 hi LineNr guifg=#7d8618
@@ -531,7 +534,7 @@ require'nvim-treesitter.configs'.setup {
   -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
   -- the name of the parser)
   -- list of language that will be disabled
-  disable = { toml, c },
+  disable = { toml, c, markdown },
   -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
   disable = function(lang, buf)
   local max_filesize = 100 * 1024 -- 100 KB
@@ -548,6 +551,12 @@ require'nvim-treesitter.configs'.setup {
  },
 }
 EOF
+autocmd VimEnter * TSEnable highlight
+autocmd VimEnter * TSEnable indent
+autocmd VimEnter * TSEnable incremental_selection
+autocmd VimEnter *.md TSDisable highlight
+autocmd VimEnter *.md TSDisable indent
+autocmd VimEnter *.md TSDisable incremental_selection
 " Wrapper.nvim plug.
 lua << EOF
  require("wrapping").setup()
@@ -842,6 +851,11 @@ telescope.setup({
       return TSLayout(layout)
     end,
   },
+ pickers = {
+  find_files = {
+   no_ignore = true,
+  },
+ },
 })
  require('telescope').load_extension('fzf')
  local builtin = require('telescope.builtin')
