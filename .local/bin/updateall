@@ -5,15 +5,19 @@ echo "upgrading with package managers..."
  appman update
  rustup update
  pipx upgrade-all
- trans -upgrade
+ cargo install cargo-update
+ cargo install-update-config --enforce-lock '*'
  cargo install-update --all
  sudo npm update -g
  nvim -c 'PlugUpdate' -c '<\CR>' -c 'qa'
  nvim -c "UpdateRemotePlugins<\CR>" -c "qa!"
+ echo "updating niche things..."
  tldr --update
+ trans -upgrade
  mandb
 echo "updating with scripts..."
  ~/Scripts/upgrade_rclone.sh
+ ~/Scripts/upgrade_icons.sh
  ~/Scripts/upgrade_gomuks.sh
 # ~/Scripts/upgrade_proton.sh
 # ~/Scripts/upgrade_mullvad.sh
@@ -28,5 +32,5 @@ dpkg-query --show -f='${binary:Package}\n' > ~/.config/packagelist.txt
 mkdir -p ~/.config/repos || exit 1
 cp -r /etc/apt/keyrings/ ~/.config/repos/ || exit 1
 cp -r /etc/apt/sources.list.d/ ~/.config/repos/ || exit 1
-echo "all updates finished" && notify-send "finished updates" || :
+echo "all updates finished" && notify-send "finished updates"
 exit 0

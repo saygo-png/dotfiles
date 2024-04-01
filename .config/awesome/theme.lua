@@ -13,16 +13,16 @@ local theme = {}
 
 theme.font          = "Courier Prime 15"
 
-theme.bg_normal     = "#00000000"
+theme.bg_normal     = "#00000066"
 theme.bg_focus      = "#7d8618"
 theme.bg_urgent     = "#ff0000"
 theme.bg_minimize   = "#b8bb26"
 theme.bg_systray    = theme.bg_normal
 
 theme.fg_normal     = "#fbf1c7"
-theme.fg_focus      = "#ffffff"
-theme.fg_urgent     = "#ffffff"
-theme.fg_minimize   = "#ffffff"
+theme.fg_focus      = "#fbf1c7"
+theme.fg_urgent     = "#fbf1c7"
+theme.fg_minimize   = "#fbf1c7"
 
 theme.gap_single_client = true
 theme.useless_gap   = dpi(15)

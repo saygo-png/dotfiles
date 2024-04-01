@@ -24,6 +24,8 @@ for file in *.html; do
   url="$(echo -enE "${url}" | sed 's/\s*$//')"
   # Output
   echo -en "${url}\n" >> "${dir}/urls.txt"
+  echo -en "${url}\n"
+
  fi
 done
 
