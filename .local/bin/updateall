@@ -17,7 +17,6 @@ echo "upgrading with package managers..."
  mandb
 echo "updating with scripts..."
  ~/Scripts/upgrade_rclone.sh
- ~/Scripts/upgrade_icons.sh
  ~/Scripts/upgrade_gomuks.sh
 # ~/Scripts/upgrade_proton.sh
 # ~/Scripts/upgrade_mullvad.sh

@@ -214,6 +214,7 @@ call plug#begin('~/.config/nvim/plugged')
  Plug 'brenoprata10/nvim-highlight-colors'             ,{ 'frozen': 1 }
  Plug 'tpope/vim-surround'                             ,{ 'frozen': 1 }
  Plug 'tomtom/tcomment_vim'                            ,{ 'frozen': 1 }
+ Plug 'tpope/vim-eunuch'                               ,{ 'frozen': 1 }
  Plug 'echasnovski/mini.align'                         ,{ 'frozen': 1 }
  Plug 'preservim/nerdtree'                             ,{ 'frozen': 1 }
  Plug 'echasnovski/mini.indentscope'                   ,{ 'frozen': 1, 'branch': 'stable' }

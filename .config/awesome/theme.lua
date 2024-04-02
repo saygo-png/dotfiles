@@ -37,7 +37,6 @@ naughty.config = {
     defaults = {
         ontop = true,
         font = theme.font,
---        screen = awful.screen.focused(),
         timeout = 10,
         margin = 20,
         border_width = 1.5,
@@ -83,7 +82,7 @@ theme.wallpaper = "~/.config/jungleriver.png"
 
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
-theme.icon_theme = nil
+theme.icon_theme = "~/.local/share/icons/Gruvbox-Plus-Dark"
 
 return theme
 

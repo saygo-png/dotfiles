@@ -25,6 +25,6 @@ flameshot &
 qbittorrent &
 keepassxc &
 alacritty &
-unclutter-xfixes &
+#unclutter-xfixes &
 "$HOME"/.local/bin/remaps
 exec awesome

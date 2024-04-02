@@ -335,6 +335,7 @@ gdb
 gdebi
 gdebi-core
 gdisk
+geocode-glib-common
 gettext
 gettext-base
 gh
@@ -346,11 +347,14 @@ gir1.2-atspi-2.0:amd64
 gir1.2-colord-1.0:amd64
 gir1.2-colordgtk-1.0:amd64
 gir1.2-freedesktop:amd64
+gir1.2-gdesktopenums-3.0:amd64
 gir1.2-gdkpixbuf-2.0:amd64
 gir1.2-glib-2.0:amd64
+gir1.2-gnomedesktop-3.0:amd64
 gir1.2-gst-plugins-base-1.0:amd64
 gir1.2-gstreamer-1.0:amd64
 gir1.2-gtk-3.0:amd64
+gir1.2-handy-1:amd64
 gir1.2-harfbuzz-0.0:amd64
 gir1.2-ibus-1.0:amd64
 gir1.2-javascriptcoregtk-4.1:amd64
@@ -370,10 +374,14 @@ glib-networking-common
 glib-networking-services
 gmic
 gmic-zart
+gnome-desktop3-data
 gnome-disk-utility
 gnome-icon-theme
 gnome-keyring
 gnome-keyring-pkcs11:amd64
+gnome-settings-daemon
+gnome-settings-daemon-common
+gnome-shell-common
 gnupg
 gnupg-l10n
 gnupg-utils
@@ -490,6 +498,7 @@ ifrench-gut
 iftop
 ifupdown
 ihungarian
+iio-sensor-proxy
 iitalian
 ilithuanian
 im-config
@@ -1012,6 +1021,8 @@ libgdk-pixbuf2.0-bin
 libgdk-pixbuf2.0-common
 libgegl-0.4-0:amd64
 libgegl-common
+libgeoclue-2-0:amd64
+libgeocode-glib-2-0:amd64
 libgeos-c1v5:amd64
 libgeos3.11.1:amd64
 libgeotiff5:amd64
@@ -1063,6 +1074,7 @@ libgme0:amd64
 libgmic1:amd64
 libgmp10:amd64
 libgmp10:i386
+libgnome-desktop-3-20:amd64
 libgnutls-dane0:amd64
 libgnutls30:amd64
 libgnutls30:i386
@@ -1130,6 +1142,8 @@ libgusb2:amd64
 libgutenprint-common
 libgutenprint9
 libgvnc-1.0-0:amd64
+libgweather-4-0:amd64
+libgweather-4-common
 libhandy-1-0:amd64
 libharfbuzz-bin
 libharfbuzz-dev:amd64
@@ -1450,6 +1464,9 @@ libmbedcrypto7:amd64
 libmbedtls-dev:amd64
 libmbedtls14:amd64
 libmbedx509-1:amd64
+libmbim-glib4:amd64
+libmbim-proxy
+libmbim-utils
 libmd0:amd64
 libmd0:i386
 libmd4c0:amd64
@@ -1462,6 +1479,7 @@ libmhash2:amd64
 libminizip1:amd64
 libmjpegutils-2.1-0:amd64
 libmldbm-perl
+libmm-glib0:amd64
 libmnl0:amd64
 libmodplug1:amd64
 libmodule-implementation-perl
@@ -1847,6 +1865,7 @@ libpsl5:amd64
 libpsl5:i386
 libpthread-stubs0-dev:amd64
 libpugixml1v5:amd64
+libpulse-mainloop-glib0:amd64
 libpulse0:amd64
 libpulse0:i386
 libpulsedsp:amd64
@@ -1866,8 +1885,12 @@ libqapt3-runtime
 libqca-qt5-2:amd64
 libqca-qt5-2-plugins:amd64
 libqhull-r8.0:amd64
+libqmi-glib5:amd64
+libqmi-proxy
+libqmi-utils
 libqpdf29:amd64
 libqrencode4:amd64
+libqrtr-glib0:amd64
 libqscintilla2-qt5-15:amd64
 libqscintilla2-qt5-l10n
 libqt5concurrent5:amd64
@@ -2560,6 +2583,7 @@ mlterm
 mlterm-common
 mlterm-tools
 moc
+modemmanager
 mokutil
 mono-4.0-gac
 mono-4.0-service
@@ -2586,6 +2610,7 @@ mpv
 mscompress
 mueller7-dict
 mullvad-vpn
+mutter-common
 mysql-common
 nano
 ncdu
@@ -3020,6 +3045,7 @@ pinentry-gnome3
 piper
 pipewire:amd64
 pipewire-alsa:amd64
+pipewire-audio
 pipewire-bin
 pipewire-jack:amd64
 pipewire-pulse
