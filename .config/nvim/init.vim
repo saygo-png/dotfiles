@@ -1,55 +1,131 @@
+" Syntax and filetype specific indentation and plugins on.
 set virtualedit+=onemore
-"convert to unix filetype on save
-set ff=unix
+syntax enable
 syntax on
+filetype plugin on
+filetype indent on
+" Faster syntax highlight.
+syntax sync minlines=256
+
+" Shut up.
+set noerrorbells
+set visualbell
+let g:loaded_python3_provider = 0
+let g:loaded_perl_provider = 0
+let g:loaded_node_provider = 0
+let g:loaded_ruby_provider = 0
+
+" Convert to unix filetype on save.
+set ff=unix
 set encoding=utf-8
 set fileencoding=utf-8
+
+" Basic
 set number relativenumber
+set wildmenu
+set wildmode=longest,list,full
 set title
-" Hide left bar from lsp.
-set signcolumn=number
-" Goodbye mouse.
+set clipboard+=unnamedplus
 set mouse=
-" Search.
-"nnoremap <silent><Tab> :noh<CR>
-"  ^tab to clear search
-set hlsearch
-set shortmess-=S " Show amount of search results
-"  Highlight toggle.
-nnoremap <silent><expr> <Tab> (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
-set paste
-set noshowmode
-set laststatus=0
+set ignorecase
+set smartcase
+set showmode
+set showcmd
+set nocompatible
+set signcolumn=number
 set noswapfile
-" Wrap.
-noremap j gj
-noremap k gk
-set nowrap
-"set linebreak
-set showbreak=>
-"set breakindent
-"set breakindentopt=shift:1
-" Indents.
-set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-nnoremap <silent><F2> :setlocal listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣,nbsp:+<CR>:IndentBlanklineDisable<CR>
-nnoremap <silent><F3> :setlocal listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+<CR>:IndentBlanklineEnable<CR>
+set hidden
+
+" Any
 set formatoptions=l
 set tabstop=1
 set softtabstop=-1
 set shiftwidth=1
+set splitbelow splitright
 set shiftround
+set nojoinspaces
+set showmode
+set showcmd
+set history=500
+set nocompatible
+set hidden
+set paste
+set laststatus=0
+set wildmenu
+set cursorline
+set showmatch
 set expandtab
 set autoindent
 set cpoptions+=I
 set smartindent
-" Case insensitive search.
-set ignorecase
-set smartcase
-" Hide tildes on empty lines
+set complete-=i
+set smarttab
+set nrformats-=octal
+set notimeout
+set ttimeout
+set ttimeoutlen=1
+set incsearch
+set laststatus=2
+set scrolloff=3
+set sidescrolloff=70
+set display+=lastline
+set display+=truncate
+set viminfo^=!
+set viewoptions-=options
+set nolangremap
+set sessionoptions-=options
 set fillchars=fold:\ ,vert:\│,eob:\ ,msgsep:‾
+set backspace=indent,eol,start
+set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+nnoremap <silent><F2> :setlocal listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣,nbsp:+<CR>:IndentBlanklineDisable<CR>
+nnoremap <silent><F3> :setlocal listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+<CR>:IndentBlanklineEnable<CR>
+setglobal tags-=./tags tags-=./tags; tags^=./tags;
+if !exists('g:is_posix') && !exists('g:is_bash') && !exists('g:is_kornshell') && !exists('g:is_dash')
+ let g:is_posix = 1
+endif
+
+" Search.
+set hlsearch
+set shortmess-=S " Show amount of search results
+"  Highlight toggle.
+nnoremap <silent><expr> <Tab> (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
+
+" Wrap.
+noremap j gj
+noremap k gk
+set nowrap
+set showbreak=>
+
+" Use ripgrep with fzz as :grep
+if executable('rg')
+  set grepprg=rg\ --vimgrep
+endif
+
+"""""""""""""""""""""""""""""""
 " Remaps.
+"""""""""""""""""""""""""""""""
+
+" Open/close quickfix
+nnoremap <silent> <leader>co :silent copen<CR>
+nnoremap <silent> <leader>cl :silent cclose<CR>
+" Next/previous quickfix result
+nnoremap <silent> <C-n> :silent cnext<CR>
+nnoremap <silent> <C-p> :silent cprevious<CR>
+
+" Any.
 let mapleader=","
-" Tabs
+nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+snoremap <C-U> <C-G>u<C-U>
+snoremap <C-W> <C-G>u<C-W>
+vnoremap <C-U> <C-G>u<C-U>
+vnoremap <C-W> <C-G>u<C-W>
+inoremap <C-U> <C-G>u<C-U>
+inoremap <C-W> <C-G>u<C-W>
+
+" Perform dot commands over visual blocks:
+vnoremap . :normal .<CR>
+
+" Tabs.
 nnoremap tk :tabnext<CR>
 nnoremap tj :tabprev<CR>
 nnoremap td :tabclose<CR>
@@ -62,13 +138,13 @@ nnoremap <leader>6 6gt
 nnoremap <leader>7 7gt
 nnoremap <leader>8 8gt
 nnoremap <leader>9 9gt
-" Makes o insert a blank line in normal mode
+
+" Makes o insert a blank line in normal mode.
 nnoremap o o<Esc>0"_D
 nnoremap O O<Esc>0"_D
 nnoremap L .
+
 " Makes d delete and x cut, paste is infinite. default vim is retarded
-set clipboard+=unnamedplus
-set clipboard+=unnamed
 nnoremap d "_d
 nnoremap D "_D
 vnoremap d "_d
@@ -80,19 +156,17 @@ vnoremap <expr> p 'pgvy'
 nnoremap <leader>d ""d
 nnoremap <leader>D ""D
 vnoremap <leader>d ""d
+
 " No need to press shit for command mode.
 vnoremap ; :
 vnoremap : ;
 nnoremap ; :
 nnoremap : ;
+
 " Makes ctrl+s increment to not conflict with tmux.
 nnoremap <C-s> <C-a>
-filetype plugin indent on
-" This makes :checkhealth not yell about providers
-let g:loaded_python3_provider = 0
-let g:loaded_perl_provider = 0
-let g:loaded_node_provider = 0
-let g:loaded_ruby_provider = 0
+set omnifunc=syntaxcomplete#Complete
+
 " Center search and substitution.
 " This is also configued by a plugin in the plugins section.
 nnoremap n nzz
@@ -103,36 +177,7 @@ nnoremap g* g*zz
 nnoremap g# g#zzo
 com! -nargs=* -complete=command ZZWrap let &scrolloff=999 | exec <q-args> | let &so=0
 noremap <Leader>s "sy:ZZWrap .,$s/<C-r>s//gc<Left><Left><Left>
-" Start of tpope config.
-set backspace=indent,eol,start
-set complete-=i
-set smarttab
-set nrformats-=octal
-set ttimeout
-set ttimeoutlen=1
-set incsearch
-nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
-set laststatus=2
-set wildmenu
-set scrolloff=1
-set sidescroll=1
-set sidescrolloff=2
-set display+=lastline
-set display+=truncate
-setglobal tags-=./tags tags-=./tags; tags^=./tags;
-set viminfo^=!
-set sessionoptions-=options
-set viewoptions-=options
-set nolangremap
-snoremap <C-U> <C-G>u<C-U>
-snoremap <C-W> <C-G>u<C-W>
-vnoremap <C-U> <C-G>u<C-U>
-vnoremap <C-W> <C-G>u<C-W>
-inoremap <C-U> <C-G>u<C-U>
-inoremap <C-W> <C-G>u<C-W>
-if !exists('g:is_posix') && !exists('g:is_bash') && !exists('g:is_kornshell') && !exists('g:is_dash')
- let g:is_posix = 1
-endif
+
 " Open urls in .
 function! GetVisualSelection()
  if mode()=="v"
@@ -144,7 +189,7 @@ function! GetVisualSelection()
   end
   if (line2byte(line_start)+column_start) > (line2byte(line_end)+column_end)
    let [line_start, column_start, line_end, column_end] =
-      \   [line_end, column_end, line_start, column_start]
+       \   [line_end, column_end, line_start, column_start]
    end
    let lines = getline(line_start, line_end)
    if len(lines) == 0
@@ -165,21 +210,13 @@ function! GetVisualSelection()
    return join(lines)  "returns selection as a string of space seperated line
   endfunction
 vnoremap <leader>o :<BS><BS><BS><BS><BS>execute '!openlisturl' shellescape(GetVisualSelection())<CR>
-"nnoremap <leader>o :execute "!notify-send \"" . GetVisualSelection() . "\""
-"exe "!notify-send \"" . abc . "\""
+
+cnoremap w!! execute 'write !sudo tee % >/dev/null' <bar> edit!
 " Open file at last closed location. (this is literal magic)
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 autocmd BufReadPost norm zz
 " Change normal mode cursor to underline.
 "set guicursor=n-v-c-sm:hor100,i-ci-ve:ver25,r-cr-o:hor20"
-" Splits open at the bottom and right, which is non-retarded, unlike vim defaults.
-set splitbelow splitright
-" Enable autocompletion:
-set wildmode=longest,list,full
-" Disables automatic commenting on newline:
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-" Perform dot commands over visual blocks:
-vnoremap . :normal .<CR>
 " Automatically deletes all trailing whitespace and newlines at end of file on save.
 autocmd BufWritePre * %s/\s\+$//e
 autocmd BufWritePre * %s/\n\+\%$//e
@@ -189,6 +226,9 @@ autocmd BufWritePre * %retab!
 autocmd BufRead,BufNewFile Xresources,Xdefaults,xresources,xdefaults set filetype=xdefaults
 autocmd BufWritePost Xresources,Xdefaults,xresources,xdefaults !xrdb %
 
+" Vanilla plugins?
+runtime macros/matchit.vim
+packadd cfilter
 " Plug.vim -- all my plugin configuration is below,
 " frozen makes the plugins not update.
 " Auto install plug
@@ -288,7 +328,7 @@ lua << EOF
  })
 EOF
 
-"OLD
+" OLD.
 let g:indent_blankline_char = '│'
 lua << EOF
  vim.opt.list = true
@@ -406,7 +446,7 @@ lspconfig.pylsp.setup{
    plugins = {
     pycodestyle = {
      ignore = {'E302', 'E305'},
-     -- maxLineLength = 100
+     maxLineLength = 79
     }
    }
   }

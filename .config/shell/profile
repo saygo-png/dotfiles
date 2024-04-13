@@ -4,17 +4,18 @@
 
 # Adds `~/.local/bin` to $PATH
 export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
-# Adds rustup to $PATH
+# Cargo/rust shit
 export PATH="$PATH:$(echo ~/.config/cargo/bin)"
-
-#unsetopt PROMPT_SP
+. "/home/samsepi0l/.config/cargo/env"
 # Firefox hardware decode
 export MOZ_X11_EGL=1
+export NO_AT_BRIDGE=1
 # Default programs:
 export PAGER="most"
 # Systemd is retarded and doesnt use normal pager variable :DDDDD
 export SYSTEMD_PAGER="most"
 export VISUAL="nvim"
+export OPENER="xdg-open"
 export EDITOR="nvim"
 export TERMINAL="alacritty"
 export TERMINAL_PROG="alacritty"
@@ -23,22 +24,24 @@ export BROWSER="librewolf"
 export GTK_IM_MODULE="ibus"
 export XMODIFIERS="@im=ibus"
 export QT_IM_MODULE="ibus"
+export SDL_IM_MODULE="ibus"
+export GLFW_IM_MODULE="ibus"
 #most pager
 export MOST_INITFILE="$HOME/.config/most/.mostrc"
 #unreal engine .net cli tool telemetry turn off
 export DOTNET_CLI_TELEMETRY_OPTOUT="true"
 # ~/ Clean-up:
+export PYTHONSTARTUP="$HOME/.config/python/pythonrc.py"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_CACHE_HOME="$HOME/.cache"
-#export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" # This line will break some DMs.
 export NOTMUCH_CONFIG="$XDG_CONFIG_HOME/notmuch-config"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0"
 export WGETRC="$XDG_CONFIG_HOME/wget/wgetrc"
 export INPUTRC="$XDG_CONFIG_HOME/shell/inputrc"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export WEECHAT_HOME="$XDG_CONFIG_HOME/weechat"
-#export GNUPGHOME="$XDG_DATA_HOME/gnupg"
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"
 export WINEPREFIX="$XDG_DATA_HOME/wineprefixes/default"
 export KODI_DATA="$XDG_DATA_HOME/kodi"
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store"
@@ -53,7 +56,6 @@ export UNISON="$XDG_DATA_HOME/unison"
 export HISTFILE="$XDG_DATA_HOME/history"
 export MBSYNCRC="$XDG_CONFIG_HOME/mbsync/config"
 export ELECTRUMDIR="$XDG_DATA_HOME/electrum"
-export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc"
 export SQLITE_HISTORY="$XDG_DATA_HOME/sqlite_history"
-
+export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
 [ ! -f ${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc ] && setsid shortcuts >/dev/null 2>&1
