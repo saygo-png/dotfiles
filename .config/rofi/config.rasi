@@ -23,10 +23,11 @@ configuration {
 /* drun-match-fields: "name,generic,exec,categories";*/
  drun-show-actions: false;
 /* drun-display-format: "{name} [<span weight='light' size='small'><i>({generic})</i></span>]";*/
-/*  disable-history: true; */
+ disable-history: false;
 /* ignored-prefixes: "";*/
+ matching: "fuzzy";
  sort: true;
-/* sorting-method: ;*/
+ sorting-method: "fzf";
 /* case-sensitive: false;*/
 /* cycle: true;*/
 /* sidebar-mode: false;*/
@@ -35,7 +36,6 @@ configuration {
 /* parse-hosts: false;*/
 /* parse-known-hosts: true;*/
 /* combi-modi: "window,run";*/
-matching: "fuzzy";
 /* tokenize: true;*/
 /* m: "-5";*/
 /* line-margin: 2;*/
@@ -52,7 +52,7 @@ matching: "fuzzy";
 /* fake-background: "screenshot";*/
 /* window-format: "{w}    {c}   {t}";*/
 /* click-to-exit: true;*/
-/* show-match: true;*/
+show-match: true;
 /* theme: custom;*/
 /* color-normal: ;*/
 /* color-urgent: ;*/

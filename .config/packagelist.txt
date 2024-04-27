@@ -18,6 +18,10 @@ android-liblog:amd64
 android-sdk-platform-tools-common
 anthy
 anthy-common
+apache2
+apache2-bin
+apache2-data
+apache2-utils
 apparmor
 appstream
 apt
@@ -191,6 +195,7 @@ dbus-user-session
 dbus-x11
 dc
 dconf-cli
+dconf-editor
 dconf-gsettings-backend:amd64
 dconf-service
 dctrl-tools
@@ -228,6 +233,7 @@ dmeventd
 dmidecode
 dmsetup
 dns-root-data
+dnsmasq-base
 dnsutils
 doc-debian
 docutils-common
@@ -249,6 +255,7 @@ eslint
 espeak-ng-data:amd64
 ethtool
 exfatprogs
+exif
 exim4-base
 exim4-config
 exim4-daemon-light
@@ -307,12 +314,14 @@ fonts-katex
 fonts-lato
 fonts-liberation
 fonts-liberation2
+fonts-lmodern
 fonts-lyx
 fonts-noto-mono
 fonts-opensymbol
 fonts-pc
 fonts-pc-extra
 fonts-sixtyfour
+fonts-stix
 fonts-unifont
 fonts-urw-base35
 fonts-vlgothic
@@ -490,7 +499,6 @@ ibus-data
 ibus-gtk:amd64
 ibus-gtk3:amd64
 ibus-gtk4:amd64
-ibus-m17n
 ibverbs-providers:amd64
 icatalan
 icu-devtools
@@ -601,8 +609,13 @@ libao4:amd64
 libaom-dev:amd64
 libaom3:amd64
 libaom3:i386
+libapache2-mod-php8.2
 libapparmor1:amd64
 libappstream4:amd64
+libapr1:amd64
+libaprutil1:amd64
+libaprutil1-dbd-sqlite3:amd64
+libaprutil1-ldap:amd64
 libapt-pkg-perl
 libapt-pkg6.0:amd64
 libarchive-cpio-perl
@@ -1223,6 +1236,7 @@ libieee1284-3:i386
 libigdgmm12:amd64
 libigdgmm12:i386
 libijs-0.35:amd64
+libimage-exiftool-perl
 libimagequant0:amd64
 libimath-3-1-29:amd64
 libimlib2:amd64
@@ -1490,6 +1504,9 @@ libmbedcrypto7:amd64
 libmbedtls-dev:amd64
 libmbedtls14:amd64
 libmbedx509-1:amd64
+libmbim-glib4:amd64
+libmbim-proxy
+libmbim-utils
 libmd0:amd64
 libmd0:i386
 libmd4c0:amd64
@@ -1499,10 +1516,12 @@ libmenu-cache3:amd64
 libmetis5:amd64
 libmfx1:amd64
 libmhash2:amd64
+libmime-charset-perl
 libmime-tools-perl
 libminizip1:amd64
 libmjpegutils-2.1-0:amd64
 libmldbm-perl
+libmm-glib0:amd64
 libmnl0:amd64
 libmodplug1:amd64
 libmodule-implementation-perl
@@ -1686,6 +1705,7 @@ libncurses6:i386
 libncursesw6:amd64
 libncursesw6:i386
 libndctl6:amd64
+libndp0:amd64
 libneon27:amd64
 libnet-dbus-perl
 libnet-domain-tld-perl
@@ -1911,8 +1931,12 @@ libqapt3-runtime
 libqca-qt5-2:amd64
 libqca-qt5-2-plugins:amd64
 libqhull-r8.0:amd64
+libqmi-glib5:amd64
+libqmi-proxy
+libqmi-utils
 libqpdf29:amd64
 libqrencode4:amd64
+libqrtr-glib0:amd64
 libqscintilla2-qt5-15:amd64
 libqscintilla2-qt5-l10n
 libqt5concurrent5:amd64
@@ -2058,6 +2082,7 @@ libsoap-lite-perl
 libsocket++1:amd64
 libsocket6-perl
 libsodium23:amd64
+libsombok3:amd64
 libsonic0:amd64
 libsord-0-0:amd64
 libsort-versions-perl
@@ -2153,6 +2178,7 @@ libtbbbind-2-5:amd64
 libtbbmalloc2:amd64
 libtcl8.6:amd64
 libtdb1:amd64
+libteamdctl0:amd64
 libterm-readkey-perl
 libtermkey1:amd64
 libtesseract-dev:amd64
@@ -2218,6 +2244,7 @@ libudisks2-0:amd64
 libumfpack5:amd64
 libunbound8:amd64
 libunibilium4:amd64
+libunicode-linebreak-perl
 libunicode-utf8-perl
 libunistring2:amd64
 libunistring2:i386
@@ -2668,6 +2695,7 @@ nethack-common
 nethack-console
 nethogs
 netpbm
+network-manager
 newsboat
 nftables
 ninja-build
@@ -3058,6 +3086,9 @@ ocaml-base
 ocl-icd-libopencl1:amd64
 ocl-icd-libopencl1:i386
 opencc
+openjdk-17-jdk:amd64
+openjdk-17-jdk-headless:amd64
+openjdk-17-jre:amd64
 openjdk-17-jre-headless:amd64
 openresolv
 openssh-client
@@ -3084,6 +3115,13 @@ perl
 perl-base
 perl-modules-5.36
 perl-openssl-defaults:amd64
+php
+php-common
+php8.2
+php8.2-cli
+php8.2-common
+php8.2-opcache
+php8.2-readline
 pidgin-data
 pinentry-curses
 pinentry-gnome3
@@ -3112,6 +3150,7 @@ poppler-data
 poppler-utils
 powermgmt-base
 powertop
+ppp
 printer-driver-all
 printer-driver-brlaser
 printer-driver-c2050
@@ -3206,7 +3245,6 @@ python3-filelock
 python3-firewall
 python3-fonttools
 python3-fs
-python3-fuzzywuzzy
 python3-gast
 python3-gi
 python3-gi-cairo
@@ -3237,7 +3275,6 @@ python3-lazr.restfulclient
 python3-lazr.uri
 python3-ldb
 python3-leather
-python3-levenshtein
 python3-lib2to3
 python3-libevdev
 python3-libvoikko
@@ -3415,7 +3452,6 @@ qt6-translations-l10n
 qtspeech5-speechd-plugin:amd64
 qttranslations5-l10n
 qtwayland5:amd64
-rar
 ratbagd
 re
 read-edid
@@ -3475,6 +3511,7 @@ steam-libs:amd64
 steam-libs:i386
 steam-libs-i386:i386
 strace
+suckless-tools
 sudo
 swath
 swath-data
@@ -3788,7 +3825,6 @@ vrms
 vulkan-tools
 w3m
 w3m-img
-wajig
 wamerican
 wayland-protocols
 wbrazilian

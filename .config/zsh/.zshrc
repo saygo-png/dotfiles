@@ -26,12 +26,13 @@ setopt GLOB_COMPLETE      # Show autocompletion menu with globs
 setopt MENU_COMPLETE        # Automatically highlight first element of completion menu
 setopt AUTO_LIST            # Automatically list choices on ambiguous completion.
 setopt COMPLETE_IN_WORD     # Complete from both ends of a word.
+setopt GLOB_DOTS
 unsetopt CASE_GLOB
 zstyle ':completion:*' menu select
 zmodload zsh/complist
-_comp_options+=(globdots)  # Include hidden files.
 # Load more completions.
 fpath=($HOME/.config/zsh/plugins/zsh-completions/src $fpath)
+_comp_options+=(globdots)  # Include hidden files.
 # Use hjlk in menu selection (during completion)
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
@@ -92,22 +93,25 @@ zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f
 bindkey -v
 export KEYTIMEOUT=1
 
+# Backspace delete
+bindkey -v '^?' backward-delete-char
+
 #Change cursor shape for different vi modes.
 function zle-keymap-select {
-if [[ ${KEYMAP} == vicmd ]] ||
- [[ $1 = 'block' ]]; then
- echo -ne '\e[1 q'
-elif [[ ${KEYMAP} == main ]] ||
- [[ ${KEYMAP} == viins ]] ||
- [[ ${KEYMAP} = '' ]] ||
- [[ $1 = 'beam' ]]; then
- echo -ne '\e[4 q'
-fi
+ if [[ ${KEYMAP} == vicmd ]] ||
+  [[ $1 = 'block' ]]; then
+  echo -ne '\e[1 q'
+ elif [[ ${KEYMAP} == main ]] ||
+  [[ ${KEYMAP} == viins ]] ||
+  [[ ${KEYMAP} = '' ]] ||
+  [[ $1 = 'beam' ]]; then
+  echo -ne '\e[4 q'
+ fi
 }
 zle -N zle-keymap-select
 zle-line-init() {
-zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
-echo -ne "\e[4 q"
+ zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
+ echo -ne "\e[4 q"
 }
 zle -N zle-line-init
 echo -ne '\e[4 q' # Use beam shape cursor on startup.

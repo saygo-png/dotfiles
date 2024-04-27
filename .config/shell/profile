@@ -21,11 +21,11 @@ export TERMINAL="alacritty"
 export TERMINAL_PROG="alacritty"
 export BROWSER="librewolf"
 #ibus (2 keyboard layouts)
-export GTK_IM_MODULE="ibus"
-export XMODIFIERS="@im=ibus"
-export QT_IM_MODULE="ibus"
-export SDL_IM_MODULE="ibus"
-export GLFW_IM_MODULE="ibus"
+#export GTK_IM_MODULE="ibus"
+#export XMODIFIERS="@im=ibus"
+#export QT_IM_MODULE="ibus"
+#export SDL_IM_MODULE="ibus"
+#export GLFW_IM_MODULE="ibus"
 #most pager
 export MOST_INITFILE="$HOME/.config/most/.mostrc"
 #unreal engine .net cli tool telemetry turn off

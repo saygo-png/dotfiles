@@ -124,9 +124,9 @@ awful.key({ modkey, }, "z", function () quake:toggle() end,
 
 awful.key({ modkey,           }, "p",
  function ()
-  awful.util.spawn("pastebookmark.sh")
+  awful.util.spawn("keyboard-switcher.sh")
  end,
- {description = "paste bookmark", group = "launcher"}
+ {description = "Change keyboard layout", group = "launcher"}
 ),
 
 awful.key({ modkey,           }, "b",

@@ -9,11 +9,12 @@ greenclip daemon &
 xrdb "$HOME"/.config/x11/xresources &
 picom &
 udiskie &
-ibus-daemon -x -d -r &
+#ibus-daemon -x -d -r &
 systemctl --user start timers.target &
 flameshot &
 alacritty &
 librewolf &
 #unclutter-xfixes &
 "$HOME"/.local/bin/remaps
-exec dbus-launch --exit-with-session awesome
+#exec dbus-launch --exit-with-session awesome
+awesome
