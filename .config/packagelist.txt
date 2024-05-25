@@ -557,6 +557,7 @@ iucode-tool
 iw
 ixo-usb-jtag
 java-common
+java-package
 javascript-common
 jmtpfs
 jp2a
@@ -1077,6 +1078,7 @@ libgl1:amd64
 libgl1:i386
 libgl1-mesa-dri:amd64
 libgl1-mesa-dri:i386
+libgl1-mesa-glx:amd64
 libglapi-mesa:amd64
 libglapi-mesa:i386
 libgles-dev:amd64

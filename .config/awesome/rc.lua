@@ -21,11 +21,10 @@ local has_fdo, freedesktop = pcall(require, "freedesktop")
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
 if awesome.startup_errors then
- naughty.notify
- ({
+ naughty.notify({
   preset = naughty.config.presets.critical,
   title = "Oops, there were errors during startup!",
-  text = awesome.startup_errors
+  text = awesome.startup_errors,
  })
 end
 -- Handle runtime errors after startup
@@ -412,7 +411,11 @@ awful.rules.rules = {
    border_focus = beautiful.border_focus,
    keys = clientkeys, buttons = clientbuttons,
    screen = awful.screen.preferred,
-   placement = awful.placement.no_overlap+awful.placement.no_offscreen
+   placement = awful.placement.no_overlap+awful.placement.no_offscreen,
+   maximized_vertical   = false,
+   maximized_horizontal = false,
+   floating = false,
+   maximized = false
   }
  },
 -- {-- always on top
@@ -440,6 +443,7 @@ awful.rules.rules = {
     "Blueman-manager",
     "Gpick",
     "Kruler",
+    "Krita",
     "MessageWin",-- kalarm.
     "Sxiv",
     "Tor Browser",-- Needs a fixed window size to avoid fingerprinting by screen size.
@@ -456,17 +460,17 @@ awful.rules.rules = {
     "AlarmWindow",  -- Thunderbird's calendar.
     "ConfigManager",  -- Thunderbird's about:config.
     "pop-up",       -- e.g. Google Chrome's (detached) Developer Tools.
+   },
+   type = {
+   "dialog",
    }
   },
   properties = { floating = true }
  },
- -- Add titlebars to normal clients and dialogs
- { rule_any = {type = { "normal", "dialog" }},
-  properties = { titlebars_enabled = false }
+
+ { rule = { class = "mpv" },
+  properties = { screen = 1, tag = "4" }
  },
--- { rule = { class = "mpv" },
---  properties = { screen = 1, tag = "4" }
--- },
  { rule = { class = "KeePassXC" },
   properties = { screen = 1, tag = "8" }
  },
@@ -559,10 +563,10 @@ function copy_size(c, parent_client)
  if (not c.valid or not parent_client.valid) then
   return
  end
- c.x=parent_client.x;
- c.y=parent_client.y;
- c.width=parent_client.width;
- c.height=parent_client.height;
+ c.x=parent_client.x
+ c.y=parent_client.y
+ c.width=parent_client.width
+ c.height=parent_client.height
 end
 function check_resize_client(c)
  if(c.child_resize) then

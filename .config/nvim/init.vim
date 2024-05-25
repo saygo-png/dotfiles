@@ -1,4 +1,67 @@
-" Syntax and filetype specific indentation and plugins on.
+" Basic
+set number relativenumber
+set wildmenu
+set wildmode=longest,list,full
+set title
+set clipboard+=unnamedplus
+set mouse=
+set ignorecase
+set smartcase
+set showmode
+set showcmd
+set nocompatible
+set signcolumn=number
+set noswapfile
+set hidden
+
+" Any
+let g:python_recommended_style=0
+set formatoptions=l
+set tabstop=1
+set softtabstop=-1
+set shiftwidth=1
+set expandtab
+set splitbelow splitright
+set shiftround
+set nojoinspaces
+set showmode
+set showcmd
+set history=500
+set nocompatible
+set hidden
+set paste
+set laststatus=0
+set wildmenu
+set cursorline
+set showmatch
+set cpoptions+=I
+"set smartindent
+set complete-=i
+set completeopt-=preview
+set nrformats-=octal
+"set notimeout
+"set ttimeout
+set timeout
+set ttimeoutlen=400
+set incsearch
+set laststatus=2
+set scrolloff=3
+set sidescrolloff=10
+set display+=lastline
+set display+=truncate
+set viminfo^=!
+set viewoptions-=options
+set nolangremap
+set sessionoptions-=options
+set fillchars=fold:\ ,vert:\│,eob:\ ,msgsep:‾
+set backspace=indent,eol,start
+set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+nnoremap <silent><F2> :setlocal listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣,nbsp:+<CR>:IndentBlanklineDisable<CR>
+nnoremap <silent><F3> :setlocal listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+<CR>:IndentBlanklineEnable<CR>
+setglobal tags-=./tags tags-=./tags; tags^=./tags;
+if !exists('g:is_posix') && !exists('g:is_bash') && !exists('g:is_kornshell') && !exists('g:is_dash')
+ let g:is_posix = 1
+endif" Syntax and filetype specific indentation and plugins on.
 set virtualedit+=onemore
 filetype plugin on
 filetype indent on
@@ -18,73 +81,10 @@ set ff=unix
 set encoding=utf-8
 set fileencoding=utf-8
 
-" Basic
-set number relativenumber
-set wildmenu
-set wildmode=longest,list,full
-set title
-set clipboard+=unnamedplus
-set mouse=
-set ignorecase
-set smartcase
-set showmode
-set showcmd
-set nocompatible
-set signcolumn=number
-set noswapfile
-set hidden
-
-" Any
-set formatoptions=l
-set tabstop=1
-set softtabstop=-1
-set shiftwidth=1
-set splitbelow splitright
-set shiftround
-set nojoinspaces
-set showmode
-set showcmd
-set history=500
-set nocompatible
-set hidden
-set paste
-set laststatus=0
-set wildmenu
-set cursorline
-set showmatch
-set expandtab
-set autoindent
-set cpoptions+=I
-set smartindent
-set complete-=i
-set smarttab
-set nrformats-=octal
-set notimeout
-set ttimeout
-set ttimeoutlen=1
-set incsearch
-set laststatus=2
-set scrolloff=3
-set sidescrolloff=15
-set display+=lastline
-set display+=truncate
-set viminfo^=!
-set viewoptions-=options
-set nolangremap
-set sessionoptions-=options
-set fillchars=fold:\ ,vert:\│,eob:\ ,msgsep:‾
-set backspace=indent,eol,start
-set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
-nnoremap <silent><F2> :setlocal listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣,nbsp:+<CR>:IndentBlanklineDisable<CR>
-nnoremap <silent><F3> :setlocal listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+<CR>:IndentBlanklineEnable<CR>
-setglobal tags-=./tags tags-=./tags; tags^=./tags;
-if !exists('g:is_posix') && !exists('g:is_bash') && !exists('g:is_kornshell') && !exists('g:is_dash')
- let g:is_posix = 1
-endif
-
 " Search.
 set hlsearch
 set shortmess-=S " Show amount of search results
+
 "  Highlight toggle.
 nnoremap <silent><expr> <Tab> (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 
@@ -100,8 +100,19 @@ if executable('rg')
 endif
 
 """""""""""""""""""""""""""""""
-" Remaps, binds.
+" Remaps, binds, keymaps, keybindings.
 """""""""""""""""""""""""""""""
+
+" Write as sudo.
+cnoremap w!! execute 'write !sudo tee % >/dev/null' <bar> edit!
+
+nnoremap <silent> gr :w<CR>:Dispatch<CR>
+" Run processing.
+autocmd Filetype arduino nnoremap <buffer> gr :w<CR>:!"$HOME"/builds/processing-4.3/processing-java --sketch="$HOME/%:h" --run &<CR>
+autocmd Filetype arduino nnoremap <buffer> gR :w<CR>:!"$HOME"/builds/processing-4.3/processing-java --sketch="$HOME/%:h" --present &<CR>
+" Run python.
+autocmd Filetype python nnoremap <buffer> gr :w<CR>:AbortDispatch<CR>:Dispatch! python3 "%:p"<CR>
+
 
 nnoremap <silent> zz zzI<Esc><CMD>FindCursor #7d8618 500<CR>
 " Next/previous quickfix result
@@ -207,20 +218,35 @@ function! GetVisualSelection()
   endfunction
 vnoremap <leader>o :<BS><BS><BS><BS><BS>execute '!openlisturl' shellescape(GetVisualSelection())<CR>
 
-cnoremap w!! execute 'write !sudo tee % >/dev/null' <bar> edit!
+"""""""""""""""""""""""""""""""
+" Autocommands, autocommand, au.
+"""""""""""""""""""""""""""""""
+
 " Open file at last closed location. (this is literal magic)
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 autocmd BufReadPost norm zz
+
 " Change normal mode cursor to underline.
 "set guicursor=n-v-c-sm:hor100,i-ci-ve:ver25,r-cr-o:hor20"
+
 " Automatically deletes all trailing whitespace and newlines at end of file on save.
 autocmd BufWritePre * %s/\s\+$//e
 autocmd BufWritePre * %s/\n\+\%$//e
 autocmd BufWritePre *.[ch] %s/\%$/\r/e " add trailing newline for ANSI C standard
 autocmd BufWritePre * %retab!
+
 " Run xrdb whenever Xdefaults or Xresources are updated.
 autocmd BufRead,BufNewFile Xresources,Xdefaults,xresources,xdefaults set filetype=xdefaults
 autocmd BufWritePost Xresources,Xdefaults,xresources,xdefaults !xrdb %
+
+" Hide cursor when unfocused.
+let my_cursor_style = &guicursor
+augroup cursorline
+  autocmd!
+  autocmd FocusGained,WinEnter * let &guicursor = my_cursor_style
+  autocmd FocusGained,WinEnter * setlocal cursorline
+  autocmd FocusLost,WinLeave * setlocal nocursorline guicursor=a:noCursor/lCursor
+augroup END
 
 " Vanilla plugins?
 runtime macros/matchit.vim
@@ -235,36 +261,43 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
 endif
 call plug#begin('~/.config/nvim/plugged')
  Plug 'iamcco/markdown-preview.nvim'                   ,{ 'frozen': 1, 'do': 'cd app && npx --yes yarn install' }
-" Plug 'lukas-reineke/indent-blankline.nvim'           ,{ 'frozen': 0 }
- Plug 'lukas-reineke/indent-blankline.nvim'            ,{ 'frozen': 1, 'tag': 'v2.20.8' }
  Plug 'nvim-treesitter/nvim-treesitter'                ,{ 'frozen': 0, 'do': ':TSUpdate' }
   Plug 'nvim-treesitter/nvim-treesitter-context'       ,{ 'frozen': 0 }
-" Plug 'psliwka/vim-smoothie'                           ,{ 'frozen': 1 }
- Plug 'ggandor/leap.nvim'                              ,{ 'frozen': 1 }
+
+" Plug 'morhetz/gruvbox'                                ,{ 'frozen': 1 }
+ Plug 'luisiacc/gruvbox-baby'                          ,{ 'frozen': 1 }
+ Plug 'lukas-reineke/indent-blankline.nvim'            ,{ 'frozen': 1, 'tag': 'v2.20.8' }
+ Plug 'echasnovski/mini.indentscope'                   ,{ 'frozen': 1, 'branch': 'stable' }
+ Plug 'tomtom/tcomment_vim'                            ,{ 'frozen': 1 }
+ Plug 'tpope/vim-dispatch'                             ,{ 'frozen': 1 }
+ "Plug 'psliwka/vim-smoothie'                          ,{ 'frozen': 1 }
+
+ " Unimportant plugins.
+ Plug 'tpope/vim-surround'                             ,{ 'frozen': 1 }
  Plug 'HiPhish/rainbow-delimiters.nvim'                ,{ 'frozen': 0 }
  Plug 'folke/which-key.nvim'                           ,{ 'frozen': 1 }
+ Plug 'echasnovski/mini.align'                         ,{ 'frozen': 1 }
  Plug 'nvim-telescope/telescope.nvim'                  ,{ 'frozen': 1 }
   Plug 'nvim-lua/plenary.nvim'                         ,{ 'frozen': 1 }
   Plug 'nvim-telescope/telescope-fzf-native.nvim'      ,{ 'frozen': 1, 'do': 'make' }
   Plug 'MunifTanjim/nui.nvim'                          ,{ 'frozen': 1 }
- Plug 'brenoprata10/nvim-highlight-colors'             ,{ 'frozen': 1 }
- Plug 'tpope/vim-surround'                             ,{ 'frozen': 1 }
- Plug 'tomtom/tcomment_vim'                            ,{ 'frozen': 1 }
  Plug 'tpope/vim-eunuch'                               ,{ 'frozen': 1 }
- Plug 'echasnovski/mini.align'                         ,{ 'frozen': 1 }
  Plug 'preservim/nerdtree'                             ,{ 'frozen': 1 }
- Plug 'echasnovski/mini.indentscope'                   ,{ 'frozen': 1, 'branch': 'stable' }
-" Plug 'morhetz/gruvbox'                                ,{ 'frozen': 1 }
- Plug 'luisiacc/gruvbox-baby'                          ,{ 'frozen': 1 }
- Plug 'sbdchd/neoformat'                               ,{ 'frozen': 1 }
- Plug 'axlebedev/vim-find-my-cursor'                   ,{ 'frozen': 1 }
- Plug 'junegunn/vim-slash'                             ,{ 'frozen': 1 }
+ Plug 'ggandor/leap.nvim'                              ,{ 'frozen': 1 }
  Plug 'monaqa/dial.nvim'                               ,{ 'frozen': 1 }
+ Plug 'axlebedev/vim-find-my-cursor'                   ,{ 'frozen': 1 }
+ Plug 'brenoprata10/nvim-highlight-colors'             ,{ 'frozen': 1 }
+ Plug 'junegunn/vim-slash'                             ,{ 'frozen': 1 }
  Plug 'Eandrju/cellular-automaton.nvim'                ,{ 'frozen': 1 }
+ Plug 'kevinhwang91/nvim-ufo'                          ,{ 'frozen': 1 }
+  Plug 'kevinhwang91/promise-async'                     ,{ 'frozen': 1 }
  Plug 'andrewferrier/wrapping.nvim'                    ,{ 'frozen': 1 }
+
  Plug 'williamboman/mason.nvim'                        ,{ 'frozen': 0 }
   Plug 'williamboman/mason-lspconfig.nvim'             ,{ 'frozen': 0 }
   Plug 'neovim/nvim-lspconfig'                         ,{ 'frozen': 0 }
+ Plug 'nvimtools/none-ls.nvim'                         ,{ 'frozen': 0 }
+  Plug 'jay-babu/mason-null-ls.nvim'                    ,{ 'frozen': 0 }
 call plug#end()
 
 " Colors (must be loaded after gruvbox plugin).
@@ -288,7 +321,7 @@ colorscheme gruvbox-baby
 hi Normal guibg=NONE ctermbg=NONE
 hi statusline ctermbg=NONE guibg=NONE gui=NONE guifg=#7d8618
 hi LineNr guifg=#7d8618
-
+hi noCursor blend=100 cterm=strikethrough
 " Tcomment.
 " Comment at start of line.
 let g:tcomment#options ={
@@ -326,7 +359,7 @@ lua << EOF
  })
 EOF
 
-" OLD.
+" Indentblankline (legacy).
 let g:indent_blankline_char = '│'
 lua << EOF
  vim.opt.list = true
@@ -351,7 +384,6 @@ lua << EOF
   },
  }
 EOF
-
 " Markdownpreview plug.
 let g:mkdp_auto_start = 0
 let g:mkdp_auto_close = 1
@@ -406,17 +438,13 @@ vmap  <C-x>  <Plug>(dial-decrement)
 vmap g<C-s> g<Plug>(dial-increment)
 vmap g<C-x> g<Plug>(dial-decrement)
 
+
 " Language server.
 " Mason
 lua << EOF
 require("mason").setup({
- ui = {
- check_outdated_packages_on_open = true,
- }
-})
-
-require("mason-lspconfig").setup{
  ensure_installed = {
+  "lua_ls",
   "bashls",
   "cssls",
   "html",
@@ -424,43 +452,161 @@ require("mason-lspconfig").setup{
   "vimls",
   "jsonls",
   "marksman",
-  "ruff_lsp",
+
+  --python
+  "ruff",
   "pylsp",
  },
-}
+ ui = {check_outdated_packages_on_open = true},
+})
+local pylsp = require("mason-registry").get_package("python-lsp-server")
+pylsp:on("install:success", function()
+  local function mason_package_path(package)
+    local path = vim.fn.resolve(vim.fn.stdpath("data") .. "/mason/packages/" .. package)
+    return path
+  end
+
+  local path = mason_package_path("python-lsp-server")
+  local command = path .. "/venv/bin/pip"
+  local args = {
+    "install",
+    "pylsp-rope",
+    "python-lsp-black",
+    "python-lsp-ruff",
+    "sqlalchemy-stubs",
+    "pylsp-mypy",
+    "pyls-memestra",
+    "mccabe",
+  },
+
+  require("plenary.job")
+    :new({
+      command = command,
+      args = args,
+      cwd = path,
+    })
+    :start()
+ end)
+
+-- Formatters.
+require("mason-null-ls").setup({
+ ensure_installed = {
+  "stylua",
+  "jq",
+  "proselint",
+  "shellcheck",
+  "shfmt",
+  "luasnip",
+  "cppcheck",
+
+  --python
+  "yapf",
+  "pyflakes",
+  "pylint",
+  "isort",
+  "mypy",
+  "pydocstyle",
+  "flake8",
+ }
+})
 
 local lspconfig = require('lspconfig')
-lspconfig.bashls.setup {}
+lspconfig.bashls.setup{}
 lspconfig.cssls.setup{}
 lspconfig.html.setup{}
 lspconfig.clangd.setup{}
 lspconfig.vimls.setup{}
-lspconfig.jsonls.setup{}
-lspconfig.marksman.setup{}
-lspconfig.ruff_lsp.setup{}
-lspconfig.pylsp.setup{
+lspconfig.lua_ls.setup{}
+lspconfig.pylsp.setup {
  settings = {
   pylsp = {
    plugins = {
+    -- formatter options
+    black = { enabled = false },
+    autopep8 = { enabled = false },
+    yapf = { enabled = false },
+    -- linter options
+    pylint = { enabled = false, executable = "pylint" },
+    pyflakes = { enabled = true },
     pycodestyle = {
-     ignore = {'E302', 'E305'},
-     maxLineLength = 79
-    }
-   }
-  }
- }
+     enabled = true,
+     ignore = {'E302', 'E305', 'E111'},
+     maxLineLength = 120,
+     indentSize = 1,
+    },
+    -- type checker
+    pylsp_mypy = { enabled = true },
+    -- auto-completion options
+    rope_autoimport = { enabled = true},
+    rope_completion = { enabled = true},
+    --jedi_completion = { enabled = true, fuzzy = true, include_params = true },
+    jedi_definition = { enabled = true, follow_imports = true, },
+    jedi_hover = { enabled = true },
+    jedi_references = { enabled = true },
+    jedi_signature_help = { enabled = true },
+    jedi_symbols = { enabled = true, all_scopes = true },
+    mccabe = { enabled = true },
+    -- import sorting
+    pyls_isort = { enabled = true },
+    flake8 = { enabled = false}
+   },
+  },
+ },
 }
--- lspconfig.rust_analyzer.setup {
---  -- Server-specific settings. See `:help lspconfig-setup`
---  settings = {
---    ['rust-analyzer'] = {},
---  },
---}
+lspconfig.jsonls.setup{}
+lspconfig.marksman.setup{}
+lspconfig.ruff.setup({
+ cmd = { "ruff", "server", "--preview", "--config", vim.fn.expand("$XDG_CONFIG_HOME/ruff/ruff.toml")},
+ on_init = function(client)
+  client.server_capabilities.documentFormattingProvider = false
+ end,
+})
+
+-- Use LspAttach autocommand to only map the following keys after the language server attaches to the current buffer
+vim.api.nvim_create_autocmd('LspAttach', {
+ group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+ callback = function(ev)
+ -- Enable completion triggered by <c-x><c-o>
+ vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+ -- Buffer local mappings.
+ -- See `:help vim.lsp.*` for documentation on any of the below functions
+ local opts = { buffer = ev.buf }
+ vim.keymap.set('n', '<space>d', vim.lsp.buf.definition, opts)
+ vim.keymap.set('n', '<space>D', vim.lsp.buf.declaration, opts)
+ vim.keymap.set('n', '<space>gd', vim.lsp.buf.type_definition, opts)
+ vim.keymap.set('n', '<space>k', vim.lsp.buf.hover, opts)
+ vim.keymap.set('n', '<space>K', vim.lsp.buf.signature_help, opts)
+ vim.keymap.set('n', '<space>i', vim.lsp.buf.implementation, opts)
+ vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+ vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+ vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+ vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+ vim.keymap.set('n', '<space>rf', vim.lsp.buf.references, opts)
+ vim.keymap.set('n', '<space>f', vim.lsp.buf.format, opts)
+ vim.keymap.set('n', '<space>wl', function()
+  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+  end, opts
+ )
+ end,
+})
+
+local null_ls = require("null-ls")
+null_ls.setup({
+ sources = {
+  null_ls.builtins.code_actions.proselint,
+  null_ls.builtins.formatting.shfmt,
+  null_ls.builtins.formatting.stylua,
+  null_ls.builtins.diagnostics.cppcheck,
+  null_ls.builtins.formatting.yapf.with({
+  extra_args = { "--style", vim.fn.expand("$XDG_CONFIG_HOME/yapf/yapf.toml")}
+  }),
+  --null_ls.builtins.formatting.black,
+ },
+ debug = false,
+})
 
 -- Visuals.
--- disable virtual_text (inline) diagnostics and use floating window
--- format the message such that it shows source, message and
--- the error code. Show the message with <space>e
+-- disable virtual_text (inline) diagnostics and use floating window, format the message such that it shows source, message and the error code. Show the message with <space>e
 vim.diagnostic.config({
  underline = false,
  update_in_insert = false,
@@ -481,7 +627,6 @@ vim.diagnostic.config({
   end,
  },
 })
-
 -- Transparent and groovy popup.
 vim.api.nvim_set_hl(0, "Normal"                    , { bg = "none"    })
 vim.api.nvim_set_hl(0, "NormalFloat"               , { bg = "none"    })
@@ -513,47 +658,14 @@ vim.api.nvim_set_hl(0, "DiagnosticSignHint"        , { fg = "#83a598" })
 vim.api.nvim_set_hl(0, "DiagnosticSignOk"          , { fg = "#fabd2f" })
 vim.api.nvim_set_hl(0, "DiagnosticDeprecated"      , { fg = "#d3869b" })
 vim.api.nvim_set_hl(0, "DiagnosticUnnecessary"     , { fg = "#d3869b" })
-
 -- Global mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
-
--- Use LspAttach autocommand to only map the following keys
--- after the language server attaches to the current buffer
-vim.api.nvim_create_autocmd('LspAttach', {
- group = vim.api.nvim_create_augroup('UserLspConfig', {}),
- callback = function(ev)
- -- Enable completion triggered by <c-x><c-o>
- vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-
- -- Buffer local mappings.
- -- See `:help vim.lsp.*` for documentation on any of the below functions
- local opts = { buffer = ev.buf }
- vim.keymap.set('n', '<space>d', vim.lsp.buf.definition, opts)
- vim.keymap.set('n', '<space>D', vim.lsp.buf.declaration, opts)
- vim.keymap.set('n', '<space>gd', vim.lsp.buf.type_definition, opts)
- vim.keymap.set('n', '<space>k', vim.lsp.buf.hover, opts)
- vim.keymap.set('n', '<space>K', vim.lsp.buf.signature_help, opts)
- vim.keymap.set('n', '<space>i', vim.lsp.buf.implementation, opts)
- vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
- vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
- vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
- vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
- vim.keymap.set('n', '<space>rf', vim.lsp.buf.references, opts)
- vim.keymap.set('n', '<space>wl', function()
-  print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-  end, opts
- )
- vim.keymap.set('n', '<space>f', function()
-  vim.lsp.buf.format { async = true }
-  end, opts
- )
- end,
-})
 EOF
+
 " Treesitter
 lua << EOF
 require'nvim-treesitter.configs'.setup {
@@ -590,6 +702,9 @@ require'nvim-treesitter.configs'.setup {
    -- Instead of true it can also be a list of languages
    additional_vim_regex_highlighting = false,
  },
+ indent = {
+  enable = true,
+ },
 }
 EOF
 autocmd VimEnter * TSEnable highlight
@@ -598,6 +713,7 @@ autocmd VimEnter * TSEnable incremental_selection
 autocmd VimEnter *.md TSDisable highlight
 autocmd VimEnter *.md TSDisable indent
 autocmd VimEnter *.md TSDisable incremental_selection
+
 " Wrapper.nvim plug.
 lua << EOF
  require("wrapping").setup()
@@ -610,7 +726,6 @@ nmap <leader>fml <cmd>CellularAutomaton make_it_rain<CR>
 lua << EOF
  -- This module contains a number of default definitions
  local rainbow_delimiters = require 'rainbow-delimiters'
- ---@type rainbow_delimiters.config
  vim.g.rainbow_delimiters = {
   strategy = {
    [''] = rainbow_delimiters.strategy['global'],
@@ -634,7 +749,6 @@ lua << EOF
    'RainbowDelimiterCyan',
   },
  }
-
  query = {
   -- Use parentheses by default
   [''] = 'rainbow-delimiters',
@@ -676,7 +790,6 @@ local Layout = require("nui.layout")
 local Popup = require("nui.popup")
 local telescope = require("telescope")
 local TSLayout = require("telescope.pickers.layout")
-
 local function make_popup(options)
   local popup = Popup(options)
   function popup.border:change_title(title)
@@ -684,7 +797,6 @@ local function make_popup(options)
   end
   return TSLayout.Window(popup)
 end
-
 telescope.setup({
   defaults = {
     layout_strategy = "flex",
@@ -906,6 +1018,142 @@ telescope.setup({
  vim.keymap.set('n', '<leader>th', builtin.help_tags, {})
 EOF
 
+" UFO folds
+lua << EOF
+vim.o.foldcolumn = '0' -- '0' is not bad
+vim.o.foldlevel = 400 -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevelstart = 400
+vim.o.foldenable = true
+-- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
+vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
+vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
+vim.keymap.set('n', 'zr', require('ufo').openFoldsExceptKinds)
+vim.keymap.set('n', 'zm', require('ufo').closeFoldsWith) -- closeAllFolds == closeFoldsWith(0)
+local handler = function(virtText, lnum, endLnum, width, truncate)
+    local newVirtText = {}
+    local suffix = (' %dΩ'):format(endLnum - lnum)
+    local sufWidth = vim.fn.strdisplaywidth(suffix)
+    local targetWidth = width - sufWidth
+    local curWidth = 0
+    for _, chunk in ipairs(virtText) do
+        local chunkText = chunk[1]
+        local chunkWidth = vim.fn.strdisplaywidth(chunkText)
+        if targetWidth > curWidth + chunkWidth then
+            table.insert(newVirtText, chunk)
+        else
+            chunkText = truncate(chunkText, targetWidth - curWidth)
+            local hlGroup = chunk[2]
+            table.insert(newVirtText, {chunkText, hlGroup})
+            chunkWidth = vim.fn.strdisplaywidth(chunkText)
+            -- str width returned from truncate() may less than 2nd argument, need padding
+            if curWidth + chunkWidth < targetWidth then
+                suffix = suffix .. (' '):rep(targetWidth - curWidth - chunkWidth)
+            end
+            break
+        end
+        curWidth = curWidth + chunkWidth
+    end
+    table.insert(newVirtText, {suffix, 'MoreMsg'})
+    return newVirtText
+end
+-- Treesitter as a main provider
+require('ufo').setup({
+    provider_selector = function(bufnr, filetype, buftype)
+        return {'treesitter', 'indent'}
+    end,
+    fold_virt_text_handler = handler
+})
+EOF
+
+" Which key which-key.
+lua << EOF
+local status_ok, which_key = pcall(require, "which-key")
+if not status_ok then
+    return
+end
+local setup = {
+    plugins = {
+        marks = true, -- shows a list of your marks on ' and `
+        registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+        spelling = {
+            enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+            suggestions = 20, -- how many suggestions should be shown in the list?
+        },
+        -- the presets plugin, adds help for a bunch of default keybindings in Neovim
+        -- No actual key bindings are created
+        presets = {
+            operators = false, -- adds help for operators like d, y, ... and registers them for motion / text object completion
+            motions = true, -- adds help for motions
+            text_objects = true, -- help for text objects triggered after entering an operator
+            windows = true, -- default bindings on <c-w>
+            nav = true, -- misc bindings to work with windows
+            z = true, -- bindings for folds, spelling and others prefixed with z
+            g = true, -- bindings for prefixed with g
+        },
+    },
+    -- add operators that will trigger motion and text object completion
+    -- to enable all native operators, set the preset / operators plugin above
+    -- operators = { gc = "Comments" },
+    key_labels = {
+        -- override the label used to display some keys. It doesn't effect WK in any other way.
+        -- For example:
+        -- ["<space>"] = "SPC",
+        -- ["<cr>"] = "RET",
+        -- ["<tab>"] = "TAB",
+    },
+    icons = {
+        breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
+        separator = "➜", -- symbol used between a key and it's label
+        group = "+", -- symbol prepended to a group
+    },
+    popup_mappings = {
+        scroll_down = "<c-d>", -- binding to scroll down inside the popup
+        scroll_up = "<c-u>", -- binding to scroll up inside the popup
+    },
+    window = {
+        border = "rounded", -- none, single, double, shadow
+        position = "bottom", -- bottom, top
+        margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
+        padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
+        winblend = 0,
+    },
+    layout = {
+        height = { min = 4, max = 25 }, -- min and max height of the columns
+        width = { min = 20, max = 50 }, -- min and max width of the columns
+        spacing = 3, -- spacing between columns
+        align = "left", -- align columns left, center or right
+    },
+    ignore_missing = true, -- enable this to hide mappings for which you didn't specify a label
+    hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
+    show_help = true, -- show help message on the command line when the popup is visible
+    triggers = "auto", -- automatically setup triggers
+    -- triggers = {"<leader>"} -- or specify a list manually
+    triggers_blacklist = {
+        -- list of mode / prefixes that should never be hooked by WhichKey
+        -- this is mostly relevant for key maps that start with a native binding
+        -- most people should not need to change this
+        i = { "j", "k" },
+        v = { "j", "k" },
+    },
+}
+local opts = {
+    mode = "n", -- NORMAL mode
+    prefix = "<leader>",
+    buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
+    silent = true, -- use `silent` when creating keymaps
+    noremap = true, -- use `noremap` when creating keymaps
+    nowait = true, -- use `nowait` when creating keymaps
+}
+local mappings = {
+
+    ["k"] = { "<cmd>bdelete<CR>", "Kill Buffer" },  -- Close current file
+    ["q"] = { "<cmd>wqall!<CR>", "Quit" }, -- Quit Neovim after saving the file
+    ["w"] = { "<cmd>w!<CR>", "Save" }, -- Save current file
+}
+which_key.setup(setup)
+which_key.register(mappings, opts)
+EOF
+
 " Nerdtree (file tree).
 "nnoremap <leader>nf :NERDTreeFocus<CR>
 "nnoremap <leader>n :NERDTree<CR>
@@ -916,3 +1164,8 @@ nnoremap <silent> <C-o> :<CR>
 " Open/close quickfix
 nnoremap <silent> <leader>co :silent copen<CR>
 nnoremap <silent> <leader>cl :silent cclose<CR>
+
+"tabfix
+set smarttab
+set autoindent
+set expandtab

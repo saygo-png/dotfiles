@@ -40,4 +40,5 @@ alias \
  cd="z" \
  cdi="zi" \
  record="arecord -t wav -r 48000 -c 1 -f S16_LE recording.wav" \
- pde="/home/samsepi0l/builds/processing-4.3/processing-java"
+ pde="/home/samsepi0l/builds/processing-4.3/processing-java" \
+ notificationspam='for i in {1..10}; do notify-send "beep beep"; done'
