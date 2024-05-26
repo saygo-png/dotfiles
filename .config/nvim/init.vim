@@ -24,24 +24,18 @@ set expandtab
 set splitbelow splitright
 set shiftround
 set nojoinspaces
-set showmode
-set showcmd
 set history=500
-set nocompatible
-set hidden
-set paste
 set laststatus=0
 set wildmenu
 set cursorline
 set showmatch
 set cpoptions+=I
-"set smartindent
+set smartindent
 set complete-=i
 set completeopt-=preview
 set nrformats-=octal
-"set notimeout
-"set ttimeout
-set timeout
+set ttimeout
+set notimeout
 set ttimeoutlen=400
 set incsearch
 set laststatus=2
@@ -49,6 +43,7 @@ set scrolloff=3
 set sidescrolloff=10
 set display+=lastline
 set display+=truncate
+"set pumblend=100
 set viminfo^=!
 set viewoptions-=options
 set nolangremap
@@ -103,16 +98,12 @@ endif
 " Remaps, binds, keymaps, keybindings.
 """""""""""""""""""""""""""""""
 
-" Write as sudo.
-cnoremap w!! execute 'write !sudo tee % >/dev/null' <bar> edit!
-
 nnoremap <silent> gr :w<CR>:Dispatch<CR>
 " Run processing.
 autocmd Filetype arduino nnoremap <buffer> gr :w<CR>:!"$HOME"/builds/processing-4.3/processing-java --sketch="$HOME/%:h" --run &<CR>
 autocmd Filetype arduino nnoremap <buffer> gR :w<CR>:!"$HOME"/builds/processing-4.3/processing-java --sketch="$HOME/%:h" --present &<CR>
 " Run python.
 autocmd Filetype python nnoremap <buffer> gr :w<CR>:AbortDispatch<CR>:Dispatch! python3 "%:p"<CR>
-
 
 nnoremap <silent> zz zzI<Esc><CMD>FindCursor #7d8618 500<CR>
 " Next/previous quickfix result
@@ -121,13 +112,13 @@ nnoremap <silent> <C-p> :silent cprevious<CR>
 
 " Any.
 let mapleader=","
-nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
-snoremap <C-U> <C-G>u<C-U>
-snoremap <C-W> <C-G>u<C-W>
-vnoremap <C-U> <C-G>u<C-U>
-vnoremap <C-W> <C-G>u<C-W>
-inoremap <C-U> <C-G>u<C-U>
-inoremap <C-W> <C-G>u<C-W>
+"nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+"snoremap <C-U> <C-G>u<C-U>
+"snoremap <C-W> <C-G>u<C-W>
+"vnoremap <C-U> <C-G>u<C-U>
+"vnoremap <C-W> <C-G>u<C-W>
+"inoremap <C-U> <C-G>u<C-U>
+"inoremap <C-W> <C-G>u<C-W>
 
 " Perform dot commands over visual blocks:
 vnoremap . :normal .<CR>
@@ -260,46 +251,54 @@ if empty(glob(data_dir . '/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 call plug#begin('~/.config/nvim/plugged')
- Plug 'iamcco/markdown-preview.nvim'                   ,{ 'frozen': 1, 'do': 'cd app && npx --yes yarn install' }
- Plug 'nvim-treesitter/nvim-treesitter'                ,{ 'frozen': 0, 'do': ':TSUpdate' }
-  Plug 'nvim-treesitter/nvim-treesitter-context'       ,{ 'frozen': 0 }
+ Plug 'iamcco/markdown-preview.nvim'                    ,{ 'frozen': 1, 'do': 'cd app && npx --yes yarn install' }
+ Plug 'nvim-treesitter/nvim-treesitter'                 ,{ 'frozen': 0, 'do': ':TSUpdate' }
+  Plug 'nvim-treesitter/nvim-treesitter-context'        ,{ 'frozen': 0 }
 
 " Plug 'morhetz/gruvbox'                                ,{ 'frozen': 1 }
- Plug 'luisiacc/gruvbox-baby'                          ,{ 'frozen': 1 }
- Plug 'lukas-reineke/indent-blankline.nvim'            ,{ 'frozen': 1, 'tag': 'v2.20.8' }
- Plug 'echasnovski/mini.indentscope'                   ,{ 'frozen': 1, 'branch': 'stable' }
- Plug 'tomtom/tcomment_vim'                            ,{ 'frozen': 1 }
- Plug 'tpope/vim-dispatch'                             ,{ 'frozen': 1 }
- "Plug 'psliwka/vim-smoothie'                          ,{ 'frozen': 1 }
+ Plug 'luisiacc/gruvbox-baby'                           ,{ 'frozen': 1 }
+ Plug 'lukas-reineke/indent-blankline.nvim'             ,{ 'frozen': 1, 'tag': 'v2.20.8' }
+ Plug 'echasnovski/mini.indentscope'                    ,{ 'frozen': 1, 'branch': 'stable' }
+ Plug 'tomtom/tcomment_vim'                             ,{ 'frozen': 1 }
+ Plug 'tpope/vim-dispatch'                              ,{ 'frozen': 1 }
+ "Plug 'psliwka/vim-smoothie'                           ,{ 'frozen': 1 }
 
  " Unimportant plugins.
- Plug 'tpope/vim-surround'                             ,{ 'frozen': 1 }
- Plug 'HiPhish/rainbow-delimiters.nvim'                ,{ 'frozen': 0 }
- Plug 'folke/which-key.nvim'                           ,{ 'frozen': 1 }
- Plug 'echasnovski/mini.align'                         ,{ 'frozen': 1 }
- Plug 'nvim-telescope/telescope.nvim'                  ,{ 'frozen': 1 }
-  Plug 'nvim-lua/plenary.nvim'                         ,{ 'frozen': 1 }
-  Plug 'nvim-telescope/telescope-fzf-native.nvim'      ,{ 'frozen': 1, 'do': 'make' }
-  Plug 'MunifTanjim/nui.nvim'                          ,{ 'frozen': 1 }
- Plug 'tpope/vim-eunuch'                               ,{ 'frozen': 1 }
- Plug 'preservim/nerdtree'                             ,{ 'frozen': 1 }
- Plug 'ggandor/leap.nvim'                              ,{ 'frozen': 1 }
- Plug 'monaqa/dial.nvim'                               ,{ 'frozen': 1 }
- Plug 'axlebedev/vim-find-my-cursor'                   ,{ 'frozen': 1 }
- Plug 'brenoprata10/nvim-highlight-colors'             ,{ 'frozen': 1 }
- Plug 'junegunn/vim-slash'                             ,{ 'frozen': 1 }
- Plug 'Eandrju/cellular-automaton.nvim'                ,{ 'frozen': 1 }
- Plug 'kevinhwang91/nvim-ufo'                          ,{ 'frozen': 1 }
+ Plug 'tpope/vim-surround'                              ,{ 'frozen': 1 }
+ Plug 'HiPhish/rainbow-delimiters.nvim'                 ,{ 'frozen': 0 }
+ Plug 'folke/which-key.nvim'                            ,{ 'frozen': 1 }
+ Plug 'echasnovski/mini.align'                          ,{ 'frozen': 1 }
+ Plug 'nvim-telescope/telescope.nvim'                   ,{ 'frozen': 1 }
+  Plug 'nvim-lua/plenary.nvim'                          ,{ 'frozen': 1 }
+  Plug 'nvim-telescope/telescope-fzf-native.nvim'       ,{ 'frozen': 1, 'do': 'make' }
+  Plug 'MunifTanjim/nui.nvim'                           ,{ 'frozen': 1 }
+ Plug 'tpope/vim-eunuch'                                ,{ 'frozen': 1 }
+ Plug 'preservim/nerdtree'                              ,{ 'frozen': 1 }
+ Plug 'ggandor/leap.nvim'                               ,{ 'frozen': 1 }
+ Plug 'monaqa/dial.nvim'                                ,{ 'frozen': 1 }
+ Plug 'axlebedev/vim-find-my-cursor'                    ,{ 'frozen': 1 }
+ Plug 'brenoprata10/nvim-highlight-colors'              ,{ 'frozen': 1 }
+ Plug 'junegunn/vim-slash'                              ,{ 'frozen': 1 }
+ Plug 'Eandrju/cellular-automaton.nvim'                 ,{ 'frozen': 1 }
+ Plug 'kevinhwang91/nvim-ufo'                           ,{ 'frozen': 1 }
   Plug 'kevinhwang91/promise-async'                     ,{ 'frozen': 1 }
- Plug 'andrewferrier/wrapping.nvim'                    ,{ 'frozen': 1 }
+ Plug 'andrewferrier/wrapping.nvim'                     ,{ 'frozen': 1 }
+ " Autocomplete
+ Plug 'hrsh7th/cmp-nvim-lsp'                            ,{ 'frozen': 0 }
+Plug 'hrsh7th/cmp-buffer'                               ,{ 'frozen': 0 }
+Plug 'hrsh7th/cmp-path'                                 ,{ 'frozen': 0 }
+Plug 'hrsh7th/cmp-cmdline'                              ,{ 'frozen': 0 }
+Plug 'hrsh7th/nvim-cmp'                                 ,{ 'frozen': 0 }
+Plug 'hrsh7th/cmp-vsnip'                                ,{ 'frozen': 0 }
+Plug 'saadparwaiz1/cmp_luasnip'                         ,{ 'frozen': 0 }
+Plug 'L3MON4D3/LuaSnip'                                 ,{ 'frozen': 0 }
 
- Plug 'williamboman/mason.nvim'                        ,{ 'frozen': 0 }
-  Plug 'williamboman/mason-lspconfig.nvim'             ,{ 'frozen': 0 }
-  Plug 'neovim/nvim-lspconfig'                         ,{ 'frozen': 0 }
- Plug 'nvimtools/none-ls.nvim'                         ,{ 'frozen': 0 }
+ Plug 'williamboman/mason.nvim'                         ,{ 'frozen': 0 }
+  Plug 'williamboman/mason-lspconfig.nvim'              ,{ 'frozen': 0 }
+  Plug 'neovim/nvim-lspconfig'                          ,{ 'frozen': 0 }
+ Plug 'nvimtools/none-ls.nvim'                          ,{ 'frozen': 0 }
   Plug 'jay-babu/mason-null-ls.nvim'                    ,{ 'frozen': 0 }
 call plug#end()
-
 " Colors (must be loaded after gruvbox plugin).
 if has('termguicolors')
  set termguicolors
@@ -438,27 +437,29 @@ vmap  <C-x>  <Plug>(dial-decrement)
 vmap g<C-s> g<Plug>(dial-increment)
 vmap g<C-x> g<Plug>(dial-decrement)
 
+"""""""""""""""""""""""""""""""
+" Language server, lsp.
+"""""""""""""""""""""""""""""""
 
-" Language server.
 " Mason
 lua << EOF
-require("mason").setup({
- ensure_installed = {
-  "lua_ls",
-  "bashls",
-  "cssls",
-  "html",
-  "clangd",
-  "vimls",
-  "jsonls",
-  "marksman",
+local servers = {
+'clangd',
+'rust_analyzer',
+'bashls',
+'cssls',
+'html',
+'clangd',
+'lua_ls',
+'jsonls',
+'marksman',
+}
 
-  --python
-  "ruff",
-  "pylsp",
- },
+require("mason").setup({
+ ensure_installed = { servers, "ruff", "pylsp", },
  ui = {check_outdated_packages_on_open = true},
 })
+
 local pylsp = require("mason-registry").get_package("python-lsp-server")
 pylsp:on("install:success", function()
   local function mason_package_path(package)
@@ -477,8 +478,8 @@ pylsp:on("install:success", function()
     "pylsp-mypy",
     "pyls-memestra",
     "mccabe",
+    "mypy",
   },
-
   require("plenary.job")
     :new({
       command = command,
@@ -507,16 +508,17 @@ require("mason-null-ls").setup({
   "mypy",
   "pydocstyle",
   "flake8",
+
+  "cppcheck",
  }
 })
 
+-- Set completeopt to have a better completion experience
+vim.o.completeopt = 'menuone,noselect'
+
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local lspconfig = require('lspconfig')
-lspconfig.bashls.setup{}
-lspconfig.cssls.setup{}
-lspconfig.html.setup{}
-lspconfig.clangd.setup{}
-lspconfig.vimls.setup{}
-lspconfig.lua_ls.setup{}
+
 lspconfig.pylsp.setup {
  settings = {
   pylsp = {
@@ -553,27 +555,136 @@ lspconfig.pylsp.setup {
   },
  },
 }
-lspconfig.jsonls.setup{}
-lspconfig.marksman.setup{}
+
 lspconfig.ruff.setup({
- cmd = { "ruff", "server", "--preview", "--config", vim.fn.expand("$XDG_CONFIG_HOME/ruff/ruff.toml")},
+ capabilities = capabilities,
+  cmd = { "ruff", "server", "--preview", "--config", vim.fn.expand("$XDG_CONFIG_HOME/ruff/ruff.toml")},
  on_init = function(client)
   client.server_capabilities.documentFormattingProvider = false
  end,
 })
 
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup {
+    -- on_attach = my_custom_on_attach,
+    capabilities = capabilities,
+  }
+end
+
+-- Cmp colors.
+vim.api.nvim_set_hl(0, "CmpNormal", {background = "#98971a"})
+vim.api.nvim_set_hl(0, 'CmpItemAbbrMatch', { bg='NONE', fg='#fabd2f' })
+vim.api.nvim_set_hl(0, 'CmpItemAbbrMatchFuzzy', { link='CmpIntemAbbrMatch' })
+vim.cmd("highlight Pmenu guibg=NONE")
+local border = {
+{ '┌', 'FloatBorder' },
+{ '─', 'FloatBorder' },
+{ '┐', 'FloatBorder' },
+{ '│', 'FloatBorder' },
+{ '┘', 'FloatBorder' },
+{ '─', 'FloatBorder' },
+{ '└', 'FloatBorder' },
+{ '│', 'FloatBorder' },
+}
+
+-- luasnip setup
+local luasnip = require 'luasnip'
+-- nvim-cmp setup
+local cmp = require 'cmp'
+cmp.setup{
+completion = {
+ autocomplete = false,
+ },
+ performance = {
+  -- mostly arbitrary numbers
+  debounce = 50,
+  throttle = 60,
+  --fetching_timeout = 10,
+  max_view_entries = 10,
+  },
+ enabled = function()
+ -- disable completion in comments
+ local context = require 'cmp.config.context'
+ -- keep command mode completion enabled when cursor is in a comment
+ if vim.api.nvim_get_mode().mode == 'c' then
+  return true
+ else
+  return not context.in_treesitter_capture("comment")
+  and not context.in_syntax_group("Comment")
+  end
+  end,
+  snippet = {
+   expand = function(args)
+   luasnip.lsp_expand(args.body)
+   end,
+   },
+    window = {
+      completion = { border = "single", highlight = "CmpNormal"},
+      documentation = { border = "single" },
+    },
+  mapping = cmp.mapping.preset.insert({
+  ["<C-u>"] = cmp.mapping.scroll_docs(-4), -- Up
+  ["<C-d>"] = cmp.mapping.scroll_docs(4), -- Down
+  -- C-b (back) C-f (forward) for snippet placeholder navigation.
+  ["<Tab>"] = cmp.mapping.complete(),
+  ["<CR>"] = cmp.mapping(function(fallback)
+  if cmp.visible() then
+   if luasnip.expandable() then
+    luasnip.expand()
+   else
+    cmp.confirm({
+    select = true,
+    })
+    end
+   else
+    fallback()
+    end
+    end),
+
+    ["<C-j>"] = cmp.mapping(function(fallback)
+    if cmp.visible() then
+     cmp.select_next_item()
+    elseif luasnip.locally_jumpable(1) then
+     luasnip.jump(1)
+    else
+     fallback()
+     end
+     end, { "i", "s" }),
+
+     ["<C-k>"] = cmp.mapping(function(fallback)
+     if cmp.visible() then
+      cmp.select_prev_item()
+     elseif luasnip.locally_jumpable(-1) then
+      luasnip.jump(-1)
+     else
+      fallback()
+      end
+      end, { "i", "s" }),
+  }),
+  sources = {
+   { name = "nvim_lsp" },
+   { name = "luasnip" },
+   { name = "nvim_lua" },
+   { name = "nvim_lsp_signature_help" },
+   { name = "buffer" },
+   },
+}
+cmp.setup.cmdline('/', {
+  view = {
+    entries = {name = 'wildmenu', separator = '|' }
+  },
+})
 -- Use LspAttach autocommand to only map the following keys after the language server attaches to the current buffer
 vim.api.nvim_create_autocmd('LspAttach', {
  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
  callback = function(ev)
- -- Enable completion triggered by <c-x><c-o>
- vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
  -- Buffer local mappings.
  -- See `:help vim.lsp.*` for documentation on any of the below functions
  local opts = { buffer = ev.buf }
  vim.keymap.set('n', '<space>d', vim.lsp.buf.definition, opts)
  vim.keymap.set('n', '<space>D', vim.lsp.buf.declaration, opts)
  vim.keymap.set('n', '<space>gd', vim.lsp.buf.type_definition, opts)
+ vim.keymap.set('n', 'gd', vim.lsp.buf.type_definition, opts)
  vim.keymap.set('n', '<space>k', vim.lsp.buf.hover, opts)
  vim.keymap.set('n', '<space>K', vim.lsp.buf.signature_help, opts)
  vim.keymap.set('n', '<space>i', vim.lsp.buf.implementation, opts)
@@ -589,7 +700,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
  )
  end,
 })
-
 local null_ls = require("null-ls")
 null_ls.setup({
  sources = {
@@ -616,7 +726,7 @@ vim.diagnostic.config({
   win_options = {
    winblend = 100
   },
-  border = "single",
+  border = border,
   format = function(diagnostic)
    return string.format(
     "%s (%s) [%s]",
@@ -627,6 +737,8 @@ vim.diagnostic.config({
   end,
  },
 })
+
+
 -- Transparent and groovy popup.
 vim.api.nvim_set_hl(0, "Normal"                    , { bg = "none"    })
 vim.api.nvim_set_hl(0, "NormalFloat"               , { bg = "none"    })
@@ -664,6 +776,11 @@ vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+local handlers = {
+    ['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+    ['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+}
+
 EOF
 
 " Treesitter

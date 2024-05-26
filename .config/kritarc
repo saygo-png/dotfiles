@@ -60,8 +60,8 @@ Krita/Ocio/OcioConfigPath=
 Krita/Ocio/OcioLockColorVisualRepresentation=false
 Krita/Ocio/OcioLutPath=
 Krita/Ocio/UseOcio=false
-LastBackGroundColor=<!DOCTYPE LastBackGroundColor>\n<LastBackGroundColor>\n <Lab space="Lab identity built-in" L="100" a="0" b="-0.00389105058365759"/>\n</LastBackGroundColor>\n
-LastForeGroundColor=<!DOCTYPE LastForeGroundColor>\n<LastForeGroundColor>\n <RGB g="0.180392161011696" space="sRGB built-in" r="0.266666680574417" b="0.0470588244497776"/>\n</LastForeGroundColor>\n
+LastBackGroundColor=<!DOCTYPE LastBackGroundColor>\n<LastBackGroundColor>\n <Lab a="0" L="100" space="Lab identity built-in" b="-0.00389105058365759"/>\n</LastBackGroundColor>\n
+LastForeGroundColor=<!DOCTYPE LastForeGroundColor>\n<LastForeGroundColor>\n <RGB space="sRGB-elle-V2-g10.icc" r="0.0578011758625507" b="0.00367742427624762" g="0.0273289084434509"/>\n</LastForeGroundColor>\n
 LastPreset=k) Blender Basic
 LastPreset_-1=k) Blender Basic
 LineSmoothingDelayDistance=87

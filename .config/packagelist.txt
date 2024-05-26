@@ -1486,7 +1486,6 @@ liblzma-dev:amd64
 liblzma5:amd64
 liblzma5:i386
 liblzo2-2:amd64
-libm17n-0:amd64
 libmad0:amd64
 libmagic-mgc
 libmagic1:amd64
@@ -1819,7 +1818,6 @@ liborcus-0.17-0:amd64
 liborcus-parser-0.17-0:amd64
 libosmesa6:amd64
 libosmesa6:i386
-libotf1:amd64
 libp11-kit0:amd64
 libp11-kit0:i386
 libpackage-stash-perl
@@ -2610,7 +2608,6 @@ lz4json
 lzip
 lzma
 lzop
-m17n-db
 m4
 mailcap
 maint-guide-it
