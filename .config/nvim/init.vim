@@ -1,4 +1,7 @@
 " Basic
+set syntax=on
+filetype plugin on
+filetype indent on
 set number relativenumber
 set wildmenu
 set wildmode=longest,list,full
@@ -43,7 +46,6 @@ set scrolloff=3
 set sidescrolloff=10
 set display+=lastline
 set display+=truncate
-"set pumblend=100
 set viminfo^=!
 set viewoptions-=options
 set nolangremap
@@ -58,8 +60,6 @@ if !exists('g:is_posix') && !exists('g:is_bash') && !exists('g:is_kornshell') &&
  let g:is_posix = 1
 endif" Syntax and filetype specific indentation and plugins on.
 set virtualedit+=onemore
-filetype plugin on
-filetype indent on
 " Faster syntax highlight.
 syntax sync minlines=256
 
@@ -98,14 +98,22 @@ endif
 " Remaps, binds, keymaps, keybindings.
 """""""""""""""""""""""""""""""
 
+" Indent.
+nnoremap <silent> > >>
+nnoremap <silent> < <<
+" Blank or empty line jump
+noremap { <Cmd>call search('^\s*\S', 'Wbc') \| call search('^\s*$\\|\%^', 'Wb')<CR>
+noremap } <Cmd>call search('^\s*\S', 'Wc') \| call search('^\s*$\\|\%$', 'W')<CR>
+
+" Running.
 nnoremap <silent> gr :w<CR>:Dispatch<CR>
-" Run processing.
+ " Run processing.
 autocmd Filetype arduino nnoremap <buffer> gr :w<CR>:!"$HOME"/builds/processing-4.3/processing-java --sketch="$HOME/%:h" --run &<CR>
 autocmd Filetype arduino nnoremap <buffer> gR :w<CR>:!"$HOME"/builds/processing-4.3/processing-java --sketch="$HOME/%:h" --present &<CR>
-" Run python.
-autocmd Filetype python nnoremap <buffer> gr :w<CR>:AbortDispatch<CR>:Dispatch! python3 "%:p"<CR>
-
+ " Run python.
+autocmd Filetype python nnoremap <buffer> gr :w<CR>:AbortDispatch<CR>:Dispatch python3 "%:p"<CR>
 nnoremap <silent> zz zzI<Esc><CMD>FindCursor #7d8618 500<CR>
+
 " Next/previous quickfix result
 nnoremap <silent> <C-n> :silent cnext<CR>
 nnoremap <silent> <C-p> :silent cprevious<CR>
@@ -161,6 +169,23 @@ vnoremap : ;
 nnoremap ; :
 nnoremap : ;
 
+lua << EOF
+-- Keep selection when indenting.
+vim.keymap.set("v", ">", ">gv", { desc = "Keep selection after indenting" })
+vim.keymap.set("v", "<", "<gv", { desc = "Keep selection after unindenting" })
+
+-- Move lines around.
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move the selected line down" })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move the selected line up" })
+-- Window switching.
+vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", { desc = "Move to the split on the left side" })
+vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", { desc = "Move to the split on the right side" })
+vim.keymap.set("n", "<C-k>", ":wincmd k<CR>", { desc = "Move to the split above" })
+vim.keymap.set("n", "<C-j>", ":wincmd j<CR>", { desc = "Move to the split below" })
+-- Close buffer
+vim.keymap.set("n", "<C-q>", ":close<CR>", { desc = "Close the current buffer" })
+EOF
+
 " Makes ctrl+s increment to not conflict with tmux.
 nnoremap <C-s> <C-a>
 set omnifunc=syntaxcomplete#Complete
@@ -212,7 +237,15 @@ vnoremap <leader>o :<BS><BS><BS><BS><BS>execute '!openlisturl' shellescape(GetVi
 """""""""""""""""""""""""""""""
 " Autocommands, autocommand, au.
 """""""""""""""""""""""""""""""
-
+lua << EOF
+vim.api.nvim_create_autocmd({'FileType'}, {
+  desc = 'keymap \'q\' to close help/quickfix/netrw/etc windows',
+  pattern = 'help,qf,netrw',
+  callback = function()
+   vim.keymap.set('n', '<C-q>', '<C-w>c', {buffer = true, desc = 'Quit (or Close) help, quickfix, netrw, etc windows', })
+  end
+})
+EOF
 " Open file at last closed location. (this is literal magic)
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 autocmd BufReadPost norm zz
@@ -257,9 +290,10 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Plug 'morhetz/gruvbox'                                ,{ 'frozen': 1 }
  Plug 'luisiacc/gruvbox-baby'                           ,{ 'frozen': 1 }
- Plug 'lukas-reineke/indent-blankline.nvim'             ,{ 'frozen': 1, 'tag': 'v2.20.8' }
+" Plug 'lukas-reineke/indent-blankline.nvim'             ,{ 'frozen': 1, 'tag': 'v2.20.8' }
  Plug 'echasnovski/mini.indentscope'                    ,{ 'frozen': 1, 'branch': 'stable' }
  Plug 'tomtom/tcomment_vim'                             ,{ 'frozen': 1 }
+ Plug 'JoosepAlviste/nvim-ts-context-commentstring'     ,{ 'frozen': 1 }
  Plug 'tpope/vim-dispatch'                              ,{ 'frozen': 1 }
  "Plug 'psliwka/vim-smoothie'                           ,{ 'frozen': 1 }
 
@@ -356,33 +390,40 @@ lua << EOF
    try_as_border = true,
   },
  })
-EOF
 
-" Indentblankline (legacy).
-let g:indent_blankline_char = '│'
-lua << EOF
- vim.opt.list = true
- vim.cmd [[highlight IndentBlanklineIndent1 guifg=#79740e gui=nocombine]]
- vim.cmd [[highlight IndentBlanklineIndent2 guifg=#b57614 gui=nocombine]]
- vim.cmd [[highlight IndentBlanklineIndent3 guifg=#076678 gui=nocombine]]
- vim.cmd [[highlight IndentBlanklineIndent4 guifg=#8f3f71 gui=nocombine]]
- vim.cmd [[highlight IndentBlanklineIndent5 guifg=#427b58 gui=nocombine]]
- vim.cmd [[highlight IndentBlanklineIndent6 guifg=#af3a03 gui=nocombine]]
- require("indent_blankline").setup {
-  space_char_blankline = "",
-  -- show_current_context = true,
-  -- show_current_context_start = true,
-  char_highlight_list =
-  {
-   "IndentBlanklineIndent1",
-   "IndentBlanklineIndent2",
-   "IndentBlanklineIndent3",
-   "IndentBlanklineIndent4",
-   "IndentBlanklineIndent5",
-   "IndentBlanklineIndent6",
-  },
- }
+ -- Ts comments.
+ vim.g.skip_ts_context_commentstring_module = true
+ require('ts_context_commentstring').setup {
+  enable_autocmd = false,
+}
+
 EOF
+"
+" Indentblankline (legacy).
+"let g:indent_blankline_char = '│'
+"lua << EOF
+" vim.opt.list = true
+" vim.cmd [[highlight IndentBlanklineIndent1 guifg=#79740e gui=nocombine]]
+" vim.cmd [[highlight IndentBlanklineIndent2 guifg=#b57614 gui=nocombine]]
+" vim.cmd [[highlight IndentBlanklineIndent3 guifg=#076678 gui=nocombine]]
+" vim.cmd [[highlight IndentBlanklineIndent4 guifg=#8f3f71 gui=nocombine]]
+" vim.cmd [[highlight IndentBlanklineIndent5 guifg=#427b58 gui=nocombine]]
+" vim.cmd [[highlight IndentBlanklineIndent6 guifg=#af3a03 gui=nocombine]]
+" require("indent_blankline").setup {
+"  space_char_blankline = "",
+"  -- show_current_context = true,
+"  -- show_current_context_start = true,
+"  char_highlight_list =
+"  {
+"   "IndentBlanklineIndent1",
+"   "IndentBlanklineIndent2",
+"   "IndentBlanklineIndent3",
+"   "IndentBlanklineIndent4",
+"   "IndentBlanklineIndent5",
+"   "IndentBlanklineIndent6",
+"  },
+" }
+"EOF
 " Markdownpreview plug.
 let g:mkdp_auto_start = 0
 let g:mkdp_auto_close = 1
@@ -409,10 +450,6 @@ if has('timers')
   " Blink 2 times with 50ms interval.
   noremap <expr> <plug>(slash-after) 'zz'.slash#blink(5, 50)
 endif
-
-" Find cursor plug.
-nnoremap <leader>f <CMD>FindCursor #7d8618 500<CR>
-noremap % %<CMD>FindCursor 0 500<CR>
 
 " Extended increment, dial.nvim plug.
 lua << EOF
@@ -505,6 +542,7 @@ require("mason-null-ls").setup({
   "pyflakes",
   "pylint",
   "isort",
+  "black",
   "mypy",
   "pydocstyle",
   "flake8",
@@ -518,6 +556,22 @@ vim.o.completeopt = 'menuone,noselect'
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local lspconfig = require('lspconfig')
+
+local border = {
+{ '┌', 'FloatBorder' },
+{ '─', 'FloatBorder' },
+{ '┐', 'FloatBorder' },
+{ '│', 'FloatBorder' },
+{ '┘', 'FloatBorder' },
+{ '─', 'FloatBorder' },
+{ '└', 'FloatBorder' },
+{ '│', 'FloatBorder' },
+}
+local handlers = {
+    ['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+    ['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+}
+
 
 lspconfig.pylsp.setup {
  settings = {
@@ -554,20 +608,26 @@ lspconfig.pylsp.setup {
    },
   },
  },
+ handlers = handlers,
+ on_init = function(client)
+  client.server_capabilities.documentFormattingProvider = false
+ end,
 }
 
 lspconfig.ruff.setup({
  capabilities = capabilities,
   cmd = { "ruff", "server", "--preview", "--config", vim.fn.expand("$XDG_CONFIG_HOME/ruff/ruff.toml")},
- on_init = function(client)
-  client.server_capabilities.documentFormattingProvider = false
- end,
+-- on_init = function(client)
+--  client.server_capabilities.documentFormattingProvider = false
+-- end,
+ handlers = handlers,
 })
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     -- on_attach = my_custom_on_attach,
     capabilities = capabilities,
+    handlers = handlers,
   }
 end
 
@@ -576,16 +636,6 @@ vim.api.nvim_set_hl(0, "CmpNormal", {background = "#98971a"})
 vim.api.nvim_set_hl(0, 'CmpItemAbbrMatch', { bg='NONE', fg='#fabd2f' })
 vim.api.nvim_set_hl(0, 'CmpItemAbbrMatchFuzzy', { link='CmpIntemAbbrMatch' })
 vim.cmd("highlight Pmenu guibg=NONE")
-local border = {
-{ '┌', 'FloatBorder' },
-{ '─', 'FloatBorder' },
-{ '┐', 'FloatBorder' },
-{ '│', 'FloatBorder' },
-{ '┘', 'FloatBorder' },
-{ '─', 'FloatBorder' },
-{ '└', 'FloatBorder' },
-{ '│', 'FloatBorder' },
-}
 
 -- luasnip setup
 local luasnip = require 'luasnip'
@@ -597,10 +647,10 @@ completion = {
  },
  performance = {
   -- mostly arbitrary numbers
-  debounce = 50,
-  throttle = 60,
+  --debounce = 50,
+  --throttle = 60,
   --fetching_timeout = 10,
-  max_view_entries = 10,
+  max_view_entries = 5,
   },
  enabled = function()
  -- disable completion in comments
@@ -619,8 +669,8 @@ completion = {
    end,
    },
     window = {
-      completion = { border = "single", highlight = "CmpNormal"},
-      documentation = { border = "single" },
+      completion = { border = border, highlight = "CmpNormal"},
+      documentation = { border = border },
     },
   mapping = cmp.mapping.preset.insert({
   ["<C-u>"] = cmp.mapping.scroll_docs(-4), -- Up
@@ -700,20 +750,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
  )
  end,
 })
-local null_ls = require("null-ls")
-null_ls.setup({
- sources = {
-  null_ls.builtins.code_actions.proselint,
-  null_ls.builtins.formatting.shfmt,
-  null_ls.builtins.formatting.stylua,
-  null_ls.builtins.diagnostics.cppcheck,
-  null_ls.builtins.formatting.yapf.with({
-  extra_args = { "--style", vim.fn.expand("$XDG_CONFIG_HOME/yapf/yapf.toml")}
-  }),
-  --null_ls.builtins.formatting.black,
- },
- debug = false,
-})
 
 -- Visuals.
 -- disable virtual_text (inline) diagnostics and use floating window, format the message such that it shows source, message and the error code. Show the message with <space>e
@@ -776,11 +812,21 @@ vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
-local handlers = {
-    ['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-    ['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
-}
 
+local null_ls = require("null-ls")
+null_ls.setup({
+ sources = {
+  null_ls.builtins.code_actions.proselint,
+  null_ls.builtins.formatting.shfmt,
+  null_ls.builtins.formatting.stylua,
+  null_ls.builtins.diagnostics.cppcheck,
+  null_ls.builtins.formatting.black,
+  null_ls.builtins.formatting.yapf.with({
+  extra_args = { "--style", vim.fn.expand("$XDG_CONFIG_HOME/yapf/yapf.toml")}
+  }),
+ },
+ debug = false,
+})
 EOF
 
 " Treesitter
@@ -804,7 +850,7 @@ require'nvim-treesitter.configs'.setup {
   -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
   -- the name of the parser)
   -- list of language that will be disabled
-  disable = { toml, c, markdown },
+  disable = {},
   -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
   disable = function(lang, buf)
   local max_filesize = 100 * 1024 -- 100 KB
@@ -1181,6 +1227,10 @@ require('ufo').setup({
     fold_virt_text_handler = handler
 })
 EOF
+" Leap.nvim leap
+lua << EOF
+require('leap').create_default_mappings()
+EOF
 
 " Which key which-key.
 lua << EOF
@@ -1278,9 +1328,16 @@ nnoremap <leader>nt :NERDTreeToggle<CR>
 nnoremap <leader>ns :NERDTreeFind<CR>
 nnoremap <silent> <C-o> :<CR>
 
-" Open/close quickfix
-nnoremap <silent> <leader>co :silent copen<CR>
-nnoremap <silent> <leader>cl :silent cclose<CR>
+" Open/close quickfix on toggle
+function! ToggleQuickFix()
+    if empty(filter(getwininfo(), 'v:val.quickfix'))
+        copen
+    else
+        cclose
+    endif
+endfunction
+
+nnoremap <silent> F :call ToggleQuickFix()<cr>
 
 "tabfix
 set smarttab

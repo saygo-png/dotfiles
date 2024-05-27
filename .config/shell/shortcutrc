@@ -20,6 +20,7 @@ alias \
  bc="bc -ql" \
  mkdir="mkdir -pv" \
  ffmpeg="ffmpeg -hide_banner" \
+ qcalc="qalc" \
  shutdown="sudo shutdown now" \
  info="info --vi-keys"
 # lf="lfub"

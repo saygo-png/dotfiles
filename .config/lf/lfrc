@@ -1,6 +1,6 @@
 set wrapscroll true
 
-# Basic vars
+# Basic variables.
 set shellopts '-eu'
 set ifs "\n"
 set scrolloff 1
@@ -107,7 +107,19 @@ cmd bulkrename ${{
      lf -remote "send $id unselect"
 }}
 
-# Bindings
+# Fuzzy find.
+cmd fzf_jump ${{
+   res="$(find . -maxdepth 1 | fzf --preview='ls --color=always {}' --preview-window=:sharp --reverse --header='Jump to location')"
+   if [ -f "$res" ]; then
+     cmd="select"
+   elif [ -d "$res" ]; then
+     cmd="cd"
+   fi
+lf -remote "send $id $cmd \"$res\""
+}}
+map f :fzf_jump
+
+# Bindings.
 map S :cd ~/.local/bin
 map t :cd ~/Downloads/torrents
 map g top

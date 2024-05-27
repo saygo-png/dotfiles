@@ -60,8 +60,8 @@ Krita/Ocio/OcioConfigPath=
 Krita/Ocio/OcioLockColorVisualRepresentation=false
 Krita/Ocio/OcioLutPath=
 Krita/Ocio/UseOcio=false
-LastBackGroundColor=<!DOCTYPE LastBackGroundColor>\n<LastBackGroundColor>\n <Lab a="0" L="100" space="Lab identity built-in" b="-0.00389105058365759"/>\n</LastBackGroundColor>\n
-LastForeGroundColor=<!DOCTYPE LastForeGroundColor>\n<LastForeGroundColor>\n <RGB space="sRGB-elle-V2-g10.icc" r="0.0578011758625507" b="0.00367742427624762" g="0.0273289084434509"/>\n</LastForeGroundColor>\n
+LastBackGroundColor=<!DOCTYPE LastBackGroundColor>\n<LastBackGroundColor>\n <Lab space="Lab identity built-in" L="100" a="0" b="-0.00389105058365759"/>\n</LastBackGroundColor>\n
+LastForeGroundColor=<!DOCTYPE LastForeGroundColor>\n<LastForeGroundColor>\n <RGB g="0.0273289084434509" space="sRGB-elle-V2-g10.icc" r="0.0578011758625507" b="0.00367742427624762"/>\n</LastForeGroundColor>\n
 LastPreset=k) Blender Basic
 LastPreset_-1=k) Blender Basic
 LineSmoothingDelayDistance=87
@@ -598,8 +598,8 @@ yPosition=16
 [MainWindow][DockWidget KisLayerBox]
 DockArea=2
 Locked=true
-height=470
-width=384
+height=302
+width=670
 xPosition=0
 yPosition=16
 
@@ -821,35 +821,35 @@ referencesDirectory=/home/samsepi0l/linuxart/2023/photobash/medusa
 
 [RecentFiles]
 File1[$e]=$HOME/linuxart/2024/kra/im_losing_it_0.0.kra
-File10[$e]=$HOME/linuxart/2024/kra/woman.kra
-File11[$e]=$HOME/linuxart/2024/kra/human.kra
-File12[$e]=$HOME/linuxart/2024/kra/human2.kra
-File13[$e]=$HOME/linuxart/2024/kra/aluminuim.kra
-File14[$e]=$HOME/linuxart/2023/png,exports/orb pfp.png
-File15[$e]=$HOME/linuxart/2024/png-exports/orb pfp cropped.png
+File10[$e]=$HOME/linuxart/2024/kra/human.kra
+File11[$e]=$HOME/linuxart/2024/kra/human2.kra
+File12[$e]=$HOME/linuxart/2024/kra/aluminuim.kra
+File13[$e]=$HOME/linuxart/2023/png,exports/orb pfp.png
+File14[$e]=$HOME/linuxart/2024/png-exports/orb pfp cropped.png
+File15[$e]=$HOME/linuxart/2024/kra/feet.kra
 File2[$e]=$HOME/linuxart/2024/kra/Proletarian_woman.kra
-File3[$e]=$HOME/linuxart/2024/kra/feet.kra
-File4[$e]=$HOME/linuxart/2024/kra/sz.kra
-File5[$e]=$HOME/linuxart/2024/kra/finland.kra
-File6[$e]=$HOME/builds/python_test/image.png
-File7[$e]=$HOME/linuxart/2024/kra/image.kra
-File8[$e]=$HOME/linuxart/2024/kra/finland-effects.kra
-File9[$e]=$HOME/linuxart/2024/kra/finland clear impression.kra
+File3[$e]=$HOME/linuxart/2024/kra/sz.kra
+File4[$e]=$HOME/linuxart/2024/kra/finland.kra
+File5[$e]=$HOME/builds/python_test/image.png
+File6[$e]=$HOME/linuxart/2024/kra/image.kra
+File7[$e]=$HOME/linuxart/2024/kra/finland-effects.kra
+File8[$e]=$HOME/linuxart/2024/kra/finland clear impression.kra
+File9[$e]=$HOME/linuxart/2024/kra/woman.kra
 Name1=im_losing_it_0.0.kra
-Name10=woman.kra
-Name11=human.kra
-Name12=human2.kra
-Name13=aluminuim.kra
-Name14=orb pfp.png
-Name15=orb pfp cropped.png
+Name10=human.kra
+Name11=human2.kra
+Name12=aluminuim.kra
+Name13=orb pfp.png
+Name14=orb pfp cropped.png
+Name15=feet.kra
 Name2=Proletarian_woman.kra
-Name3=feet.kra
-Name4=sz.kra
-Name5=finland.kra
-Name6=image.png
-Name7=image.kra
-Name8=finland-effects.kra
-Name9=finland clear impression.kra
+Name3=sz.kra
+Name4=finland.kra
+Name5=image.png
+Name6=image.kra
+Name7=finland-effects.kra
+Name8=finland clear impression.kra
+Name9=woman.kra
 maxRecentFileItems=100
 
 [Redesign]
@@ -928,6 +928,9 @@ Last Used=<!DOCTYPE params>\n<params version="0">\n <param type="internal" name=
 
 [edge detection_filter_bookmarks]
 Last Used=<!DOCTYPE params>\n<params version="1">\n <param name="horizRadius" type="internal">1</param>\n <param name="lockAspect" type="internal">true</param>\n <param name="output" type="string"><![CDATA[pythagorean]]></param>\n <param name="transparency" type="internal">false</param>\n <param name="type" type="string"><![CDATA[prewitt]]></param>\n <param name="vertRadius" type="internal">1</param>\n</params>\n
+
+[emboss laplascian_filter_bookmarks]
+Last Used=<!DOCTYPE params>\n<params version="1"/>\n
 
 [emboss_filter_bookmarks]
 Last Used=<!DOCTYPE params>\n<params version="1">\n <param type="internal" name="depth">202</param>\n</params>\n

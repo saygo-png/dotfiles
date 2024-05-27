@@ -133,7 +133,6 @@ ca-certificates-java
 ca-certificates-mono
 cabextract
 caca-utils
-calc
 calc-common
 calf-plugins
 cbonsai
@@ -214,7 +213,6 @@ deborphan
 debugedit
 default-jre-headless
 desktop-file-utils
-devscripts
 dex
 dh-autoreconf
 dh-strip-nondeterminism
@@ -250,7 +248,6 @@ efibootmgr
 eject
 emacsen-common
 enchant-2
-equivs
 eslint
 espeak-ng-data:amd64
 ethtool
@@ -351,7 +348,6 @@ gcr
 gdal-data
 gdal-plugins
 gdb
-gdebi
 gdebi-core
 gdisk
 gettext
@@ -426,7 +422,6 @@ grub-efi-amd64-signed
 grub2-common
 gsettings-desktop-schemas
 gsfonts
-gstreamer-qapt
 gstreamer1.0-adapter-pulseeffects:amd64
 gstreamer1.0-alsa:amd64
 gstreamer1.0-autogain-pulseeffects:amd64
@@ -526,7 +521,6 @@ init
 init-system-helpers
 initramfs-tools
 initramfs-tools-core
-inorwegian
 install-info
 installation-report
 intel-media-va-driver:amd64
@@ -562,10 +556,7 @@ javascript-common
 jmtpfs
 jp2a
 jq
-kactivities-bin
-kactivitymanagerd
 kakoune
-kasumi
 kbd
 kded5
 keepassxc
@@ -626,7 +617,6 @@ libarchive13:amd64
 libargon2-1:amd64
 libarmadillo11
 libarpack2:amd64
-libarray-intspan-perl
 libasan6:amd64
 libasan8:amd64
 libasound2:amd64
@@ -782,7 +772,6 @@ libclang-dev
 libclang-rt-14-dev:amd64
 libclang1-14
 libclass-data-inheritable-perl
-libclass-inspector-perl
 libclass-method-modifiers-perl
 libclass-xsaccessor-perl
 libclone-perl:amd64
@@ -804,8 +793,6 @@ libconfig-doc
 libconfig-tiny-perl
 libconfig9:amd64
 libconst-fast-perl
-libcontextual-return-perl
-libconvert-binhex-perl
 libcpanel-json-xs-perl:amd64
 libcpupower1
 libcrack2:amd64
@@ -873,7 +860,6 @@ libdevmapper1.02.1:amd64
 libdirectfb-1.7-7:amd64
 libdiscid0:amd64
 libdiscover2
-libdistro-info-perl
 libdjvulibre-text
 libdjvulibre21:amd64
 libdouble-conversion3:amd64
@@ -943,7 +929,6 @@ libexiv2-27:amd64
 libexpat1:amd64
 libexpat1:i386
 libexpat1-dev:amd64
-libexporter-tiny-perl
 libext2fs2:amd64
 libexttextcat-2.0-0:amd64
 libexttextcat-data
@@ -958,8 +943,6 @@ libfcgi-perl
 libfcgi0ldbl:amd64
 libfdisk1:amd64
 libfdt1:amd64
-libfeature-compat-class-perl
-libfeature-compat-try-perl
 libffi-dev:amd64
 libffi8:amd64
 libffi8:i386
@@ -967,17 +950,12 @@ libfftw3-double3:amd64
 libfftw3-single3:amd64
 libfido2-1:amd64
 libfile-basedir-perl
-libfile-chdir-perl
 libfile-desktopentry-perl
-libfile-dirlist-perl
 libfile-fcntllock-perl
 libfile-find-rule-perl
-libfile-homedir-perl
 libfile-listing-perl
 libfile-mimeinfo-perl
 libfile-stripnondeterminism-perl
-libfile-touch-perl
-libfile-which-perl
 libfl-dev:amd64
 libfl2:amd64
 libflac++-dev:amd64
@@ -1066,13 +1044,10 @@ libgfrpc0:amd64
 libgfxdr0:amd64
 libgif-dev:amd64
 libgif7:amd64
-libgimp2.0:amd64
 libgirara-gtk3-3:amd64
 libgirepository-1.0-1:amd64
-libgit-wrapper-perl
 libgit2-1.5:amd64
 libgit2-dev:amd64
-libgitlab-api-v4-perl
 libgl-dev:amd64
 libgl1:amd64
 libgl1:i386
@@ -1156,7 +1131,6 @@ libgtk-3-0:amd64
 libgtk-3-0:i386
 libgtk-3-bin
 libgtk-3-common
-libgtk-3-dev:amd64
 libgtk-4-1:amd64
 libgtk-4-bin
 libgtk-4-common
@@ -1210,7 +1184,6 @@ libhttp-message-perl
 libhttp-negotiate-perl
 libhttp-parser-dev
 libhttp-parser2.9:amd64
-libhttp-tiny-multipart-perl
 libhunspell-1.7-0:amd64
 libhwloc-plugins:amd64
 libhwloc15:amd64
@@ -1242,7 +1215,6 @@ libimage-exiftool-perl
 libimagequant0:amd64
 libimath-3-1-29:amd64
 libimlib2:amd64
-libimlib2-dev
 libimobiledevice6:amd64
 libimport-into-perl
 libindi-data
@@ -1254,15 +1226,11 @@ libinput10:amd64
 libinstpatch-1.0-2:amd64
 libio-html-perl
 libio-interactive-perl
-libio-prompter-perl
-libio-pty-perl
-libio-sessiondata-perl
 libio-socket-ssl-perl
 libio-string-perl
 libio-stringy-perl
 libip4tc2:amd64
 libip6tc2:amd64
-libipc-run-perl
 libipc-run3-perl
 libipc-system-simple-perl
 libipset13:amd64
@@ -1459,8 +1427,6 @@ liblmdb0:amd64
 liblocale-gettext-perl
 liblockfile-bin
 liblockfile1:amd64
-liblog-any-adapter-screen-perl
-liblog-any-perl
 liblognorm5:amd64
 liblouis-data
 liblouis20:amd64
@@ -1518,7 +1484,6 @@ libmetis5:amd64
 libmfx1:amd64
 libmhash2:amd64
 libmime-charset-perl
-libmime-tools-perl
 libminizip1:amd64
 libmjpegutils-2.1-0:amd64
 libmldbm-perl
@@ -1768,7 +1733,6 @@ libnunit-util2.6.3-cil
 libnuspell5:amd64
 libobjc-12-dev:amd64
 libobjc4:amd64
-libobject-pad-perl
 libodbc1:amd64
 libodbc1:i386
 libodbc2:amd64
@@ -1831,7 +1795,6 @@ libpam-systemd:amd64
 libpam0g:amd64
 libpango-1.0-0:amd64
 libpango-1.0-0:i386
-libpango1.0-dev:amd64
 libpangocairo-1.0-0:amd64
 libpangocairo-1.0-0:i386
 libpangoft2-1.0-0:amd64
@@ -1844,7 +1807,6 @@ libparams-classify-perl:amd64
 libparams-util-perl
 libparted-fs-resize0:amd64
 libparted2:amd64
-libpath-iterator-rule-perl
 libpath-tiny-perl
 libpcap0.8:amd64
 libpcap0.8:i386
@@ -1886,7 +1848,6 @@ libpng-tools
 libpng16-16:amd64
 libpng16-16:i386
 libpocketsphinx3:amd64
-libpod-constants-perl
 libpod-parser-perl
 libpolkit-agent-1-0:amd64
 libpolkit-gobject-1-0:amd64
@@ -1926,6 +1887,8 @@ libpython3.11:amd64
 libpython3.11-dev:amd64
 libpython3.11-minimal:amd64
 libpython3.11-stdlib:amd64
+libqalculate-data
+libqalculate22:amd64
 libqapt3:amd64
 libqapt3-runtime
 libqca-qt5-2:amd64
@@ -1988,16 +1951,9 @@ librbd1
 librcc0:amd64
 librdf0:amd64
 librdmacm1:amd64
-libre-engine-re2-perl:amd64
-libre2-9:amd64
 libreadline8:amd64
-libreadonly-perl
 librecode0:amd64
-libref-util-perl
-libref-util-xs-perl
 libregexp-ipv6-perl
-libregexp-pattern-license-perl
-libregexp-pattern-perl
 libregexp-wildcards-perl
 libresid-builder0c2a
 librevenge-0.0-0:amd64
@@ -2012,7 +1968,6 @@ librsvg2-2:amd64
 librsvg2-2:i386
 librsvg2-common:amd64
 librsvg2-common:i386
-librsvg2-dev:amd64
 librtmp1:amd64
 librtmp1:i386
 librttopo1:amd64
@@ -2050,7 +2005,6 @@ libsepol2:amd64
 libserd-0-0:amd64
 libsereal-decoder-perl
 libsereal-encoder-perl
-libset-intspan-perl
 libshine3:amd64
 libshine3:i386
 libshout3:amd64
@@ -2078,7 +2032,6 @@ libsndio7.0:amd64
 libsnmp-base
 libsnmp40:amd64
 libsnmp40:i386
-libsoap-lite-perl
 libsocket++1:amd64
 libsocket6-perl
 libsodium23:amd64
@@ -2137,10 +2090,6 @@ libstdc++6:i386
 libstemmer0d:amd64
 libstfl0
 libstrictures-perl
-libstring-copyright-perl
-libstring-escape-perl
-libstring-license-perl
-libstring-shellquote-perl
 libsub-exporter-perl
 libsub-exporter-progressive-perl
 libsub-identify-perl
@@ -2158,7 +2107,6 @@ libswresample4:i386
 libswscale6:amd64
 libsynctex2:amd64
 libsyntax-keyword-try-perl
-libsys-cpuaffinity-perl
 libsys-hostname-long-perl
 libsystemd-shared:amd64
 libsystemd0:amd64
@@ -2170,7 +2118,6 @@ libtag1v5-vanilla:amd64
 libtag1v5-vanilla:i386
 libtagc0:amd64
 libtalloc2:amd64
-libtask-weaken-perl
 libtasn1-6:amd64
 libtasn1-6:i386
 libtbb12:amd64
@@ -2232,8 +2179,6 @@ libtss2-tcti-swtpm0:amd64
 libturbojpeg0:amd64
 libtwolame0:amd64
 libtwolame0:i386
-libtype-tiny-perl
-libtype-tiny-xs-perl:amd64
 libtypes-serialiser-perl
 libubsan1:amd64
 libuchardet0:amd64
@@ -2318,7 +2263,6 @@ libvulkan1:i386
 libwacom-bin
 libwacom-common
 libwacom9:amd64
-libwant-perl
 libwavpack1:amd64
 libwavpack1:i386
 libwayland-bin
@@ -2449,7 +2393,6 @@ libxcvt0:amd64
 libxdamage-dev:amd64
 libxdamage1:amd64
 libxdamage1:i386
-libxdelta2:amd64
 libxdg-basedir1
 libxdmcp-dev:amd64
 libxdmcp6:amd64
@@ -2491,7 +2434,6 @@ libxml2:i386
 libxml2-dev:amd64
 libxml2-utils
 libxmlb2:amd64
-libxmlrpc-lite-perl
 libxmlsec1:amd64
 libxmlsec1-nss:amd64
 libxmu-dev:amd64
@@ -2510,7 +2452,6 @@ libxrender-dev:amd64
 libxrender1:amd64
 libxrender1:i386
 libxs-parse-keyword-perl
-libxs-parse-sublike-perl:amd64
 libxshmfence1:amd64
 libxshmfence1:i386
 libxsimd-dev:amd64
@@ -2555,7 +2496,6 @@ libzvbi0:amd64
 libzvbi0:i386
 libzxcvbn0:amd64
 libzxing2:amd64
-licensecheck
 lintian
 linux-base
 linux-cpupower
@@ -2657,7 +2597,6 @@ modemmanager
 mokutil
 mono-4.0-gac
 mono-4.0-service
-mono-complete
 mono-csharp-shell
 mono-devel
 mono-gac
@@ -3132,7 +3071,6 @@ pipewire-bin
 pipewire-jack:amd64
 pipewire-pulse
 pipx
-pixz
 pkexec
 pkg-config:amd64
 pkgconf:amd64
@@ -3150,7 +3088,6 @@ poppler-utils
 powermgmt-base
 powertop
 ppp
-printer-driver-all
 printer-driver-brlaser
 printer-driver-c2050
 printer-driver-c2esp
@@ -3172,7 +3109,6 @@ printer-driver-ptouch
 printer-driver-pxljr
 printer-driver-sag-gdi
 printer-driver-splix
-pristine-tar
 procps
 proj-bin
 proj-data
@@ -3379,7 +3315,6 @@ python3-tz
 python3-tzlocal
 python3-ufolib2
 python3-unidecode
-python3-unidiff
 python3-uritemplate
 python3-urllib3
 python3-urwid
@@ -3404,21 +3339,12 @@ python3.11
 python3.11-dev
 python3.11-minimal
 python3.11-venv
+qalc
 qbittorrent
-qemu-block-extra
 qemu-efi-aarch64
 qemu-efi-arm
-qemu-system
-qemu-system-arm
 qemu-system-common
 qemu-system-data
-qemu-system-gui
-qemu-system-mips
-qemu-system-misc
-qemu-system-ppc
-qemu-system-sparc
-qemu-system-x86
-qemu-utils
 qml-module-org-kde-kcm:amd64
 qml-module-org-kde-kcmutils:amd64
 qml-module-org-kde-kirigami2
@@ -3592,11 +3518,9 @@ tcl
 tcl8.6
 tcpd
 tealdeer
-telnet
 terser
 tesseract-ocr
 tesseract-ocr-afr
-tesseract-ocr-all
 tesseract-ocr-amh
 tesseract-ocr-ara
 tesseract-ocr-asm
@@ -3817,7 +3741,6 @@ vdpau-driver-all:i386
 vdpauinfo
 vim-common
 vim-tiny
-virt-viewer
 vis
 voikko-fi
 vrms
@@ -3872,8 +3795,6 @@ xcb
 xcb-proto
 xclip
 xcvt
-xdelta
-xdelta3
 xdg-dbus-proxy
 xdg-desktop-portal
 xdg-desktop-portal-gtk
