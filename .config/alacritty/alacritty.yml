@@ -1,5 +1,5 @@
-env:
-  TERM: alacritty
+#env:
+  #TERM: alacritty
 window:
   opacity: 0.4
   # Blank space added around the window in pixels. This padding is scaled
@@ -10,10 +10,8 @@ window:
   # Spread additional padding evenly around the terminal content.
   dynamic_padding: true
   decorations: full
-  title: Alacritty
+  #title: Alacritty
   dynamic_title: true
-  instance: Alacritty
-  general: Alacritty
   gtk_theme_variant: None
 
 #scrolling:
@@ -24,7 +22,7 @@ window:
   #multiplier: 3
 # Font configuration
 font:
-  size: 15.0
+  size: 14.0
   normal:
     # Font family
     family: Courier Prime

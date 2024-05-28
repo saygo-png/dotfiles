@@ -1,4 +1,7 @@
 " Basic
+if has('termguicolors')
+ set termguicolors
+endif
 set syntax=on
 filetype plugin on
 filetype indent on
@@ -20,9 +23,9 @@ set hidden
 " Any
 let g:python_recommended_style=0
 set formatoptions=l
-set tabstop=1
+set tabstop=2
 set softtabstop=-1
-set shiftwidth=1
+set shiftwidth=2
 set expandtab
 set splitbelow splitright
 set shiftround
@@ -87,7 +90,12 @@ nnoremap <silent><expr> <Tab> (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 noremap j gj
 noremap k gk
 set nowrap
-set showbreak=>
+"set showbreak=>
+"set wrap
+set breakindent
+set breakindentopt=sbr
+" I use a unicode curly array with a <backslash><space>
+set showbreak=↘⠀
 
 " Use ripgrep with fzz as :grep
 if executable('rg')
@@ -174,16 +182,13 @@ lua << EOF
 vim.keymap.set("v", ">", ">gv", { desc = "Keep selection after indenting" })
 vim.keymap.set("v", "<", "<gv", { desc = "Keep selection after unindenting" })
 
--- Move lines around.
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move the selected line down" })
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move the selected line up" })
 -- Window switching.
 vim.keymap.set("n", "<C-h>", ":wincmd h<CR>", { desc = "Move to the split on the left side" })
 vim.keymap.set("n", "<C-l>", ":wincmd l<CR>", { desc = "Move to the split on the right side" })
 vim.keymap.set("n", "<C-k>", ":wincmd k<CR>", { desc = "Move to the split above" })
 vim.keymap.set("n", "<C-j>", ":wincmd j<CR>", { desc = "Move to the split below" })
 -- Close buffer
-vim.keymap.set("n", "<C-q>", ":close<CR>", { desc = "Close the current buffer" })
+vim.keymap.set("n", "Q", ":close<CR>", { desc = "Close the current buffer" })
 EOF
 
 " Makes ctrl+s increment to not conflict with tmux.
@@ -242,7 +247,7 @@ vim.api.nvim_create_autocmd({'FileType'}, {
   desc = 'keymap \'q\' to close help/quickfix/netrw/etc windows',
   pattern = 'help,qf,netrw',
   callback = function()
-   vim.keymap.set('n', '<C-q>', '<C-w>c', {buffer = true, desc = 'Quit (or Close) help, quickfix, netrw, etc windows', })
+   vim.keymap.set('n', 'Q', '<C-w>c', {buffer = true, desc = 'Quit (or Close) help, quickfix, netrw, etc windows', })
   end
 })
 EOF
@@ -254,10 +259,10 @@ autocmd BufReadPost norm zz
 "set guicursor=n-v-c-sm:hor100,i-ci-ve:ver25,r-cr-o:hor20"
 
 " Automatically deletes all trailing whitespace and newlines at end of file on save.
-autocmd BufWritePre * %s/\s\+$//e
-autocmd BufWritePre * %s/\n\+\%$//e
-autocmd BufWritePre *.[ch] %s/\%$/\r/e " add trailing newline for ANSI C standard
-autocmd BufWritePre * %retab!
+"autocmd BufWritePre * %s/\s\+$//e
+"autocmd BufWritePre * %s/\n\+\%$//e
+"autocmd BufWritePre *.[ch] %s/\%$/\r/e " add trailing newline for ANSI C standard
+"autocmd BufWritePre * %retab!
 
 " Run xrdb whenever Xdefaults or Xresources are updated.
 autocmd BufRead,BufNewFile Xresources,Xdefaults,xresources,xdefaults set filetype=xdefaults
@@ -288,10 +293,11 @@ call plug#begin('~/.config/nvim/plugged')
  Plug 'nvim-treesitter/nvim-treesitter'                 ,{ 'frozen': 0, 'do': ':TSUpdate' }
   Plug 'nvim-treesitter/nvim-treesitter-context'        ,{ 'frozen': 0 }
 
-" Plug 'morhetz/gruvbox'                                ,{ 'frozen': 1 }
+" Plug 'ellisonleao/gruvbox.nvim'                        ,{ 'frozen': 0 }
  Plug 'luisiacc/gruvbox-baby'                           ,{ 'frozen': 1 }
-" Plug 'lukas-reineke/indent-blankline.nvim'             ,{ 'frozen': 1, 'tag': 'v2.20.8' }
- Plug 'echasnovski/mini.indentscope'                    ,{ 'frozen': 1, 'branch': 'stable' }
+ Plug 'sainnhe/gruvbox-material'                        ,{ 'frozen': 1 }
+ " Plug 'lukas-reineke/indent-blankline.nvim'             ,{ 'frozen': 1, 'tag': 'v2.20.8' }
+ Plug 'echasnovski/mini.indentscope'                    ,{ 'frozen': 0 }
  Plug 'tomtom/tcomment_vim'                             ,{ 'frozen': 1 }
  Plug 'JoosepAlviste/nvim-ts-context-commentstring'     ,{ 'frozen': 1 }
  Plug 'tpope/vim-dispatch'                              ,{ 'frozen': 1 }
@@ -316,7 +322,7 @@ call plug#begin('~/.config/nvim/plugged')
  Plug 'Eandrju/cellular-automaton.nvim'                 ,{ 'frozen': 1 }
  Plug 'kevinhwang91/nvim-ufo'                           ,{ 'frozen': 1 }
   Plug 'kevinhwang91/promise-async'                     ,{ 'frozen': 1 }
- Plug 'andrewferrier/wrapping.nvim'                     ,{ 'frozen': 1 }
+" Plug 'andrewferrier/wrapping.nvim'                     ,{ 'frozen': 1 }
  " Autocomplete
  Plug 'hrsh7th/cmp-nvim-lsp'                            ,{ 'frozen': 0 }
 Plug 'hrsh7th/cmp-buffer'                               ,{ 'frozen': 0 }
@@ -333,28 +339,46 @@ Plug 'L3MON4D3/LuaSnip'                                 ,{ 'frozen': 0 }
  Plug 'nvimtools/none-ls.nvim'                          ,{ 'frozen': 0 }
   Plug 'jay-babu/mason-null-ls.nvim'                    ,{ 'frozen': 0 }
 call plug#end()
-" Colors (must be loaded after gruvbox plugin).
-if has('termguicolors')
- set termguicolors
-endif
 "" More in the plugins section.
-"let g:gruvbox_transparent_bg = 1
-"let g:gruvbox_italic = 1
-"let g:gruvbox_italicize_comments = 1
-""let g:gruvbox_invert_indent_guides = 1
-"let g:gruvbox_hls_cursor = 'orange'
-"set bg=dark
-"colorscheme gruvbox
 
-let g:gruvbox_baby_transparent_mode = "true"
-let g:gruvbox_baby_telescope_theme = 1
-let g:gruvbox_baby_transparent_mode = 1
-colorscheme gruvbox-baby
+" Gruvbox
+set background=dark
+let g:gruvbox_material_enable_bold = 1
+let g:gruvbox_material_enable_italic = 1
+let g:gruvbox_material_enable_underline = 0
+let g:gruvbox_material_current_word = 'underline'
+let g:gruvbox_material_statusline_style = 'original'
+let g:gruvbox_material_foreground = 'original'
+let g:gruvbox_material_dim_inactive_windows = 1
+let g:gruvbox_material_transparent_background = 2
+let g:gruvbox_material_float_style = 'dim'
+let g:gruvbox_material_diagnostic_line_highlight = 1
+colorscheme gruvbox-material
 
-hi Normal guibg=NONE ctermbg=NONE
-hi statusline ctermbg=NONE guibg=NONE gui=NONE guifg=#7d8618
+"hi Normal guibg=NONE ctermbg=NONE
+hi statusline ctermbg=NONE guibg=NONE gui=none guifg=#7d8618
 hi LineNr guifg=#7d8618
 hi noCursor blend=100 cterm=strikethrough
+hi ModeMsg guifg=#7d8618
+hi MsgArea guifg=#7d8618
+"
+"" for transparent background
+"highlight clear CursorLine
+"highlight clear Folded
+"highlight clear NonText
+"hi clear LineNr
+"hi clear CursorLineNr
+"hi Normal ctermbg=none guibg=none gui=none
+"hi LineNr ctermbg=none guifg=#7d8618 gui=none
+"hi Folded ctermbg=none guibg=none gui=none
+"hi NonText ctermbg=none guibg=none gui=none
+"hi SpecialKey ctermbg=none guibg=none gui=none
+"hi VertSplit ctermbg=none guibg=none gui=none
+"hi SignColumn ctermbg=none guibg=none gui=none
+"hi CursorColumn cterm=NONE ctermbg=NONE ctermfg=NONE gui=none
+"hi CursorLine cterm=NONE ctermbg=NONE ctermfg=NONE gui=none
+hi CursorLineNr cterm=NONE ctermbg=NONE ctermfg=NONE gui=none guifg=#fabd2f
+
 " Tcomment.
 " Comment at start of line.
 let g:tcomment#options ={
@@ -371,10 +395,10 @@ EOF
 lua << EOF
  require('mini.indentscope').setup({
   draw = {
-   delay = 200,
+   delay = 0,
    priority = 2,
   },
-  symbol = '┇',
+  symbol = '│',
   options = {
    -- Type of scope's border: which line(s) with smaller indent to
    -- categorize as border. Can be one of: 'both', 'top', 'bottom', 'none'.
@@ -390,12 +414,11 @@ lua << EOF
    try_as_border = true,
   },
  })
+ vim.cmd [[highlight MiniIndentscopeSymbol guifg=#79740e gui=nocombine]]
+
 
  -- Ts comments.
  vim.g.skip_ts_context_commentstring_module = true
- require('ts_context_commentstring').setup {
-  enable_autocmd = false,
-}
 
 EOF
 "
@@ -542,10 +565,10 @@ require("mason-null-ls").setup({
   "pyflakes",
   "pylint",
   "isort",
-  "black",
   "mypy",
   "pydocstyle",
   "flake8",
+  "yapf",
 
   "cppcheck",
  }
@@ -586,9 +609,9 @@ lspconfig.pylsp.setup {
     pyflakes = { enabled = true },
     pycodestyle = {
      enabled = true,
-     ignore = {'E302', 'E305', 'E111'},
+     ignore = {'E302', 'E305', 'E111', 'E126'},
      maxLineLength = 120,
-     indentSize = 1,
+     indentSize = 2,
     },
     -- type checker
     pylsp_mypy = { enabled = true },
@@ -820,7 +843,7 @@ null_ls.setup({
   null_ls.builtins.formatting.shfmt,
   null_ls.builtins.formatting.stylua,
   null_ls.builtins.diagnostics.cppcheck,
-  null_ls.builtins.formatting.black,
+  null_ls.builtins.formatting.isort,
   null_ls.builtins.formatting.yapf.with({
   extra_args = { "--style", vim.fn.expand("$XDG_CONFIG_HOME/yapf/yapf.toml")}
   }),
@@ -878,9 +901,9 @@ autocmd VimEnter *.md TSDisable indent
 autocmd VimEnter *.md TSDisable incremental_selection
 
 " Wrapper.nvim plug.
-lua << EOF
- require("wrapping").setup()
-EOF
+"lua << EOF
+" require("wrapping").setup()
+"EOF
 
 " Automaton plug.
 nmap <leader>fml <cmd>CellularAutomaton make_it_rain<CR>
@@ -931,7 +954,7 @@ lua << EOF
  require'treesitter-context'.setup{
   enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
   max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
-  min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+  min_window_height = 30, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
   line_numbers = true,
   multiline_threshold = 20, -- Maximum number of lines to show for a single context
   trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
@@ -1179,6 +1202,13 @@ telescope.setup({
  vim.keymap.set('n', '<leader>tg', builtin.live_grep, {})
  vim.keymap.set('n', '<leader>tb', builtin.buffers, {})
  vim.keymap.set('n', '<leader>th', builtin.help_tags, {})
+EOF
+
+" Treesitter context
+lua << EOF
+ require('ts_context_commentstring').setup {
+  enable_autocmd = true,
+}
 EOF
 
 " UFO folds

@@ -77,7 +77,7 @@ zstyle ':completion:*:*:*:*:default' list-colors ${(s.:.)LS_COLORS}
 
 # Only display some tags for the command cd
 zstyle ':completion:*:*:cd:*' tag-order local-directories directory-stack path-directories
-# zstyle ':completion:*:complete:git:argument-1:' tag-order !aliases
+zstyle ':completion:*:complete:git:argument-1:' tag-order !aliases
 
 # Required for completion to be in good groups (named after the tags)
 zstyle ':completion:*' group-name ''
@@ -118,25 +118,21 @@ echo -ne '\e[4 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[4 q' ;} # Use beam shape cursor for each new prompt.
 
 #Use lf to switch directories and bind it to ctrl-o
+
+fzf_jump () {
+ lf -command fzf_jump
+}
+
 lfcd () {
  tmp="$(mktemp)"
- lf -last-dir-path="$tmp" "$@"
+ lf -last-dir-path="$tmp" -command fzf_jump "$@"
  if [ -f "$tmp" ]; then
   dir="$(cat "$tmp")"
-  rmw "$tmp"
+  rmw "$tmp" > /dev/null
   [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
  fi
 }
-bindkey -s '^o' 'lfcd\n'
-# Use fzf to switch dirs and bind it to ctrl-f
-fzfcd () {
- dir=$(find ~/builds ~/.local/bin ~/ -mindepth 1 -maxdepth 4 | fzf)
- if [ -z $dir ]; then
-  exit 1
- fi
- [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
-}
-bindkey -s '^f' 'fzfcd\n'
+bindkey -s '^f' 'lfcd\n'
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
