@@ -87,8 +87,6 @@ set shortmess-=S " Show amount of search results
 nnoremap <silent><expr> <Tab> (&hls && v:hlsearch ? ':nohls' : ':set hls')."\n"
 
 " Wrap.
-noremap j gj
-noremap k gk
 set nowrap
 "set showbreak=>
 "set wrap
@@ -105,6 +103,12 @@ endif
 """""""""""""""""""""""""""""""
 " Remaps, binds, keymaps, keybindings.
 """""""""""""""""""""""""""""""
+
+" Center and move thru wrapped lines
+noremap j gjzz
+noremap k gkzz
+nnoremap G Gzz
+nnoremap gg ggzz
 
 " Indent.
 nnoremap <silent> > >>
@@ -609,7 +613,7 @@ lspconfig.pylsp.setup {
     pyflakes = { enabled = true },
     pycodestyle = {
      enabled = true,
-     ignore = {'E302', 'E305', 'E111', 'E126'},
+     ignore = {'E302', 'E305', 'E111', 'E126', 'E226'},
      maxLineLength = 120,
      indentSize = 2,
     },
