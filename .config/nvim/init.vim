@@ -123,7 +123,7 @@ nnoremap <silent> gr :w<CR>:Dispatch<CR>
 autocmd Filetype arduino nnoremap <buffer> gr :w<CR>:!"$HOME"/builds/processing-4.3/processing-java --sketch="$HOME/%:h" --run &<CR>
 autocmd Filetype arduino nnoremap <buffer> gR :w<CR>:!"$HOME"/builds/processing-4.3/processing-java --sketch="$HOME/%:h" --present &<CR>
  " Run python.
-autocmd Filetype python nnoremap <buffer> gr :w<CR>:AbortDispatch<CR>:Dispatch python3 "%:p"<CR>
+autocmd Filetype python nnoremap <buffer> gr :w<CR>:AbortDispatch<CR>:Dispatch! python3 "%:p" &<CR>
 nnoremap <silent> zz zzI<Esc><CMD>FindCursor #7d8618 500<CR>
 
 " Next/previous quickfix result

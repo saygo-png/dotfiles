@@ -6,6 +6,11 @@
 export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
 # Cargo/rust shit
 export PATH="$PATH:$(echo ~/.config/cargo/bin)"
+# GHCup / haskell path
+export GHCUP_USE_XDG_DIRS=true
+export GHCUP_INSTALL_BASE_PREFIX=$HOME/.local/bin/ghcup
+export GHCUP_HOME=~/.local/bin/ghcup/ghcup_home
+#export PATH="$PATH:$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 . "/home/samsepi0l/.config/cargo/env"
 # Firefox hardware decode
 export MOZ_X11_EGL=1
@@ -31,6 +36,7 @@ export MOST_INITFILE="$HOME/.config/most/.mostrc"
 #unreal engine .net cli tool telemetry turn off
 export DOTNET_CLI_TELEMETRY_OPTOUT="true"
 # ~/ Clean-up:
+export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 export PYTHONSTARTUP="$HOME/.config/python/pythonrc.py"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
