@@ -15,6 +15,7 @@ flameshot &
 alacritty &
 librewolf &
 remaps &
+greenclip daemon &
 #unclutter-xfixes &
 "$HOME"/.local/bin/remaps
 #exec dbus-launch --exit-with-session awesome

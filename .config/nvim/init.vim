@@ -36,13 +36,12 @@ set wildmenu
 set cursorline
 set showmatch
 set cpoptions+=I
-set smartindent
 set complete-=i
 set completeopt-=preview
 set nrformats-=octal
-set ttimeout
-set notimeout
-set ttimeoutlen=400
+"set notimeout
+" Speed to switch to normal mode
+set ttimeoutlen=0
 set incsearch
 set laststatus=2
 set scrolloff=3
@@ -254,6 +253,8 @@ vim.api.nvim_create_autocmd({'FileType'}, {
    vim.keymap.set('n', 'Q', '<C-w>c', {buffer = true, desc = 'Quit (or Close) help, quickfix, netrw, etc windows', })
   end
 })
+
+
 EOF
 " Open file at last closed location. (this is literal magic)
 autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
@@ -327,6 +328,7 @@ call plug#begin('~/.config/nvim/plugged')
  Plug 'kevinhwang91/nvim-ufo'                           ,{ 'frozen': 1 }
   Plug 'kevinhwang91/promise-async'                     ,{ 'frozen': 1 }
 " Plug 'andrewferrier/wrapping.nvim'                     ,{ 'frozen': 1 }
+
  " Autocomplete
  Plug 'hrsh7th/cmp-nvim-lsp'                            ,{ 'frozen': 0 }
 Plug 'hrsh7th/cmp-buffer'                               ,{ 'frozen': 0 }
@@ -337,6 +339,8 @@ Plug 'hrsh7th/cmp-vsnip'                                ,{ 'frozen': 0 }
 Plug 'saadparwaiz1/cmp_luasnip'                         ,{ 'frozen': 0 }
 Plug 'L3MON4D3/LuaSnip'                                 ,{ 'frozen': 0 }
 
+" LSP
+ Plug 'MrcJkb/haskell-tools.nvim'                       ,{ 'frozen': 0 }
  Plug 'williamboman/mason.nvim'                         ,{ 'frozen': 0 }
   Plug 'williamboman/mason-lspconfig.nvim'              ,{ 'frozen': 0 }
   Plug 'neovim/nvim-lspconfig'                          ,{ 'frozen': 0 }
@@ -517,10 +521,11 @@ local servers = {
 'lua_ls',
 'jsonls',
 'marksman',
+-- 'hls', dont add with haskell-tools nvim
 }
 
 require("mason").setup({
- ensure_installed = { servers, "ruff", "pylsp", },
+ ensure_installed = { servers, "ruff", "pylsp", "hls", },
  ui = {check_outdated_packages_on_open = true},
 })
 
@@ -575,6 +580,8 @@ require("mason-null-ls").setup({
   "yapf",
 
   "cppcheck",
+  "hlint",
+  "fourmolu",
  }
 })
 
@@ -776,6 +783,30 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end, opts
  )
  end,
+})
+
+vim.api.nvim_create_autocmd({'FileType'}, {
+  desc = 'Haskell lsp bindings',
+  pattern = 'haskell',
+  callback = function()
+    local ht = require('haskell-tools')
+    local bufnr = vim.api.nvim_get_current_buf()
+    local opts = { noremap = true, silent = true, buffer = bufnr, }
+    -- haskell-language-server relies heavily on codeLenses,
+    -- so auto-refresh (see advanced configuration) is enabled by default
+    vim.keymap.set('n', '<space>cl', vim.lsp.codelens.run, opts)
+    -- Hoogle search for the type signature of the definition under the cursor
+    vim.keymap.set('n', '<space>hs', ht.hoogle.hoogle_signature, opts)
+    -- Evaluate all code snippets
+    vim.keymap.set('n', '<space>ea', ht.lsp.buf_eval_all, opts)
+    -- Toggle a GHCi repl for the current package
+    vim.keymap.set('n', '<leader>rr', ht.repl.toggle, opts)
+    -- Toggle a GHCi repl for the current buffer
+    vim.keymap.set('n', '<leader>rf', function()
+      ht.repl.toggle(vim.api.nvim_buf_get_name(0))
+    end, opts)
+    vim.keymap.set('n', '<leader>rq', ht.repl.quit, opts)
+  end
 })
 
 -- Visuals.

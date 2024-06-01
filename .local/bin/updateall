@@ -10,7 +10,7 @@ echo "upgrading with package managers..."
  cargo install-update --all
  sudo npm update -g
  nvim -c 'PlugUpdate' -c '<\CR>' -c 'qa'
- nvim -c "UpdateRemotePlugins<\CR>" -c "qa"
+ nvim -c 'UpdateRemotePlugins' -c'<\CR>' -c 'qa'
  echo "updating niche things..."
  tldr --update
  trans -upgrade

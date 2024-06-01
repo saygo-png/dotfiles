@@ -8,22 +8,55 @@ set period 1
 set hidden!
 set autoquit true
 
-cmd open ${{
- case $(file --mime-type "$(readlink -f $f)" -b) in
-  application/vnd.openxmlformats-officedocument.spreadsheetml.sheet) localc $fx ;;
-  image/vnd.djvu|application/pdf|application/octet-stream|application/postscript) setsid -f zathura $fx >/dev/null 2>&1 ;;
-  text/*|application/json|inode/x-empty|application/x-subrip) $EDITOR $fx;;
-   image/x-xcf) setsid -f gimp $f >/dev/null 2>&1 ;;
-   image/svg+xml) imv-x11 $f & ;;
-   image/*) $OPENER $f & ;;
-   audio/*|video/x-ms-asf) mpv --audio-display=no $f ;;
-   video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
-   application/pdf|application/vnd.djvu|application/epub*) setsid -f zathura $fx >/dev/null 2>&1 ;;
-   application/pgp-encrypted) $EDITOR $fx ;;
-   application/vnd.openxmlformats-officedocument.wordprocessingml.document|application/vnd.oasis.opendocument.text|application/vnd.openxmlformats-officedocument.spreadsheetml.sheet|application/octet-stream|application/vnd.oasis.opendocument.spreadsheet|application/vnd.oasis.opendocument.spreadsheet-template|application/vnd.openxmlformats-officedocument.presentationml.presentation|application/vnd.oasis.opendocument.presentation-template|application/vnd.oasis.opendocument.presentation|application/vnd.ms-powerpoint|application/vnd.oasis.opendocument.graphics|application/vnd.oasis.opendocument.graphics-template|application/vnd.oasis.opendocument.formula|application/vnd.oasis.opendocument.database) setsid -f libreoffice $fx >/dev/null 2>&1 ;;
-  *) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
- esac
+cmd open %{{
+case $(file --mime-type "$(readlink -f $f)" -b) in
+
+  text/html) librewolf $f ;;
+  text/*) $EDITOR $fx;;
+  image/gif) mpv $f ;;
+  application/x-blender) blender $f &>/dev/null & ;;
+
+  application/octet-stream)
+    case $f in
+      *.kra) krita $f &>/dev/null & ;;
+      *.kra~) krita $f &>/dev/null & ;;
+      *.vdi) notify-send -t 3000 -u critical "LF" "[$(basename $f)] is a virtual hard disk, you can't browse it in this way" ;;
+      *) mpv $f ;;
+    esac
+  ;;
+
+  image/*)
+    case $f in
+      *.xcf) gimp $f &>/dev/null & ;;
+      *) nsxiv $f & ;;
+    esac
+  ;;
+
+  video/*) mpv $f ;;
+  audio/*) mpv $f ;;
+
+  inode/symlink)
+    case $f in
+      *.pdf) zathura $f &>/dev/null & ;;
+    esac
+  ;;
+
+  application/json) jq -C < $f | less -R ;;
+  application/pdf) zathura $f &>/dev/null & ;;
+  application/gzip) notify-send -t 3000 -u critical "LF" "This archive cannot be opened. Consider extracting it first" ;;
+  application/x-sqlite3) which sqlitebrowser &>/dev/null && sqlitebrowser $f &>/dev/null || notify-send -t 3000 -u critical "LF" "sqlitebrowser not installed!" &  ;;
+
+  *)
+    case $f in
+      *.svg) imw-x11 $f &>/dev/null & ;;
+    esac
+
+    for f in $fx; do
+      $OPENER $f > /dev/null 2> /dev/null &
+    done ;;
+esac
 }}
+
 
 cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
 
@@ -32,95 +65,120 @@ clear; tput cup $(($(tput lines)/3)); tput bold
 set -f
 printf "%s\n\t" "$fx"
 printf "extract?[y/N]"
-read ans
+read -r ans
 [ $ans = "y" ] && aunpack $fx
 }}
 
 cmd delete ${{
-clear; tput cup $(($(tput lines)/3)); tput bold
-set -f
-printf "%s\n\t" "$fx"
-printf "delete?[Y/n]"
-read ans
-[ -z $ans ] && ans="y"
-[ $ans = "y" ] && rmw $fx && notify-send -t 400 "deleted $fx" || :
+  clear; tput cup $(($(tput lines)/3)); tput bold
+  set -f
+  printf "%s\n\t" "$fx"
+  printf "delete? [Y/n]"
+  read -r ans
+  [ -z $ans ] && ans="y"
+  if [ $ans = "y" ] || [ $ans = "Y" ]; then
+  rmw $fx && notify-send -t 400 "deleted $fx" || :
+  fi
+}}
+
+cmd flatten ${{
+  for dir in ${fx}; do
+    # Check if exists
+    if [ ! -e "$dir" ]; then
+      notify-send -t 100 "Does not exist"
+      exit
+    fi
+    # Check if item is a directory
+    if [ ! -d "$dir" ]; then
+      notify-send -t 100 "Not a directory"
+      exit
+    fi
+  done
+
+  clear; tput cup $(($(tput lines)/3)); tput bold
+  set -f
+  printf "%s\n\t" "$fx"
+  printf "Flatten? [Y/n]"
+  read -r ans
+  [ -z $ans ] && ans="y"
+  if [ $ans = "y" ] || [ $ans = "Y" ]; then
+    for dir in ${fx}; do
+      find "${dir}"/ -type f -exec mv -t "${dir}"/.. -i '{}' +
+      rmw "${dir}" && notify-send -t 400 "deleted $dir" || :
+    done
+  fi
 }}
 
 cmd drag ${{
-set -f
-printf "%s\n" "$fx"
-dragon -x $fx
+  set -f
+  printf "%s\n" "$fx"
+  dragon -x $fx
 }}
 
-
 # Zoxide intergration.
-  cmd z %{{
-   result="$(zoxide query --exclude $PWD $@ | sed 's/\\/\\\\/g;s/"/\\"/g')"
-    lf -remote "send $id cd \"$result\""
-  }}
+cmd z %{{
+  result="$(zoxide query --exclude $PWD $@ | sed 's/\\/\\\\/g;s/"/\\"/g')"
+  lf -remote "send $id cd \"$result\""
+}}
 cmd zi ${{
- result="$(zoxide query -i | sed 's/\\/\\\\/g;s/"/\\"/g')"
+  result="$(zoxide query -i | sed 's/\\/\\\\/g;s/"/\\"/g')"
   lf -remote "send $id cd \"$result\""
 }}
 cmd on-cd &{{
- zoxide add "$PWD"
+  zoxide add "$PWD"
 }}
 
 cmd bulkrename ${{
-    old="$(mktemp)"
-    new="$(mktemp)"
-    if [ -n "$fs" ]; then
-        fs="$(basename -a $fs)"
-    else
-        fs="$(ls)"
+  old="$(mktemp)"
+  new="$(mktemp)"
+  if [ -n "$fs" ]; then
+    fs="$(basename -a $fs)"
+  else
+    fs="$(ls)"
+  fi
+  printf '%s\n' "$fs" >"$old"
+  printf '%s\n' "$fs" >"$new"
+  $EDITOR "$new"
+  [ "$(wc -l < "$new")" -ne "$(wc -l < "$old")" ] && exit
+  paste "$old" "$new" | while IFS= read -r names; do
+    src="$(printf '%s' "$names" | cut -f1)"
+    dst="$(printf '%s' "$names" | cut -f2)"
+    if [ "$src" = "$dst" ] || [ -e "$dst" ]; then
+        continue
     fi
-    printf '%s\n' "$fs" >"$old"
-    printf '%s\n' "$fs" >"$new"
-    $EDITOR "$new"
-    [ "$(wc -l < "$new")" -ne "$(wc -l < "$old")" ] && exit
-    paste "$old" "$new" | while IFS= read -r names; do
-        src="$(printf '%s' "$names" | cut -f1)"
-        dst="$(printf '%s' "$names" | cut -f2)"
-        if [ "$src" = "$dst" ] || [ -e "$dst" ]; then
-            continue
-        fi
-        mv -- "$src" "$dst"
-    done
-    rm -- "$old" "$new"
-    lf -remote "send $id unselect"
+    mv -- "$src" "$dst"
+  done
+  rm -- "$old" "$new"
+  lf -remote "send $id unselect"
 }}
 
-cmd exitexit ${{
-  sleep 1
-  lf -remote "send quit"
-}}
 # Fuzzy find.
 cmd fzf_jump ${{
-   res="$(find $HOME/ -maxdepth 6 | fzf --preview='ls --color=always {}' --hscroll-off=30 --preview-window=:sharp)"
-   if [ -f "$res" ]; then
-     cmd="select"
-   elif [ -d "$res" ]; then
-     cmd="cd"
-   fi
-lf -remote "send $id $cmd \"$res\""A
+  res="$(find $HOME/ -maxdepth 6 | fzf --preview='ls --color=always {}' --hscroll-off=30 --preview-window=:sharp)"
+  if [ -f "$res" ]; then
+    cmd="select"
+  elif [ -d "$res" ]; then
+    cmd="cd"
+  fi
+  lf -remote "send $id $cmd \"$res\""A
 }}
 
 cmd paste &{{
-    set -- $(cat ~/.local/share/lf/files)
-    mode="$1"
-    shift
-    case "$mode" in
-        copy)
-            rsync -av --ignore-existing --progress -- "$@" . |
-            stdbuf -i0 -o0 -e0 tr '\r' '\n' |
-            while IFS= read -r line; do
-                lf -remote "send $id echo $line"
-            done
-            ;;
-        move) mv -n -- "$@" .;;
-    esac
-    rm ~/.local/share/lf/files
-    lf -remote "send clear"
+  set -- $(cat ~/.local/share/lf/files)
+  mode="$1"
+  shift
+  case "$mode" in
+    copy)
+      rsync -av --ignore-existing --progress -- "$@" . |
+      stdbuf -i0 -o0 -e0 tr '\r' '\n' |
+      while IFS= read -r line; do
+        lf -remote "send $id echo $line"
+      done
+      ;;
+    move) mv -n -- "$@" .;;
+  esac
+  rm ~/.local/share/lf/files
+  lf -remote "send clear"
 }}
 
 map f :fzf_jump
@@ -131,6 +189,7 @@ map S :cd ~/.local/bin
 map t :cd ~/Downloads/torrents
 map g top
 map d delete
+map F flatten
 map x cut
 map E extract
 map <c-n> push :mkdir<space>
@@ -147,4 +206,4 @@ map a :rename; cmd-right # after extension
 map B bulkrename
 
 #map Y $printf "%s" "$fx" | xclip -selection clipboard
-# vim:set syntax=bash:
+# vim:set syntax=haskell:
