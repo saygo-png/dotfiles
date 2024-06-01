@@ -104,8 +104,8 @@ endif
 """""""""""""""""""""""""""""""
 
 " Center and move thru wrapped lines
-noremap j gjzz
-noremap k gkzz
+noremap j gj
+noremap k gk
 nnoremap G Gzz
 nnoremap gg ggzz
 
@@ -302,11 +302,10 @@ call plug#begin('~/.config/nvim/plugged')
  Plug 'luisiacc/gruvbox-baby'                           ,{ 'frozen': 1 }
  Plug 'sainnhe/gruvbox-material'                        ,{ 'frozen': 1 }
  " Plug 'lukas-reineke/indent-blankline.nvim'             ,{ 'frozen': 1, 'tag': 'v2.20.8' }
- Plug 'echasnovski/mini.indentscope'                    ,{ 'frozen': 0 }
+ Plug 'echasnovski/mini.indentscope'                    ,{ 'frozen': 1 }
  Plug 'tomtom/tcomment_vim'                             ,{ 'frozen': 1 }
- Plug 'JoosepAlviste/nvim-ts-context-commentstring'     ,{ 'frozen': 1 }
  Plug 'tpope/vim-dispatch'                              ,{ 'frozen': 1 }
- "Plug 'psliwka/vim-smoothie'                           ,{ 'frozen': 1 }
+ Plug 'psliwka/vim-smoothie'                           ,{ 'frozen': 1 }
 
  " Unimportant plugins.
  Plug 'tpope/vim-surround'                              ,{ 'frozen': 1 }
@@ -423,11 +422,8 @@ lua << EOF
   },
  })
  vim.cmd [[highlight MiniIndentscopeSymbol guifg=#79740e gui=nocombine]]
-
-
  -- Ts comments.
- vim.g.skip_ts_context_commentstring_module = true
-
+ vim.g.skip_ts_context_commentstring_module = false
 EOF
 "
 " Indentblankline (legacy).
@@ -671,6 +667,7 @@ vim.api.nvim_set_hl(0, 'CmpItemAbbrMatch', { bg='NONE', fg='#fabd2f' })
 vim.api.nvim_set_hl(0, 'CmpItemAbbrMatchFuzzy', { link='CmpIntemAbbrMatch' })
 vim.cmd("highlight Pmenu guibg=NONE")
 
+
 -- luasnip setup
 local luasnip = require 'luasnip'
 -- nvim-cmp setup
@@ -680,11 +677,10 @@ completion = {
  autocomplete = false,
  },
  performance = {
-  -- mostly arbitrary numbers
-  --debounce = 50,
+  debounce = 50,
   --throttle = 60,
   --fetching_timeout = 10,
-  max_view_entries = 5,
+  --max_view_entries = 5,
   },
  enabled = function()
  -- disable completion in comments
@@ -1239,12 +1235,6 @@ telescope.setup({
  vim.keymap.set('n', '<leader>th', builtin.help_tags, {})
 EOF
 
-" Treesitter context
-lua << EOF
- require('ts_context_commentstring').setup {
-  enable_autocmd = true,
-}
-EOF
 
 " UFO folds
 lua << EOF
@@ -1408,3 +1398,7 @@ nnoremap <silent> F :call ToggleQuickFix()<cr>
 set smarttab
 set autoindent
 set expandtab
+
+" Move around recently opened files
+nmap <silent> <leader><lt> ;bnext<cr> 
+nmap <silent> <leader>> ;bprevious<cr> 
