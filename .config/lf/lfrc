@@ -8,7 +8,7 @@ set period 1
 set hidden!
 set autoquit true
 
-cmd open %{{
+cmd open ${{
 case $(file --mime-type "$(readlink -f $f)" -b) in
 
   text/html) librewolf $f ;;
@@ -57,6 +57,13 @@ case $(file --mime-type "$(readlink -f $f)" -b) in
 esac
 }}
 
+
+#cmd open %{{
+#case $(file --mime-type "$(readlink -f $f)" -b) in
+#  *)
+#    $EDITOR $fx;;
+#esac
+#}}
 
 cmd mkdir $mkdir -p "$(echo $* | tr ' ' '\ ')"
 
@@ -160,7 +167,7 @@ cmd fzf_jump ${{
   elif [ -d "$res" ]; then
     cmd="cd"
   fi
-  lf -remote "send $id $cmd \"$res\""A
+  lf -remote "send $cmd \"$res\""
 }}
 
 cmd paste &{{

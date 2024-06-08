@@ -507,6 +507,7 @@ vmap g<C-x> g<Plug>(dial-decrement)
 
 " Mason
 lua << EOF
+
 local servers = {
 'clangd',
 'rust_analyzer',
@@ -517,12 +518,14 @@ local servers = {
 'lua_ls',
 'jsonls',
 'marksman',
+'typos_lsp',
 --'hls', --dont add with haskell-tools nvim
 }
 
-require("mason").setup({
- ensure_installed = { servers, "ruff", "pylsp", "hls" },
- ui = {check_outdated_packages_on_open = true},
+require("mason").setup()
+require("mason-lspconfig").setup({
+  automatic_installation = true,
+  ui = {check_outdated_packages_on_open = false},
 })
 
 local pylsp = require("mason-registry").get_package("python-lsp-server")
@@ -577,7 +580,6 @@ require("mason-null-ls").setup({
 
   "cppcheck",
   "hlint",
-  "fourmolu",
  }
 })
 
@@ -653,13 +655,16 @@ lspconfig.ruff.setup({
  handlers = handlers,
 })
 
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    -- on_attach = my_custom_on_attach,
-    capabilities = capabilities,
-    handlers = handlers,
-  }
-end
+-- This runs lsp config on every server
+require("mason-lspconfig").setup_handlers {
+  function(server)
+    require('lspconfig')[server].setup {
+      -- on_attach = my_custom_on_attach,
+      capabilities = capabilities,
+      handlers = handlers,
+    }
+  end
+}
 
 -- Cmp colors.
 vim.api.nvim_set_hl(0, "CmpNormal", {background = "#98971a"})

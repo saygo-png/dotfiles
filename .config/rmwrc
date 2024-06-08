@@ -14,7 +14,7 @@ WASTE=$HOME/.local/share/Trash
 #
 # use '0' to disable purging (can be overridden by using --purge=N_DAYS)
 #
-expire_age = 0
+expire_age = 31
 
 # purge is allowed to run without the '-f' option. If you'd rather
 # require the use of '-f', you may uncomment the line below.
