@@ -6,11 +6,6 @@
 export PATH="$PATH:${$(find $HOME/.local/bin -type d -printf %p:)%%:}"
 # Cargo/rust shit
 export PATH="$PATH:$XDG_CONFIG_HOME/cargo/bin"
-# Haskell shit
-export PATH="$PATH:${$(find $HOME/.local/share/ghcup -type d -name bin -printf %p:)%%:}"
-
-# GHCup / haskell path
-export GHCUP_USE_XDG_DIRS=true
 #export GHCUP_INSTALL_BASE_PREFIX=$HOME/.local/bin/ghcup
 #export GHCUP_HOME=~/.local/bin/ghcup/ghcup_home
 export PATH="$PATH:$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
@@ -18,6 +13,7 @@ export PATH="$PATH:$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 # Firefox hardware decode
 export MOZ_X11_EGL=1
 export NO_AT_BRIDGE=1
+export GHCUP_USE_XDG_DIRS=1
 # Default programs:
 export PAGER="most"
 # Systemd is retarded and doesnt use normal pager variable :DDDDD

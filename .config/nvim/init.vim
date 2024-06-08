@@ -517,11 +517,11 @@ local servers = {
 'lua_ls',
 'jsonls',
 'marksman',
--- 'hls', dont add with haskell-tools nvim
+--'hls', --dont add with haskell-tools nvim
 }
 
 require("mason").setup({
- ensure_installed = { servers, "ruff", "pylsp", "hls", },
+ ensure_installed = { servers, "ruff", "pylsp", "hls" },
  ui = {check_outdated_packages_on_open = true},
 })
 

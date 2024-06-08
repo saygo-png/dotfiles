@@ -255,3 +255,5 @@ PROMPT+='%F{green}>%f'
 eval "$(zoxide init zsh)"
 #Load zsh-syntax-highlighting; should be last.
 source "$HOME"/.config/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+[ -f "/home/samsepi0l/.local/share/ghcup/env" ] && . "/home/samsepi0l/.local/share/ghcup/env" # ghcup-env

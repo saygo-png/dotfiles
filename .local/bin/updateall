@@ -8,6 +8,12 @@ echo "upgrading with package managers..."
  cargo install cargo-update
  cargo install-update-config --enforce-lock '*'
  cargo install-update --all
+ ghcup upgrade
+ ghcup install hls
+ ghcup install ghc
+ ghcup install cabal
+ ghcup install stack
+ cabal update
  sudo npm update -g
  nvim -c 'PlugUpdate' -c '<\CR>' -c 'qa'
  nvim -c 'UpdateRemotePlugins' -c'<\CR>' -c 'qa'
