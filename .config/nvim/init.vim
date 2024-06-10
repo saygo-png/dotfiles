@@ -30,9 +30,10 @@ set expandtab
 set splitbelow splitright
 set shiftround
 set nojoinspaces
+set cmdheight=0
 set history=500
-set laststatus=0
 set wildmenu
+
 set cursorline
 set showmatch
 set cpoptions+=I
@@ -123,6 +124,10 @@ autocmd Filetype arduino nnoremap <buffer> gr :w<CR>:!"$HOME"/builds/processing-
 autocmd Filetype arduino nnoremap <buffer> gR :w<CR>:!"$HOME"/builds/processing-4.3/processing-java --sketch="$HOME/%:h" --present &<CR>
  " Run python.
 autocmd Filetype python nnoremap <buffer> gr :w<CR>:AbortDispatch<CR>:Dispatch! python3 "%:p" &<CR>
+nnoremap <silent> zz zzI<Esc><CMD>FindCursor #7d8618 500<CR>
+
+ " Run haskell.
+autocmd Filetype haskell nnoremap <buffer> gr :w<CR>:AbortDispatch<CR>:Dispatch cabal run &<CR>
 nnoremap <silent> zz zzI<Esc><CMD>FindCursor #7d8618 500<CR>
 
 " Next/previous quickfix result
@@ -305,7 +310,7 @@ call plug#begin('~/.config/nvim/plugged')
  Plug 'echasnovski/mini.indentscope'                    ,{ 'frozen': 1 }
  Plug 'tomtom/tcomment_vim'                             ,{ 'frozen': 1 }
  Plug 'tpope/vim-dispatch'                              ,{ 'frozen': 1 }
- Plug 'psliwka/vim-smoothie'                           ,{ 'frozen': 1 }
+" Plug 'psliwka/vim-smoothie'                           ,{ 'frozen': 1 }
 
  " Unimportant plugins.
  Plug 'tpope/vim-surround'                              ,{ 'frozen': 1 }
@@ -339,7 +344,7 @@ Plug 'saadparwaiz1/cmp_luasnip'                         ,{ 'frozen': 0 }
 Plug 'L3MON4D3/LuaSnip'                                 ,{ 'frozen': 0 }
 
 " LSP
- Plug 'MrcJkb/haskell-tools.nvim'                       ,{ 'frozen': 0 }
+" Plug 'MrcJkb/haskell-tools.nvim'                       ,{ 'frozen': 0 }
  Plug 'williamboman/mason.nvim'                         ,{ 'frozen': 0 }
   Plug 'williamboman/mason-lspconfig.nvim'              ,{ 'frozen': 0 }
   Plug 'neovim/nvim-lspconfig'                          ,{ 'frozen': 0 }
@@ -507,7 +512,6 @@ vmap g<C-x> g<Plug>(dial-decrement)
 
 " Mason
 lua << EOF
-
 local servers = {
 'clangd',
 'rust_analyzer',
@@ -518,14 +522,13 @@ local servers = {
 'lua_ls',
 'jsonls',
 'marksman',
-'typos_lsp',
 --'hls', --dont add with haskell-tools nvim
 }
 
-require("mason").setup()
-require("mason-lspconfig").setup({
-  automatic_installation = true,
+require("mason").setup({
+  ensure_installed = { servers, "ruff", "pylsp", },
   ui = {check_outdated_packages_on_open = false},
+  automatic_installation = true,
 })
 
 local pylsp = require("mason-registry").get_package("python-lsp-server")
@@ -580,6 +583,7 @@ require("mason-null-ls").setup({
 
   "cppcheck",
   "hlint",
+  "fourmolu",
  }
 })
 
@@ -646,6 +650,11 @@ lspconfig.pylsp.setup {
  end,
 }
 
+lspconfig.hls.setup({
+ capabilities = capabilities,
+ handlers = handlers,
+})
+
 lspconfig.ruff.setup({
  capabilities = capabilities,
   cmd = { "ruff", "server", "--preview", "--config", vim.fn.expand("$XDG_CONFIG_HOME/ruff/ruff.toml")},
@@ -655,16 +664,13 @@ lspconfig.ruff.setup({
  handlers = handlers,
 })
 
--- This runs lsp config on every server
-require("mason-lspconfig").setup_handlers {
-  function(server)
-    require('lspconfig')[server].setup {
-      -- on_attach = my_custom_on_attach,
-      capabilities = capabilities,
-      handlers = handlers,
-    }
-  end
-}
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup {
+    -- on_attach = my_custom_on_attach,
+    capabilities = capabilities,
+    handlers = handlers,
+  }
+end
 
 -- Cmp colors.
 vim.api.nvim_set_hl(0, "CmpNormal", {background = "#98971a"})
@@ -786,29 +792,29 @@ vim.api.nvim_create_autocmd('LspAttach', {
  end,
 })
 
-vim.api.nvim_create_autocmd({'FileType'}, {
-  desc = 'Haskell lsp bindings',
-  pattern = 'haskell',
-  callback = function()
-    local ht = require('haskell-tools')
-    local bufnr = vim.api.nvim_get_current_buf()
-    local opts = { noremap = true, silent = true, buffer = bufnr, }
-    -- haskell-language-server relies heavily on codeLenses,
-    -- so auto-refresh (see advanced configuration) is enabled by default
-    vim.keymap.set('n', '<space>cl', vim.lsp.codelens.run, opts)
-    -- Hoogle search for the type signature of the definition under the cursor
-    vim.keymap.set('n', '<space>hs', ht.hoogle.hoogle_signature, opts)
-    -- Evaluate all code snippets
-    vim.keymap.set('n', '<space>ea', ht.lsp.buf_eval_all, opts)
-    -- Toggle a GHCi repl for the current package
-    vim.keymap.set('n', '<leader>rr', ht.repl.toggle, opts)
-    -- Toggle a GHCi repl for the current buffer
-    vim.keymap.set('n', '<leader>rf', function()
-      ht.repl.toggle(vim.api.nvim_buf_get_name(0))
-    end, opts)
-    vim.keymap.set('n', '<leader>rq', ht.repl.quit, opts)
-  end
-})
+--vim.api.nvim_create_autocmd({'FileType'}, {
+--  desc = 'Haskell lsp bindings',
+--  pattern = 'haskell',
+--  callback = function()
+--    local ht = require('haskell-tools')
+--    local bufnr = vim.api.nvim_get_current_buf()
+--    local opts = { noremap = true, silent = true, buffer = bufnr, }
+--    -- haskell-language-server relies heavily on codeLenses,
+--    -- so auto-refresh (see advanced configuration) is enabled by default
+--    vim.keymap.set('n', '<space>cl', vim.lsp.codelens.run, opts)
+--    -- Hoogle search for the type signature of the definition under the cursor
+--    vim.keymap.set('n', '<space>hs', ht.hoogle.hoogle_signature, opts)
+--    -- Evaluate all code snippets
+--    vim.keymap.set('n', '<space>ea', ht.lsp.buf_eval_all, opts)
+--    -- Toggle a GHCi repl for the current package
+--    vim.keymap.set('n', '<leader>rr', ht.repl.toggle, opts)
+--    -- Toggle a GHCi repl for the current buffer
+--    vim.keymap.set('n', '<leader>rf', function()
+--      ht.repl.toggle(vim.api.nvim_buf_get_name(0))
+--    end, opts)
+--    vim.keymap.set('n', '<leader>rq', ht.repl.quit, opts)
+--  end
+--})
 
 -- Visuals.
 -- disable virtual_text (inline) diagnostics and use floating window, format the message such that it shows source, message and the error code. Show the message with <space>e
@@ -900,7 +906,7 @@ require'nvim-treesitter.configs'.setup {
  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
  auto_install = true,
  -- List of parsers to ignore installing (or "all")
- ignore_install = { },
+ ignore_install = { markdown },
  ---- If you need to change the installation directory of the parsers (see -> Advanced Setup)
  -- parser_install_dir = "/some/path/to/store/parsers", -- Remember to run vim.opt.runtimepath:append("/some/path/to/store/parsers")!
  highlight = {
@@ -909,7 +915,7 @@ require'nvim-treesitter.configs'.setup {
   -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
   -- the name of the parser)
   -- list of language that will be disabled
-  disable = {},
+  disable = { markdown },
   -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
   disable = function(lang, buf)
   local max_filesize = 100 * 1024 -- 100 KB
@@ -932,9 +938,6 @@ EOF
 autocmd VimEnter * TSEnable highlight
 autocmd VimEnter * TSEnable indent
 autocmd VimEnter * TSEnable incremental_selection
-autocmd VimEnter *.md TSDisable highlight
-autocmd VimEnter *.md TSDisable indent
-autocmd VimEnter *.md TSDisable incremental_selection
 
 " Wrapper.nvim plug.
 "lua << EOF
@@ -1404,6 +1407,64 @@ set smarttab
 set autoindent
 set expandtab
 
+lua << EOF
+local cmp = {} -- statusline components
+
+--- highlight pattern
+-- This has three parts: 
+-- 1. the highlight group
+-- 2. text content
+-- 3. special sequence to restore highlight: %*
+-- Example pattern: %#SomeHighlight#some-text%*
+local hi_pattern = '%%#%s#%s%%*'
+
+function _G._statusline_component(name)
+  return cmp[name]()
+end
+
+function cmp.diagnostic_status()
+  local ok = ''
+
+  local ignore = {
+    ['c'] = true, -- command mode
+    ['t'] = true  -- terminal mode
+  }
+
+  local mode = vim.api.nvim_get_mode().mode
+
+  if ignore[mode] then
+    return ok
+  end
+
+  local levels = vim.diagnostic.severity
+  local errors = #vim.diagnostic.get(0, {severity = levels.ERROR})
+  if errors > 0 then
+    return 'ERROR '
+  end
+
+  local warnings = #vim.diagnostic.get(0, {severity = levels.WARN})
+  if warnings > 0 then
+    return 'WARN '
+  end
+
+  return ok
+end
+
+
+local statusline = {
+  '%{%v:lua._statusline_component("diagnostic_status")%}',
+  '%t',
+  '%r',
+  '%m',
+  '%=',
+  '%{&filetype} ',
+  '%2p%%',
+}
+
+vim.o.statusline = table.concat(statusline, '')
+
+vim.o.statusline = table.concat(statusline, '')
+EOF
 " Move around recently opened files
 nmap <silent> <leader><lt> ;bnext<cr> 
 nmap <silent> <leader>> ;bprevious<cr> 

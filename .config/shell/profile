@@ -1,14 +1,13 @@
 #!/bin/zsh
-
 # Profile file. Runs on login. Environmental variables are set here.
 
 # Adds `~/.local/bin` to $PATH
-export PATH="$PATH:${$(find $HOME/.local/bin -type d -printf %p:)%%:}"
+#export PATH=":${$(find $HOME/.local/bin -type d -printf %p:)%%:}$PATH"
+#export PATH=$PATH$(find $HOME/.local/bin -type d -printf ":%p")
+export PATH="$HOME/.local/bin:$PATH"
 # Cargo/rust shit
 export PATH="$PATH:$XDG_CONFIG_HOME/cargo/bin"
-#export GHCUP_INSTALL_BASE_PREFIX=$HOME/.local/bin/ghcup
-#export GHCUP_HOME=~/.local/bin/ghcup/ghcup_home
-export PATH="$PATH:$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
+export PATH="$PATH:$HOME/.cabal/bin:$HOME/.ghcup/bin"
 . "/home/samsepi0l/.config/cargo/env"
 # Firefox hardware decode
 export MOZ_X11_EGL=1
