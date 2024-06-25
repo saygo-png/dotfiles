@@ -5,3 +5,6 @@ my dotfiles it's not that deep.
 + blurry
 + MUTED GREEN
 + Courier typeface
+
+# ARCHIVED
+i use nixos now
